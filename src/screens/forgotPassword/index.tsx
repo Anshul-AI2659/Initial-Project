@@ -15,10 +15,12 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {Styles} from './styles';
-// import {CountryCode} from 'react-native-country-picker-modal';
-// import CustomMobileInputBox from '../../components/customMobile';
+import {CountryCode} from 'react-native-country-picker-modal';
+import CustomMobileInputBox from '../../components/CustomMobileInputBox';
 import CustomButton from '../../components/customButton';
 import {Icons} from '../../assets';
+import {useTranslation} from 'react-i18next';
+import { useThemeColors } from '../../utils/theme';
 
 interface ForgotPasswordProps {
   onClose?: any;
@@ -26,20 +28,21 @@ interface ForgotPasswordProps {
 }
 
 const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
+  const {t} = useTranslation();
 
-  // const [countryCode, setCountryCode] = useState<CountryCode>('IN');
-  // const [callingCode, setCallingCode] = useState('+91');
+  const [countryCode, setCountryCode] = useState<CountryCode>('IN');
+  const [callingCode, setCallingCode] = useState('+91');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isPickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState(false);
 
-  // const onSelect = (country: any) => {
-  //   setCountryCode(country.cca2);
-  //   setCallingCode(`+${country.callingCode[0]}`);
-  //   setPickerVisible(false);
-  // };
+  const onSelect = (country: any) => {
+    setCountryCode(country.cca2);
+    setCallingCode(`+${country.callingCode[0]}`);
+    setPickerVisible(false);
+  };
   const handleBack = () => {
     navigation.goBack();
   };
@@ -62,20 +65,21 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
               translucent={true}
             />
             <View style={styles.subContainer}>
-            <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Image source={Icons.back} style={styles.Left} />
-        </TouchableOpacity>
+              <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                <Image source={Icons.back} style={styles.Left} />
+              </TouchableOpacity>
               <View style={styles.contentHeader}>
-                <Text style={styles.headerText}>Forgot Password?</Text>
+                <Text style={styles.headerText}>
+                  {t('forgotPassword.title')}
+                </Text>
               </View>
               <View style={styles.detailTextContainer}>
                 <Text style={styles.detailText}>
-                  No worries, we'll send an otp on your registered mobile number
-                  for verification.
+                  {t('forgotPassword.subTitle')}
                 </Text>
               </View>
-              {/* <CustomMobileInputBox
-                label={'Mobile Number'}
+              <CustomMobileInputBox
+                label={t('forgotPassword.phoneLabel')}
                 countryCode={countryCode}
                 callingCode={callingCode}
                 phoneNumber={phoneNumber}
@@ -86,10 +90,10 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
                 error={error}
                 setError={setError}
                 errorText={'Mobile no. should be min 5 digit and max 13 digit.'}
-              /> */}
+              />
 
               <CustomButton
-                title={'Send OTP'}
+                title={t('forgotPassword.send')}
                 onPress={handleNext}
                 isButtonDisabled={isButtonDisabled}
               />

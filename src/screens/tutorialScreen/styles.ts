@@ -1,57 +1,77 @@
-import {StyleSheet, Dimensions} from 'react-native';
-const {width} = Dimensions.get('window');
+import {StyleSheet} from 'react-native';
+import {vw, vh, SCREEN_WIDTH, SCREEN_HEIGHT} from '../../utils/dimension';
+import {Colors} from '../../utils/colors';
 
-const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#fff'},
-  slide: {width},
-  image: {width: '100%', height: '75%'},
-  title: {fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginTop: 20},
-  description: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginTop: 10,
-    paddingHorizontal: 20,
-  },
-  paginationDots: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#888',
-    marginHorizontal: 5,
-  },
-  bottomContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 30,
-  },
-  progressCircleContainer: {
-    position: 'absolute',
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  progressCircle: {
-    width: 50,
-    height: 50,
-    borderWidth: 3,
-    borderColor: '#f00',
-    borderRadius: 25,
-  },
-  arrowContainer: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  arrowText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
-
-export default styles;
+export const Styles = (theme: any) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.backgroundColor,
+    },
+    contentContainer: {
+      alignItems: 'center',
+      backgroundColor: theme.backgroundColor,
+      paddingVertical: vh(20),
+    },
+    image: {
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT / 1.6,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: theme.textColor,
+      marginTop: vh(10),
+      textAlign: 'center',
+    },
+    description: {
+      fontSize: 14,
+      color: 'grey',
+      fontWeight: '300',
+      marginTop: vh(20),
+      paddingHorizontal: vw(20),
+      lineHeight: vh(20),
+      textAlign: 'center',
+    },
+    pagination: {
+      flexDirection: 'row',
+      marginTop: vh(20),
+      marginBottom: vh(30),
+    },
+    dot: {
+      width: vw(10),
+      height: vw(10),
+      borderRadius: 5,
+      marginHorizontal: vw(5),
+    },
+    activeDot: {
+      backgroundColor: Colors.primary,
+    },
+    inactiveDot: {
+      backgroundColor: '#C8CFD6',
+    },
+    nextButton: {
+      width: '75%',
+      backgroundColor: Colors.primary,
+      padding: vw(15),
+      borderRadius: 10,
+      alignItems: 'center',
+    },
+    nextButtonText: {
+      color: Colors.White,
+      fontSize: 16,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
+    skipButton: {
+      width: '16%',
+      padding: vw(5),
+      alignItems: 'center',
+      marginTop: vh(15),
+    },
+    skipButtonText: {
+      color: theme.textColor,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  });

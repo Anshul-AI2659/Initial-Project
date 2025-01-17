@@ -1,14 +1,17 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, useColorScheme, Image, TouchableOpacity} from 'react-native';
+import {Text, Image, TouchableOpacity} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Styles} from './styles';
+import {useThemeColors} from '../../utils/theme';
 
 interface InputFieldProps {
   name: any;
   setName?: (text: string) => void;
   Error?: boolean;
   label: string;
+  onPress?: any;
   setError?: (hasError: boolean) => void;
   onChangeText: any;
   onFocus?: any;
@@ -22,6 +25,7 @@ interface InputFieldProps {
 const InputField = ({
   name,
   label,
+  onPress,
   Error,
   onChangeText,
   errorText,
@@ -29,29 +33,23 @@ const InputField = ({
   keyboardType,
   rightIcon,
 }: InputFieldProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
+  console.log('Themeeeee===', theme);
   return (
     <>
       <TextInput
         style={[styles.phoneInput]}
         label={label}
+        onPress={onPress}
         keyboardType={keyboardType}
         value={name}
+        textColor={theme.textColor}
         maxLength={maxLength}
-        textColor={theme === 'dark' ? '#FFF' : '#000'}
         onChangeText={onChangeText}
         mode="outlined"
         underlineStyle={{
           display: 'none',
-        }}
-        theme={{
-          colors: {
-            primary: 'gray',
-            placeholder: 'grey',
-            background: 'transparent',
-            disabled: 'transparent',
-          },
         }}
         outlineStyle={{
           borderColor: '#cccccc',
@@ -61,14 +59,22 @@ const InputField = ({
             icon={() => (
               <TouchableOpacity>
                 <Image
-                  source={rightIcon} // Path to your custom icon
-                  style={styles.rightIcon} // Adjust the size
-                  resizeMode="contain" // Ensure the icon is contained within the box
+                  source={rightIcon}
+                  style={styles.rightIcon}
+                  resizeMode="contain"
                 />
               </TouchableOpacity>
             )}
           />
         }
+        theme={{
+          colors: {
+            primary: 'gray',
+            placeholder: 'grey',
+            background: theme.backgroundColor,
+            disabled: 'transparent',
+          },
+        }}
       />
       {Error && <Text style={styles.errorText}>{errorText}</Text>}
     </>

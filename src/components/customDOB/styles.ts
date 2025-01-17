@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 
-export const styles =
+export const Styles = (theme: any) =>
   StyleSheet.create({
     inputContainer: {
       flexDirection: 'row',
@@ -22,13 +22,13 @@ export const styles =
       width: vw(20),
       height: vw(20),
       resizeMode: 'contain',
-      tintColor:'grey',
+      tintColor: 'grey',
     },
     phoneInput: {
       width: '82%',
       // width: '95%',
       fontSize: 15,
-      backgroundColor: '#FFF',
+      backgroundColor: theme.backgroundColor,
       // backgroundColor:'red',
       // marginHorizontal: 8,
       overflow: 'hidden',
@@ -46,6 +46,6 @@ export const styles =
       width: vw(22),
       height: vw(22),
       resizeMode: 'contain',
-      tintColor:'grey',
+      tintColor: 'grey',
     },
   });

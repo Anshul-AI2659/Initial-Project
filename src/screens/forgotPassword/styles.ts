@@ -6,13 +6,13 @@ export const Styles = (theme: any) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: theme === 'dark' ? Colors.Black : Colors.White,
+      backgroundColor: theme.backgroundColor,
     },
     subContainer: {
       paddingVertical: vh(25),
       paddingHorizontal: vw(20),
       marginTop: Platform.OS === 'android' ? vh(40) : vh(5),
-      // backgroundColor: 'red',
+      backgroundColor:theme.backgroundColor,
     },
     backButton: {
         width: vw(40),
@@ -31,7 +31,7 @@ export const Styles = (theme: any) =>
     headerText: {
       fontSize: 24,
       fontWeight: 'bold',
-      color: theme === 'dark' ? '#FFF' : '#000',
+      color: theme.textColor,
       marginTop:vh(20),
     },
     detailTextContainer: {

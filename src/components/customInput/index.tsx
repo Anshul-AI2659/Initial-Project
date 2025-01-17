@@ -6,10 +6,10 @@ import {
   Image,
   Text,
   ImageSourcePropType,
-  useColorScheme,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Styles} from './styles';
+import { useThemeColors } from '../../utils/theme';
 
 interface CustomInputProps {
   name: any;
@@ -36,7 +36,7 @@ const CustomInputBox = ({
   maxLength,
   keyboardType,
 }: CustomInputProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
   return (
     <>
@@ -54,7 +54,7 @@ const CustomInputBox = ({
           keyboardType={keyboardType}
           value={name}
           maxLength={maxLength}
-          textColor={theme === 'dark' ? '#FFF' : '#000'}
+          textColor={theme.textColor}
           onChangeText={onChangeText}
           mode="flat"
           underlineStyle={{

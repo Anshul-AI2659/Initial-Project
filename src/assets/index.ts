@@ -1,3 +1,4 @@
+
 const Icons = {
   telephone: require('../assets/icons/telephone.png'),
   back: require('../assets/icons/back.png'),
@@ -23,14 +24,17 @@ const Icons = {
   lock: require('../assets/icons/accountPrivacy.png'),
   google: require('../assets/icons/google.png'),
   facebook: require('../assets/icons/facebook.png'),
-  dashboard:require('../assets/icons/dashboard.png'),
-  trip:require('../assets/icons/trip.png'),
-  delivery:require('../assets/icons/delivery.png'),
-  order:require('../assets/icons/order.png'),
-  more:require('../assets/icons/menu.png'),
-  settings:require('../assets/icons/settings.png'),
-  accountDark:require('../assets/icons/accountDark.png'),
-
-
+  dashboard: require('../assets/icons/dashboard.png'),
+  trip: require('../assets/icons/trip.png'),
+  delivery: require('../assets/icons/delivery.png'),
+  order: require('../assets/icons/order.png'),
+  more: require('../assets/icons/menu.png'),
+  settings: require('../assets/icons/settings.png'),
+  accountDark: require('../assets/icons/accountDark.png'),
+  right:require('../assets/icons/right-arrow.png'),
 };
-export {Icons};
+
+const Images = {
+  dashboardImage: require('../assets/images/dashboardImage.png'),
+};
+export {Images, Icons};

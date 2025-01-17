@@ -17,3 +17,7 @@ export const validatePhoneNumber = (number: string) => {
   const phoneRegex = /^[0-9]{5,13}$/;
   return phoneRegex.test(number);
 };
+export const validateField = (value: string) => {
+  const fieldRegex = /(?:.*\d.*){5,}/;
+  return fieldRegex.test(value);
+};

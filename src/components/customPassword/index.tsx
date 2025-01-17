@@ -6,20 +6,20 @@ import {
   Image,
   Text,
   ImageSourcePropType,
-  useColorScheme,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Styles} from './styles';
 import {Icons} from '../../assets';
+import {useThemeColors} from '../../utils/theme';
 
 interface CustomPasswordInputProps {
   name: string;
   label: string;
   Icon: ImageSourcePropType;
-  isPasswordVisible: boolean; // Passed down from the parent component
-  togglePasswordVisibility: () => void; // Function passed from parent
+  isPasswordVisible: boolean;
+  togglePasswordVisibility: () => void;
   Error?: boolean;
-  errorText?: string;
+  errorText?: any;
   maxLength?: number;
   keyboardType: any;
   onChangeText: (text: string) => void;
@@ -37,7 +37,7 @@ const CustomPasswordInputBox = ({
   keyboardType,
   onChangeText,
 }: CustomPasswordInputProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
 
   return (
@@ -57,8 +57,8 @@ const CustomPasswordInputBox = ({
           keyboardType={keyboardType}
           value={name}
           maxLength={maxLength}
-          secureTextEntry={!isPasswordVisible} // Hides the password
-          textColor={theme === 'dark' ? '#FFF' : '#000'}
+          secureTextEntry={!isPasswordVisible}
+          textColor={theme.textColor}
           onChangeText={onChangeText}
           mode="flat"
           underlineStyle={{
@@ -74,9 +74,7 @@ const CustomPasswordInputBox = ({
           }}
         />
 
-        {/* Password Visibility Toggle */}
-        <TouchableOpacity
-          onPress={togglePasswordVisibility}>
+        <TouchableOpacity onPress={togglePasswordVisibility}>
           <Image
             source={isPasswordVisible ? Icons.eye_off : Icons.eye}
             style={[styles.eyeImg, {tintColor: 'grey'}]}
@@ -84,7 +82,12 @@ const CustomPasswordInputBox = ({
         </TouchableOpacity>
       </View>
 
-      {Error && <Text style={styles.errorText}>{errorText}</Text>}
+      {Error &&
+        errorText.map((message: any, index: any) => (
+          <Text key={index} style={styles.errorText}>
+            {message}
+          </Text>
+        ))}
     </>
   );
 };

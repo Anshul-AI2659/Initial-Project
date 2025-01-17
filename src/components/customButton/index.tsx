@@ -1,7 +1,8 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, useColorScheme} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {vh} from '../../utils/dimension';
 import { Colors } from '../../utils/colors';
+import { useThemeColors } from '../../utils/theme';
 
 interface CustomButtonProps {
   title: string;
@@ -14,7 +15,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   onPress,
   isButtonDisabled = false,
 }) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
   return (
     <TouchableOpacity
@@ -36,8 +37,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 const Styles = (theme: any) =>
   StyleSheet.create({
     disabledButton: {
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
-      shadowColor: theme === 'dark' ? '#FFF' : '#000',
+      backgroundColor: theme.backgroundColor,
+      shadowColor: theme.textColor,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.8,
       shadowRadius: 3,

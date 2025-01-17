@@ -20,6 +20,8 @@ import CustomButton from '../../components/customButton';
 import CustomPasswordInputBox from '../../components/customPassword';
 import {validateEmail, validatePassword} from '../../utils/validations';
 import {Icons} from '../../assets';
+import {useThemeColors} from '../../utils/theme';
+import {useTranslation} from 'react-i18next';
 
 interface LoginProps {
   onClose?: any;
@@ -27,8 +29,9 @@ interface LoginProps {
 }
 
 const Login = ({navigation}: LoginProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
+  const {t} = useTranslation();
 
   const [email, setEmail] = useState('');
   const [error, setError] = useState(false);
@@ -64,7 +67,10 @@ const Login = ({navigation}: LoginProps) => {
 
   const handleNext = () => {
     if (!error) {
-      navigation.navigate('Home');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'BottomNavigation'}],
+      });
     }
   };
 
@@ -74,16 +80,6 @@ const Login = ({navigation}: LoginProps) => {
     !validateEmail(email) ||
     !validatePassword(password);
 
-  // const isButtonDisabled =
-  //   phoneNumber.length < 5 ||
-  //   firstNameError ||
-  //   lastNameError ||
-  //   emailError ||
-  //   passwordError ||
-  //   !validateName(firstName) ||
-  //   !validateName(lastName) ||
-  //   !validateEmail(email) ||
-  //   !validatePassword(password);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -96,17 +92,17 @@ const Login = ({navigation}: LoginProps) => {
             />
             <View style={styles.subContainer}>
               <View style={styles.contentHeader}>
-                <Text style={styles.headerText}>Sign In</Text>
+                <Text style={styles.headerText}>{t('login.title')}</Text>
               </View>
               <View style={styles.detailTextContainer}>
                 <Text style={styles.detailText}>
-                  Welcome back! Please enter your details.
+                  {t('login.subTitle')}
                 </Text>
               </View>
 
               <CustomInputBox
                 name={email}
-                label={'Email Address'}
+                label={t('login.emailLabel')}
                 maxLength={50}
                 keyboardType={'email-address'}
                 onChangeText={handleEmailChange}
@@ -118,7 +114,7 @@ const Login = ({navigation}: LoginProps) => {
               />
               <CustomPasswordInputBox
                 name={password}
-                label="Password"
+                label={t('login.passwordLabel')}
                 Icon={Icons.lock}
                 isPasswordVisible={isPasswordVisible}
                 togglePasswordVisibility={togglePasswordVisibility}
@@ -126,33 +122,39 @@ const Login = ({navigation}: LoginProps) => {
                 onChangeText={handlePasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                errorText="Please enter correct password"
+                errorText={[
+                  'Password must contain an UpperCase Letter.',
+                  'Password must contain a LowerCase Letter.',
+                  'Password must contain a Numeric value.',
+                  'Password must contain a Special character.',
+                  'Password must be at least 8 characters.',
+                ]}
               />
               <TouchableOpacity
                 style={styles.forgotPass}
                 onPress={() => {
                   navigation.navigate('ForgotPassword');
                 }}>
-                <Text style={styles.forgotPassText}>Forgot Password?</Text>
+                <Text style={styles.forgotPassText}>{t('login.forgotPass')}</Text>
               </TouchableOpacity>
 
               <CustomButton
-                title={'Sign in'}
+                title={t('login.signin')}
                 onPress={handleNext}
                 isButtonDisabled={isButtonDisabled}
               />
               <TouchableOpacity style={styles.googleView} activeOpacity={0.6}>
                 <Image source={Icons.google} style={styles.google} />
-                <Text style={styles.googleText}>Sign in with Google</Text>
+                <Text style={styles.googleText}>{t('login.google')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.facebookView} activeOpacity={0.6}>
                 <Image source={Icons.facebook} style={styles.google} />
-                <Text style={styles.facebookText}>Sign in with Facebook</Text>
+                <Text style={styles.facebookText}>{t('login.facebook')}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.loginContainer}>
-              <Text style={styles.accountText}>Don't have an account?</Text>
+              <Text style={styles.accountText}>{t('login.signUpPrompt')}</Text>
               <TouchableOpacity
                 onPress={() =>
                   navigation.reset({
@@ -160,7 +162,7 @@ const Login = ({navigation}: LoginProps) => {
                     routes: [{name: 'SignUp'}],
                   })
                 }>
-                <Text style={styles.loginText}> Sign up</Text>
+                <Text style={styles.loginText}> {t('login.signUp')}</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

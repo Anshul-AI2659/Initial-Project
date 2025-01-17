@@ -6,7 +6,7 @@ export const Styles = (theme: any) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: theme === 'dark' ? Colors.Black : Colors.White,
+      backgroundColor: theme.backgroundColor,
     },
     subContainer: {
       paddingVertical: vh(35),
@@ -18,7 +18,7 @@ export const Styles = (theme: any) =>
     headerText: {
       fontSize: 24,
       fontWeight: 'bold',
-      color: theme === 'dark' ? '#FFF' : '#000',
+      color: theme.textColor,
     },
     detailTextContainer: {
       marginTop: vh(10),
@@ -58,7 +58,7 @@ export const Styles = (theme: any) =>
     loginText: {
       fontSize: 16,
       fontWeight: '600',
-      color: Colors.blue,
+      color: Colors.primary,
     },
     inputContainer: {
       flexDirection: 'row',
@@ -74,7 +74,7 @@ export const Styles = (theme: any) =>
       // width: '95%',
       paddingVertical: vh(16),
       fontSize: 15,
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
+      backgroundColor: theme.backgroundColor,
       // backgroundColor:'red',
       // marginHorizontal: 8,
       overflow: 'hidden',
@@ -96,7 +96,7 @@ export const Styles = (theme: any) =>
     },
     forgotPassText: {
       fontSize: 15,
-      color: '#3797EF',
+      color: Colors.primary,
     },
     google: {
       height: vh(28),
@@ -112,7 +112,7 @@ export const Styles = (theme: any) =>
       shadowColor: '#C3C3C3',
       shadowOpacity: 5,
       shadowRadius: 3,
-      backgroundColor: 'white',
+      backgroundColor: theme.backgroundColor,
       borderRadius: vh(10),
       marginTop: vh(30),
       padding: vw(14),
@@ -120,6 +120,7 @@ export const Styles = (theme: any) =>
     googleText:{
       fontSize: 15,
       marginLeft: vw(6),
+      color:theme.textColor,
     },
     facebookView: {
       elevation: vh(10),

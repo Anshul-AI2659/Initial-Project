@@ -6,6 +6,7 @@ export const Styles = (theme: any) =>
     inputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
+      backgroundColor:theme.backgroundColor,
       marginTop: vh(16),
       borderWidth: 1,
       borderRadius: 10,
@@ -24,10 +25,10 @@ export const Styles = (theme: any) =>
       resizeMode: 'contain',
     },
     phoneInput: {
-      width: '70%',
+      width: '73%',
       //   width: '95%',
       fontSize: 15,
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
+      backgroundColor: theme.backgroundColor,
       // backgroundColor:'red',
       // marginHorizontal: 8,
       overflow: 'hidden',

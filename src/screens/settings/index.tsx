@@ -4,10 +4,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
   Dimensions,
-  useColorScheme,
+  I18nManager,
 } from 'react-native';
 import {Styles} from './styles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -16,25 +14,55 @@ import {StackParamList} from '../../navigator/StackNavigation';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '../../assets';
+import {useThemeColors} from '../../utils/theme';
+import LanguageModal from '../../components/LanguageModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
+import i18n from '../../utils/locales/i18n';
 
 interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
 }
 
 const Settings = ({navigation}: SettingsProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
   const {t} = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [languages, setLanguages] = useState([
+    {code: 'English', name: 'English'},
+    {code: 'Spanish', name: 'Español'},
+    {code: 'Hindi', name: 'हिंदी'},
+    {code: 'French', name: 'Français'},
+    {code: 'Russian', name: 'Русский'},
+    {code: 'Urdu', name: 'اردو'},
+  ]);
+
   const [imageUri, setImageUri] = useState('');
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const changeLanguage = async (langCode: string | undefined) => {
+    const rtlLanguages = ['Urdu'];
+    const isRTL = rtlLanguages.includes(langCode || '');
+
+    if (I18nManager.isRTL !== isRTL) {
+      I18nManager.forceRTL(isRTL);
+
+      await AsyncStorage.setItem('i18n-locale', langCode || '');
+      await AsyncStorage.setItem('i18n-rtl', isRTL.toString());
+
+      RNRestart.Restart();
+    } else {
+      i18n.changeLanguage(langCode);
+      toggleModal();
+    }
+  };
 
   const handleBack = () => {
     navigation.goBack();
-  };
-  const handleContinue = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Login'}],
-    });
   };
   const openGallery = () => {
     launchImageLibrary({mediaType: 'photo', quality: 1}, (response: any) => {
@@ -63,28 +91,66 @@ const Settings = ({navigation}: SettingsProps) => {
     refRBSheet.current.open();
   };
 
-
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity onPress={handleBack}>
-            <Image source={Icons.back} style={styles.Left} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleBack}>
+          <Image source={Icons.back} style={styles.Left} />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>{t('settings.headerTitle')}</Text>
+      </View>
+      <View style={styles.profileSection}>
+        <Image
+          style={styles.profileImage}
+          source={imageUri ? {uri: imageUri} : Icons.accountDark}
+        />
+        <View style={styles.addImgContainer}>
+          <TouchableOpacity style={styles.addButton} onPress={handleMoreOption}>
+            <Image source={Icons.add} style={styles.addImg} />
           </TouchableOpacity>
-          <Text style={styles.headerText}>Settings</Text>
         </View>
-          <View style={styles.profileSection}>
-            <Image
-              style={styles.profileImage}
-              source={imageUri ? {uri: imageUri} : Icons.accountDark}
-            />
-            <View style={styles.addImgContainer}>
-              <TouchableOpacity
-                style={styles.addButton}
-                onPress={handleMoreOption}>
-                <Image source={Icons.add} style={styles.addImg} />
-              </TouchableOpacity>
-            </View>
-          </View>
+      </View>
+      <View>
+        <Text style={styles.generalText}>{t('settings.general')}</Text>
+        <View style={styles.firstContainer}>
+          <TouchableOpacity
+            style={styles.themeButton}
+            onPress={() => {
+              navigation.navigate('Theme');
+            }}
+            activeOpacity={0.7}>
+            <Text style={styles.text}>{t('settings.theme')}</Text>
+            <Image source={Icons.right} style={styles.rightIcon} />
+          </TouchableOpacity>
+          <LanguageModal
+            modalVisible={modalVisible}
+            toggleModal={toggleModal}
+            title="Select Language"
+            languages={languages}
+            changeLanguage={changeLanguage}
+          />
+          <TouchableOpacity style={styles.languageButton} onPress={toggleModal} activeOpacity={0.7}>
+            <Text style={styles.text}>{t('settings.language')}</Text>
+            <Image source={Icons.right} style={styles.rightIcon} />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={styles.contentContainer}>
+        <Text style={styles.generalText}>{t('settings.content')}</Text>
+        <View style={styles.secondContainer}>
+          <TouchableOpacity style={styles.privacyPolicyButton} activeOpacity={1}>
+            <Text style={styles.text}>{t('settings.privacy')}</Text>
+            <Image source={Icons.right} style={styles.rightIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.termsButton} activeOpacity={1}>
+            <Text style={styles.text}>{t('settings.terms')}</Text>
+            <Image source={Icons.right} style={styles.rightIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.logoutButton} activeOpacity={0.7}>
+            <Text style={styles.logoutText}>{t('settings.button.logout')}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       <RBSheet
         ref={refRBSheet}
         closeOnPressMask
@@ -110,7 +176,7 @@ const Settings = ({navigation}: SettingsProps) => {
               <Image source={Icons.gallery} style={styles.iconImageSize} />
               <View style={styles.textArrange}>
                 <Text style={styles.name}>
-                  {t('profile.button.uploadFromGallery')}
+                  {t('settings.button.uploadFromGallery')}
                 </Text>
               </View>
             </View>
@@ -120,7 +186,7 @@ const Settings = ({navigation}: SettingsProps) => {
               <Image source={Icons.camera} style={styles.iconImageSize} />
               <View style={styles.textArrange}>
                 <Text style={styles.name}>
-                  {t('profile.button.openCamera')}
+                  {t('settings.button.openCamera')}
                 </Text>
               </View>
             </View>
@@ -130,7 +196,7 @@ const Settings = ({navigation}: SettingsProps) => {
               <Image source={Icons.delete} style={styles.iconImageSize} />
               <View style={styles.textArrange}>
                 <Text style={styles.name}>
-                  {t('profile.button.removeIcon')}
+                  {t('settings.button.removeIcon')}
                 </Text>
               </View>
             </View>

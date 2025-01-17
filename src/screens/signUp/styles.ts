@@ -6,7 +6,7 @@ export const Styles = (theme: any) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: theme === 'dark' ? Colors.Black : Colors.White,
+      backgroundColor: theme.backgroundColor,
     },
     subContainer: {
       paddingVertical: vh(35),
@@ -17,7 +17,7 @@ export const Styles = (theme: any) =>
     headerText: {
       fontSize: 24,
       fontWeight: 'bold',
-      color: theme === 'dark' ? '#FFF' : '#000',
+      color: theme.textColor,
     },
     detailTextContainer: {
       marginTop: vh(10),
@@ -57,7 +57,7 @@ export const Styles = (theme: any) =>
     consentButton: {
       borderRadius: 5,
       borderWidth: 1,
-      borderColor: theme === 'dark' ? Colors.White : Colors.Black,
+      borderColor: theme.textColor,
     },
     consentText: {
       lineHeight: vh(19),
@@ -81,7 +81,6 @@ export const Styles = (theme: any) =>
     loginContainer: {
       flexDirection: 'row',
       alignSelf: 'center',
-      // marginTop: vh(10),
     },
     accountText: {
       fontSize: 16,
@@ -91,7 +90,7 @@ export const Styles = (theme: any) =>
     loginText: {
       fontSize: 16,
       fontWeight: '600',
-      color: Colors.blue,
+      color: Colors.primary,
     },
     languageButton: {
       width: '30%',
@@ -104,7 +103,7 @@ export const Styles = (theme: any) =>
     languageText: {
       fontSize: 16,
       fontWeight: '500',
-      color: theme === 'dark' ? '#FFF' : '#000',
+      color: theme.textColor,
     },
     inputContainer: {
       flexDirection: 'row',
@@ -121,7 +120,7 @@ export const Styles = (theme: any) =>
       paddingVertical:vh(17),
       fontSize: 15,
       paddingHorizontal:vw(14),
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
+      backgroundColor: theme.backgroundColor,
       // backgroundColor:'red',
       // marginHorizontal: 8,
       overflow: 'hidden',

@@ -28,6 +28,8 @@ import {
 } from '../../utils/validations';
 import {Icons} from '../../assets';
 import DOBPicker from '../../components/customDOB';
+import {useThemeColors} from '../../utils/theme';
+import {useTranslation} from 'react-i18next';
 
 interface SignUpProps {
   onClose?: any;
@@ -35,8 +37,9 @@ interface SignUpProps {
 }
 
 const SignUp = ({navigation}: SignUpProps) => {
-  const theme = useColorScheme();
+  const theme = useThemeColors();
   const styles = Styles(theme);
+  const {t} = useTranslation();
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -137,12 +140,11 @@ const SignUp = ({navigation}: SignUpProps) => {
 
   const handleNext = () => {
     if (!error) {
-      navigation.navigate('SignUpVerify', {phoneNumber});
+      navigation.navigate('Login', {phoneNumber});
     }
   };
 
   const isButtonDisabled =
-    phoneNumber.length < 5 ||
     firstNameError ||
     lastNameError ||
     emailError ||
@@ -163,17 +165,15 @@ const SignUp = ({navigation}: SignUpProps) => {
             />
             <View style={styles.subContainer}>
               <View style={styles.contentHeader}>
-                <Text style={styles.headerText}>Create Account</Text>
+                <Text style={styles.headerText}>{t('signUp.title')}</Text>
               </View>
               <View style={styles.detailTextContainer}>
-                <Text style={styles.detailText}>
-                  Please enter your details to sign up.
-                </Text>
+                <Text style={styles.detailText}>{t('signUp.subTitle')}</Text>
               </View>
 
               <CustomInputBox
                 name={firstName}
-                label={'First Name'}
+                label={t('signUp.firstNameLabel')}
                 maxLength={25}
                 keyboardType={'name-phone-pad'}
                 onChangeText={handleFirstNameChange}
@@ -187,7 +187,7 @@ const SignUp = ({navigation}: SignUpProps) => {
               />
               <CustomInputBox
                 name={lastName}
-                label={'Last Name'}
+                label={t('signUp.lastNameLabel')}
                 maxLength={25}
                 keyboardType="name-phone-pad"
                 onChangeText={handleLastNameChange}
@@ -200,14 +200,14 @@ const SignUp = ({navigation}: SignUpProps) => {
                 }
               />
               <DOBPicker
-                label="Date of Birth"
+                label={t('signUp.dob')}
                 Icon={Icons.birthday}
                 calendarIcon={Icons.calendar}
                 onDateChange={handleDateChange}
               />
               <CustomInputBox
                 name={email}
-                label={'Email Address'}
+                label={t('signUp.emailLabel')}
                 maxLength={50}
                 keyboardType={'email-address'}
                 onChangeText={handleEmailChange}
@@ -219,7 +219,7 @@ const SignUp = ({navigation}: SignUpProps) => {
               />
               <CustomPasswordInputBox
                 name={password}
-                label="Password"
+                label={t('signUp.passwordLabel')}
                 Icon={Icons.lock}
                 isPasswordVisible={isPasswordVisible}
                 togglePasswordVisibility={togglePasswordVisibility}
@@ -227,11 +227,18 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onChangeText={handlePasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                errorText="Password must be at least 6 characters"
+                // errorText="Password must be at least 6 characters"
+                errorText={[
+                  'Password must contain an UpperCase Letter.',
+                  'Password must contain a LowerCase Letter.',
+                  'Password must contain a numeric value.',
+                  'Password must contain a special character.',
+                  'Password must be at least 8 characters.',
+                ]}
               />
               <CustomPasswordInputBox
                 name={confirmPassword}
-                label="Confirm Password"
+                label={t('signUp.cnfPasswordLabel')}
                 Icon={Icons.lock}
                 isPasswordVisible={isConfirmPasswordVisible}
                 togglePasswordVisibility={toggleConfirmPasswordVisibility}
@@ -239,7 +246,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onChangeText={handleConfirmPasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                errorText="Passwords do not match"
+                errorText={['Passwords do not match']}
               />
               {/* <CustomMobileInputBox
                 label={'Mobile Number'}
@@ -256,13 +263,15 @@ const SignUp = ({navigation}: SignUpProps) => {
               /> */}
 
               <CustomButton
-                title={'Sign up'}
+                title={t('signUp.signUp')}
                 onPress={handleNext}
                 isButtonDisabled={isButtonDisabled}
               />
             </View>
             <View style={styles.loginContainer}>
-              <Text style={styles.accountText}>Already have an account?</Text>
+              <Text style={styles.accountText}>
+                {t('signUp.alreadyAccount')}
+              </Text>
               <TouchableOpacity
                 onPress={() =>
                   navigation.reset({
@@ -270,7 +279,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                     routes: [{name: 'Login'}],
                   })
                 }>
-                <Text style={styles.loginText}> Login</Text>
+                <Text style={styles.loginText}> {t('signUp.login')}</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

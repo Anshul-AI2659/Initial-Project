@@ -25,13 +25,10 @@ export const Styles = (theme: any) =>
     },
     phoneInput: {
       width: '100%',
-      height:vh(50),
-      // width: '95%',
-      fontSize: 16,
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
-      // backgroundColor:'red',
-      // marginHorizontal: 8,
-      marginTop:vh(10),
+      height: vh(50),
+      fontSize: 15,
+      color:theme.backgroundColor,
+      marginTop: vh(10),
       overflow: 'hidden',
     },
     errorContainer: {
@@ -43,9 +40,12 @@ export const Styles = (theme: any) =>
       marginTop: vw(4),
       textAlign: 'left',
     },
-    rightIcon:{
-      width:vw(24),
-      height:vw(24),
-      resizeMode:'contain',
+    rightIcon: {
+      width: vw(24),
+      height: vw(24),
+      resizeMode: 'contain',
+    },
+    textColor: {
+      color: theme.textColor,
     },
   });
