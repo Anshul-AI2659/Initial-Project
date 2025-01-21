@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, Image} from 'react-native';
 import {styles} from './styles';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { StackParamList } from '../../utils/types';
+import {StackParamList} from '../../utils/types';
 import {Images} from '../../assets';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,12 +10,18 @@ type SplashScreenProps = {
   navigation: StackNavigationProp<StackParamList>;
 };
 
-const SplashScreen: React.FC<SplashScreenProps> = ({navigation}: any) => {
+const SplashScreen = ({navigation}: SplashScreenProps) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
+        const hasSeenTutorial = await AsyncStorage.getItem('hasSeenTutorial');
         const userToken = await AsyncStorage.getItem('userToken');
-        if (userToken) {
+        if (!hasSeenTutorial) {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'TutorialScreen'}],
+          });
+        } else if (userToken) {
           navigation.reset({
             index: 0,
             routes: [{name: 'BottomNavigation'}],
@@ -37,7 +43,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({navigation}: any) => {
 
     return () => clearTimeout(timeout);
   }, [navigation]);
-
 
   return (
     <View style={styles.container}>

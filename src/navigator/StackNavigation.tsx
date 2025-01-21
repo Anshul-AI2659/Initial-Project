@@ -16,6 +16,7 @@ import {useDispatch} from 'react-redux';
 import {toggleTheme, setTheme} from '../redux/config/ThemeSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackParamList} from '../utils/types';
+import Fingerprint from '../screens/fingerPrint';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -27,10 +28,19 @@ const StackNavigation = () => {
     const fetchTheme = async () => {
       try {
         const storedTheme = await AsyncStorage.getItem('themeMode');
-        if (storedTheme) {
+        if (
+          storedTheme === 'light' ||
+          storedTheme === 'dark' ||
+          storedTheme === 'systemDefault'
+        ) {
           dispatch(setTheme(storedTheme));
-        } else {
+        } else if (
+          currentSystemTheme &&
+          (currentSystemTheme === 'light' || currentSystemTheme === 'dark')
+        ) {
           dispatch(toggleTheme(currentSystemTheme));
+        } else {
+          dispatch(toggleTheme('systemDefault'));
         }
       } catch (error) {
         console.error('Failed to load theme from storage:', error);
@@ -41,7 +51,7 @@ const StackNavigation = () => {
   }, [dispatch, currentSystemTheme]);
   return (
     <Stack.Navigator
-      initialRouteName="SplashScreen"
+      initialRouteName="Fingerprint"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="TutorialScreen" component={TutorialScreen} />
@@ -54,6 +64,7 @@ const StackNavigation = () => {
       <Stack.Screen name="FacebookLogin" component={FaceBookLogin} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Theme" component={Theme} />
+      <Stack.Screen name="Fingerprint" component={Fingerprint} />
     </Stack.Navigator>
   );
 };

@@ -1,11 +1,10 @@
-
 import React, {useState} from 'react';
 import {TouchableOpacity, Image, ImageSourcePropType} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {format, parse} from 'date-fns';
 import {Styles} from './styles';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
 
 interface DOBPickerProps {
   label: string;
@@ -14,11 +13,7 @@ interface DOBPickerProps {
   onDateChange: any;
 }
 
-const InputDOB = ({
-  label,
-  calendarIcon,
-  onDateChange,
-}: DOBPickerProps) => {
+const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
   const [dob, setDob] = useState('');

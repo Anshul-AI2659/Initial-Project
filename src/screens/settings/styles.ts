@@ -18,9 +18,12 @@ export const Styles = (theme: any) =>
       width: '100%',
       height: '12.7%',
       alignItems: 'flex-end',
-      paddingHorizontal: vw(15),
+      paddingHorizontal: vw(8),
       paddingBottom: vh(20),
       backgroundColor: '#5698D3',
+    },
+    backButton:{
+      paddingHorizontal:vw(10),
     },
     Left: {
       width: vw(20),
@@ -32,7 +35,7 @@ export const Styles = (theme: any) =>
       fontSize: size.headerTitle,
       fontWeight: '600',
       color: '#ffffff',
-      marginLeft: vw(20),
+      marginLeft: vw(10),
     },
     profileSection: {
       alignItems: 'center',

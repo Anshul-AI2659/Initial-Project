@@ -32,6 +32,7 @@ export type StackParamList = {
     Settings: undefined;
     Theme: undefined;
     FacebookLogin:undefined;
+    Fingerprint:undefined;
   };
 
 export type AppNavigatorParamList = {

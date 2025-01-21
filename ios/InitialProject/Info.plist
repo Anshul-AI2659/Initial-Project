@@ -64,5 +64,8 @@
 <string>10c68842272ca30b0b38bd03c0f9e58a</string>
 <key>FacebookDisplayName</key>
 <string>Initial-P</string>
+
+<key>NSFaceIDUsageDescription</key>
+    <string>Use Face ID to authenticate</string>
 </dict>
 </plist> 

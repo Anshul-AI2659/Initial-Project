@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import { StackParamList } from '../../utils/types';
+import {StackParamList} from '../../utils/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {steps} from '../../utils/data';
 import {Styles} from './styles';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TutorialScreenProps = {
   navigation: StackNavigationProp<StackParamList>;
@@ -15,10 +16,19 @@ const TutorialScreen = ({navigation}: TutorialScreenProps) => {
   const styles = Styles(theme);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const handleNext = () => {
+  const saveTutorialSeen = async () => {
+    try {
+      await AsyncStorage.setItem('hasSeenTutorial', 'true'); // Store the flag
+    } catch (error) {
+      console.error('Error saving tutorial completion flag:', error);
+    }
+  };
+
+  const handleNext = async () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      await saveTutorialSeen();
       navigation.reset({
         index: 0,
         routes: [{name: 'Login'}],
@@ -26,7 +36,8 @@ const TutorialScreen = ({navigation}: TutorialScreenProps) => {
     }
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
+    await saveTutorialSeen();
     navigation.reset({
       index: 0,
       routes: [{name: 'Login'}],

@@ -126,7 +126,7 @@ const Settings = ({navigation}: SettingsProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <Image source={Icons.back} style={styles.Left} />
         </TouchableOpacity>
         <Text style={styles.headerText}>{t('settings.headerTitle')}</Text>

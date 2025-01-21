@@ -1315,6 +1315,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-biometrics (3.0.1):
+    - React-Core
   - react-native-fbsdk-next (13.3.0):
     - React-Core
     - react-native-fbsdk-next/Core (= 13.3.0)
@@ -2041,6 +2043,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -2182,6 +2185,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-biometrics:
+    :path: "../node_modules/react-native-biometrics"
   react-native-fbsdk-next:
     :path: "../node_modules/react-native-fbsdk-next"
   react-native-geolocation:
@@ -2327,6 +2332,7 @@ SPEC CHECKSUMS:
   React-logger: 162c09cc432b02d4a0db31b1d98f6df5243a2679
   React-Mapbuffer: eab34f6d54d26931c5f70eb19da1e36162d87bbd
   React-microtasksnativemodule: 069ef12656a93e0344851e18de6cfb7bdfd9a59e
+  react-native-biometrics: 352e5a794bfffc46a0c86725ea7dc62deb085bdc
   react-native-fbsdk-next: b430fc002cf9b8675b8688d43fe6eddd5ff4e029
   react-native-geolocation: a2778ea7c815d1f8d3bccaa6fc386b66a55fb469
   react-native-image-picker: 8d06080ecb33269e77e0728f1fd8a16f2f5aad07
