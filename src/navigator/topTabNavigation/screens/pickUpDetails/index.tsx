@@ -1,5 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   StatusBar,
@@ -8,7 +6,6 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
-  useColorScheme,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
@@ -27,7 +24,6 @@ import {useTranslation} from 'react-i18next';
 import InputDOB from '../../../../components/inputDOB';
 
 interface PickUpDetailsProps {
-  onClose?: any;
   navigation: any;
 }
 
@@ -36,6 +32,7 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
   const styles = Styles(theme);
   const {t} = useTranslation();
 
+  //States
   const [customerID, setCustomerID] = useState('');
   const [customerIDError, setCustomerIDError] = useState(false);
 
@@ -57,18 +54,6 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
   const [endTime, setEndTime] = useState('');
   const [endTimeError, setEndTimeError] = useState(false);
 
-  // Validation functions (you can add more specific validation as needed)
-
-  // const handleFirstNameChange = (text: string) => {
-  //   setFirstName(text);
-  //   if (text === '') {
-  //     setFirstNameError(false);
-  //   } else if (validateName(text)) {
-  //     setFirstNameError(false);
-  //   } else {
-  //     setFirstNameError(true);
-  //   }
-  // };
   const handleCustomerIDChange = (text: string) => {
     setCustomerID(text);
     if (text === '') {
@@ -147,7 +132,7 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
   };
 
   const handleContinue = () => {
-    navigation.navigate('Shipment1Details');
+    navigation.navigate('OtherDetails');
   };
 
   return (
@@ -164,11 +149,10 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               setName={setCustomerID}
               Error={customerIDError}
               setError={setCustomerIDError}
-              errorText={'Customer ID is required'}
+              errorText={'Customer ID should be min 5 digit and max 13 digit.'}
               rightIcon={Icons.account}
             />
 
-            {/* Name Input */}
             <InputField
               name={name}
               label={'Name*'}
@@ -178,10 +162,11 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               setName={setName}
               Error={nameError}
               setError={setNameError}
-              errorText={'Name is required'}
+              errorText={
+                'Please use only alphabetical letters and minimum length is 3 characters.'
+              }
             />
 
-            {/* Email Input */}
             <InputField
               name={email}
               label={'Email ID'}
@@ -194,7 +179,6 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               errorText={'Please enter a valid email'}
             />
 
-            {/* Contact Number Input */}
             <InputField
               name={contactNumber}
               label={'Contact Number'}
@@ -204,10 +188,9 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               setName={setContactNumber}
               Error={contactNumberError}
               setError={setContactNumberError}
-              errorText={'Please enter a valid contact number'}
+              errorText={'Contact no. should be min 5 digit and max 13 digit.'}
             />
 
-            {/* Address ID Input */}
             <InputField
               name={addressID}
               label={'Address ID'}
@@ -217,10 +200,9 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               setName={setAddressID}
               Error={addressIDError}
               setError={setAddressIDError}
-              errorText={'Address ID is required'}
+              errorText={'Please use only alphabetical letters and minimum length is 3 characters.'}
             />
 
-            {/* Start Time Input */}
             <InputDOB
               label="Start Time*"
               Icon={Icons.birthday}
@@ -228,7 +210,6 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               onDateChange={handleStartTimeChange}
             />
 
-            {/* End Time Input */}
             <InputDOB
               label="End Time*"
               Icon={Icons.birthday}

@@ -1,6 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   StatusBar,
   Text,
@@ -15,12 +12,11 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {Styles} from './styles';
-import {CountryCode} from 'react-native-country-picker-modal';
 import CustomMobileInputBox from '../../components/CustomMobileInputBox';
 import CustomButton from '../../components/customButton';
 import {Icons} from '../../assets';
 import {useTranslation} from 'react-i18next';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
 
 interface ForgotPasswordProps {
   onClose?: any;
@@ -32,17 +28,10 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
   const styles = Styles(theme);
   const {t} = useTranslation();
 
-  const [countryCode, setCountryCode] = useState<CountryCode>('IN');
   const [callingCode, setCallingCode] = useState('+91');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isPickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState(false);
 
-  const onSelect = (country: any) => {
-    setCountryCode(country.cca2);
-    setCallingCode(`+${country.callingCode[0]}`);
-    setPickerVisible(false);
-  };
   const handleBack = () => {
     navigation.goBack();
   };
@@ -80,16 +69,15 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
               </View>
               <CustomMobileInputBox
                 label={t('forgotPassword.phoneLabel')}
-                countryCode={countryCode}
                 callingCode={callingCode}
                 phoneNumber={phoneNumber}
                 setPhoneNumber={setPhoneNumber}
-                onSelect={onSelect}
-                setPickerVisible={setPickerVisible}
                 Icon={Icons.telephone}
                 error={error}
                 setError={setError}
-                errorText={'Mobile no. should be min 5 digit and max 13 digit.'}
+                errorText={
+                  'Mobile no. should be min 5 digits and max 13 digits.'
+                }
               />
 
               <CustomButton

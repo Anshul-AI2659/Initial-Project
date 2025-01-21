@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -9,7 +8,7 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Styles} from './styles';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
 
 interface CustomInputProps {
   name: any;

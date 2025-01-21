@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -77,7 +76,7 @@ const CustomPasswordInputBox = ({
         <TouchableOpacity onPress={togglePasswordVisibility}>
           <Image
             source={isPasswordVisible ? Icons.eye_off : Icons.eye}
-            style={[styles.eyeImg, {tintColor: 'grey'}]}
+            style={styles.eyeImg}
           />
         </TouchableOpacity>
       </View>

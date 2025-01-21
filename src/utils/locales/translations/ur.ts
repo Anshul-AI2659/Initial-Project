@@ -40,10 +40,11 @@ export const Urdu = {
 
   forgotPassword: {
     title: 'پاسورڈ بھول گئے؟',
-    subTitle: 'فکر نہ کریں، ہم تصدیق کے لیے آپ کے رجسٹرڈ موبائل نمبر پر ایک OTP بھیجیں گے۔',
+    subTitle:
+      'فکر نہ کریں، ہم تصدیق کے لیے آپ کے رجسٹرڈ موبائل نمبر پر ایک OTP بھیجیں گے۔',
     phoneLabel: 'موبائل نمبر',
     send: 'OTP بھیجیں',
-  },  
+  },
   filterScreen: {
     title: 'ہمیں آپ کے بارے میں مزید جاننے میں مدد کریں',
     subTitle: 'براہ کرم اسٹوڈیو کا انتخاب کریں جس کے لیے آپ کام کرتے ہیں',
@@ -69,9 +70,12 @@ export const Urdu = {
   },
   theme: {
     headerTitle: 'تھیم',
+    light: 'لائٹ تھیم',
     dark: 'ڈارک تھیم',
+    system: 'سسٹم ڈیفالٹ',
     save: 'محفوظ کریں',
   },
+
   dashboard: {
     dashboard: 'ڈیش بورڈ',
   },

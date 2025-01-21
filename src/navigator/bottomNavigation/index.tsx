@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -10,50 +8,51 @@ import Orders from './screens/orders';
 import More from './screens/more';
 import {vh, vw} from '../../utils/dimension';
 import {Icons} from '../../assets';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
+import {BottomTabParamList} from '../../utils/types';
 
 type TabBarIconProps = {
   focused: boolean;
 };
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
-const DashBoardTabIcon: React.FC<TabBarIconProps> = ({focused}) => (
+const DashBoardTabIcon = ({focused}: TabBarIconProps) => (
   <Image
     style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
     source={Icons.dashboard}
   />
 );
 
-const TripTabIcon: React.FC<TabBarIconProps> = ({focused}) => (
+const TripTabIcon = ({focused}: TabBarIconProps) => (
   <Image
     style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
     source={Icons.trip}
   />
 );
 
-const DeliveryTabIcon: React.FC<TabBarIconProps> = ({focused}) => (
+const DeliveryTabIcon = ({focused}: TabBarIconProps) => (
   <Image
     style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
     source={Icons.delivery}
   />
 );
 
-const OrderTabIcon: React.FC<TabBarIconProps> = ({focused}) => (
+const OrderTabIcon = ({focused}: TabBarIconProps) => (
   <Image
     style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
     source={Icons.order}
   />
 );
 
-const MoreTabIcon: React.FC<TabBarIconProps> = ({focused}) => (
+const MoreTabIcon = ({focused}: TabBarIconProps) => (
   <Image
     style={[styles.moreIcon, {tintColor: focused ? '#5698D3' : 'grey'}]}
     source={Icons.more}
   />
 );
 
-const BottomNavigation: React.FC = () => {
+const BottomNavigation = () => {
   const theme = useThemeColors();
   return (
     <Tab.Navigator
@@ -64,7 +63,7 @@ const BottomNavigation: React.FC = () => {
         tabBarStyle: {
           height: vh(80),
           justifyContent: 'center',
-          backgroundColor:theme.backgroundColor,
+          backgroundColor: theme.backgroundColor,
           paddingTop: vh(10),
         },
       }}>

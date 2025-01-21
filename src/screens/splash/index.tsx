@@ -1,29 +1,47 @@
 import React, {useEffect} from 'react';
-import {View, Image, useColorScheme} from 'react-native';
-import { styles } from './styles';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../navigator/StackNavigation';
+import {View, Image} from 'react-native';
+import {styles} from './styles';
+import {StackNavigationProp} from '@react-navigation/stack';
+import { StackParamList } from '../../utils/types';
+import {Images} from '../../assets';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type SplashScreenProps = {
-  navigation:StackNavigationProp<StackParamList, 'SplashScreen'>};
+  navigation: StackNavigationProp<StackParamList>;
+};
 
-const SplashScreen: React.FC<SplashScreenProps> = ({navigation}:any) => {
-
-  const theme = useColorScheme();
-  console.log('Current Theme====>', theme);
+const SplashScreen: React.FC<SplashScreenProps> = ({navigation}: any) => {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('TutorialScreen');
-    }, 2000);
+    const checkLoginStatus = async () => {
+      try {
+        const userToken = await AsyncStorage.getItem('userToken');
+        if (userToken) {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'BottomNavigation'}],
+          });
+        } else {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Login'}],
+          });
+        }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    const timeout = setTimeout(() => {
+      checkLoginStatus();
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [navigation]);
+
 
   return (
     <View style={styles.container}>
-        <Image
-        source={require('../../assets/icons/splash.png')}
-        style={styles.splashlogo}/>
+      <Image source={Images.splash} style={styles.splashlogo} />
     </View>
   );
 };

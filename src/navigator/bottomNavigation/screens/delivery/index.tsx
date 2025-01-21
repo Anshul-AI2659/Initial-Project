@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import { Icons } from '../../../../assets';
 import { vw,vh } from '../../../../utils/dimension';
+import { size } from '../../../../utils/size';
 
 const Delivery = () => {
   return (
@@ -11,6 +13,9 @@ const Delivery = () => {
         <TouchableOpacity >
           <Image source={Icons.settings} style={styles.settingsImg} />
         </TouchableOpacity>
+      </View>
+      <View style={{width:'100%',height:'80%',alignItems:'center',justifyContent:'center'}}>
+        <Text style={{fontSize:24}}> In Progress......</Text>
       </View>
     </View>
   );
@@ -33,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5698D3',
   },
   headerText:{
-    fontSize:18,
+    fontSize:size.headerTitle,
     fontWeight:'600',
     color:'#ffffff',
   },

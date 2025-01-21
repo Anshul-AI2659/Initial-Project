@@ -14,7 +14,6 @@ const Icons = {
   delete: require('../assets/icons/trash.png'),
   calendar: require('../assets/icons/calendar.png'),
   person: require('../assets/icons/profile.png'),
-  gps: require('../assets/icons/gps.png'),
   googleMaps: require('../assets/icons/google-maps.png'),
   close: require('../assets/icons/close.png'),
   location: require('../assets/icons/location.png'),
@@ -36,5 +35,6 @@ const Icons = {
 
 const Images = {
   dashboardImage: require('../assets/images/dashboardImage.png'),
+  splash:require('../assets/icons/splash.png'),
 };
 export {Images, Icons};

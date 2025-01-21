@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, Image, TouchableOpacity} from 'react-native';
 import {TextInput} from 'react-native-paper';
@@ -35,7 +33,7 @@ const InputField = ({
 }: InputFieldProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
-  console.log('Themeeeee===', theme);
+
   return (
     <>
       <TextInput
@@ -61,7 +59,6 @@ const InputField = ({
                 <Image
                   source={rightIcon}
                   style={styles.rightIcon}
-                  resizeMode="contain"
                 />
               </TouchableOpacity>
             )}

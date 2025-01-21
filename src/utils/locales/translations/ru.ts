@@ -77,9 +77,12 @@ export const Russian = {
 
   theme: {
     headerTitle: 'Тема',
-    dark: 'Темная Тема',
+    light: 'Светлая Тема',
+    dark: 'Тёмная Тема',
+    system: 'Системная По Умолчанию',
     save: 'Сохранить',
   },
+  
   dashboard: {
     dashboard: 'Панель Управления',
   },

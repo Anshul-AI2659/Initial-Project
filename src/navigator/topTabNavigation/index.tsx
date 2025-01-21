@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Shipment1Details from './screens/shipment1Details';
@@ -6,15 +7,18 @@ import PickUpDetails from './screens/pickUpDetails';
 import GeneralDetails from './screens/generalDetails';
 import {vw, vh} from '../../utils/dimension';
 import {Icons} from '../../assets';
-
 import {useNavigation} from '@react-navigation/native';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
+import OtherDetails from './screens/otherDetails';
+import {size} from '../../utils/size';
+import {TopTabParamList} from '../../utils/types';
 
-const Tab = createMaterialTopTabNavigator();
-
+const TopTab = createMaterialTopTabNavigator<TopTabParamList>();
 const TabNavigator = () => {
   const theme = useThemeColors();
   const navigation = useNavigation();
+
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
   const handleBack = () => {
     navigation.goBack();
@@ -27,7 +31,7 @@ const TabNavigator = () => {
         </TouchableOpacity>
         <Text style={styles.headerText}>Add Shipment1</Text>
       </View>
-      <Tab.Navigator
+      <TopTab.Navigator
         initialRouteName="GeneralDetails"
         screenOptions={{
           tabBarScrollEnabled: true,
@@ -36,15 +40,62 @@ const TabNavigator = () => {
             backgroundColor: theme.backgroundColor,
             justifyContent: 'center',
           },
+          tabBarBounces: false,
           swipeEnabled: false,
           tabBarActiveTintColor: '#5698D3',
           tabBarInactiveTintColor: theme.textColor,
           tabBarLabelStyle: {fontSize: 14, fontWeight: '500'},
+        }}
+        screenListeners={{
+          state: e => {
+            setCurrentTabIndex(e.data.state.index);
+          },
         }}>
-        <Tab.Screen name="GeneralDetails" component={GeneralDetails} />
-        <Tab.Screen name="Shipment1Details" component={Shipment1Details}  />
-        <Tab.Screen name="PickUpDetails" component={PickUpDetails} />
-      </Tab.Navigator>
+        <TopTab.Screen
+          name="GeneralDetails"
+          component={GeneralDetails}
+          listeners={() => ({
+            tabPress: e => {
+              if (currentTabIndex < 0) {
+                e.preventDefault();
+              }
+            },
+          })}
+        />
+        <TopTab.Screen
+          name="Shipment1Details"
+          component={Shipment1Details}
+          listeners={() => ({
+            tabPress: e => {
+              if (currentTabIndex < 1) {
+                e.preventDefault();
+              }
+            },
+          })}
+        />
+        <TopTab.Screen
+          name="PickUpDetails"
+          component={PickUpDetails}
+          listeners={() => ({
+            tabPress: e => {
+              if (currentTabIndex < 2) {
+                e.preventDefault();
+              }
+            },
+          })}
+        />
+        <TopTab.Screen
+          name="OtherDetails"
+          component={OtherDetails}
+          listeners={() => ({
+            tabPress: e => {
+              if (currentTabIndex < 3) {
+                e.preventDefault();
+              }
+            },
+          })}
+        />
+      </TopTab.Navigator>
     </View>
   );
 };
@@ -73,7 +124,7 @@ const styles = StyleSheet.create({
     tintColor: '#ffffff',
   },
   headerText: {
-    fontSize: 18,
+    fontSize: size.headerTitle,
     fontWeight: '600',
     color: '#ffffff',
     marginLeft: vw(20),

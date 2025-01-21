@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {StackParamList} from '../../navigator/StackNavigation';
+import { StackParamList } from '../../utils/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {steps} from '../../utils/data';
 import {Styles} from './styles';
 import { useThemeColors } from '../../utils/theme';
 
 type TutorialScreenProps = {
-  navigation: StackNavigationProp<StackParamList, 'TutorialScreen'>;
+  navigation: StackNavigationProp<StackParamList>;
 };
 
 const TutorialScreen = ({navigation}: TutorialScreenProps) => {

@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
+import { size } from '../../utils/size';
 export const Styles = (theme: any) =>
   StyleSheet.create({
     mainContainer: {
@@ -23,7 +24,7 @@ export const Styles = (theme: any) =>
       tintColor: '#ffffff',
     },
     headerText: {
-      fontSize: 18,
+      fontSize: size.headerTitle,
       fontWeight: '600',
       color: '#ffffff',
       marginLeft: vw(20),
@@ -44,7 +45,6 @@ export const Styles = (theme: any) =>
       width: '100%',
       height:vh(70),
       alignItems:'center',
-      flexDirection: 'row',
       justifyContent: 'space-between',
     },
     footer: {
@@ -68,5 +68,19 @@ export const Styles = (theme: any) =>
       color: 'white',
       fontSize: 16,
       fontWeight: 'bold',
+    },
+    themeButton: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      height: vh(60),
+      paddingHorizontal: vw(15),
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+    },
+    tickMark:{
+      fontSize:20,
+      color:theme.textColor,
     },
   });

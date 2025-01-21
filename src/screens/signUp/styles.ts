@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
+import {size} from '../../utils/size';
 
 export const Styles = (theme: any) =>
   StyleSheet.create({
@@ -11,11 +12,10 @@ export const Styles = (theme: any) =>
     subContainer: {
       paddingVertical: vh(35),
       paddingHorizontal: vw(20),
-      // backgroundColor: 'red',
     },
     contentHeader: {},
     headerText: {
-      fontSize: 24,
+      fontSize: size.title,
       fontWeight: 'bold',
       color: theme.textColor,
     },
@@ -24,7 +24,7 @@ export const Styles = (theme: any) =>
       marginBottom: vh(10),
     },
     detailText: {
-      fontSize: 15,
+      fontSize: size.subTitle,
       color: 'gray',
     },
     focusedInputContainer: {
@@ -48,28 +48,6 @@ export const Styles = (theme: any) =>
       alignItems: 'center',
     },
 
-    consentContainer: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      marginTop: vh(15),
-      paddingRight: vw(24),
-    },
-    consentButton: {
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: theme.textColor,
-    },
-    consentText: {
-      lineHeight: vh(19),
-      fontSize: 15,
-      color: 'gray',
-      marginLeft: vw(4),
-    },
-    uncheckedImg: {
-      width: vw(18),
-      height: vw(18),
-      resizeMode: 'cover',
-    },
     disabledButton: {
       backgroundColor: Colors.White,
       shadowColor: Colors.Black,
@@ -88,7 +66,7 @@ export const Styles = (theme: any) =>
       color: 'grey',
     },
     loginText: {
-      fontSize: 16,
+      fontSize: size.button,
       fontWeight: '600',
       color: Colors.primary,
     },
@@ -104,37 +82,5 @@ export const Styles = (theme: any) =>
       fontSize: 16,
       fontWeight: '500',
       color: theme.textColor,
-    },
-    inputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginTop: vh(16),
-      borderWidth: 1,
-      borderRadius: 10,
-      borderColor: '#ccc',
-      width: '100%',
-    },
-    phoneInput: {
-      width: '74%',
-      // width: '95%',
-      paddingVertical:vh(17),
-      fontSize: 15,
-      paddingHorizontal:vw(14),
-      backgroundColor: theme.backgroundColor,
-      // backgroundColor:'red',
-      // marginHorizontal: 8,
-      overflow: 'hidden',
-    },
-    iconButton: {
-      paddingHorizontal: vw(14),
-      borderColor: '#ccc',
-      borderRightWidth: 1,
-      marginRight: vw(4),
-    },
-    iconStyle: {
-      width: vw(20),
-      height: vw(20),
-      tintColor:'grey',
-      resizeMode: 'contain',
     },
   });

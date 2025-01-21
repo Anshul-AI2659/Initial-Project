@@ -7,17 +7,22 @@ import {
   Platform,
 } from 'react-native';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {Icons, Images} from '../../../../assets';
 import {SCREEN_WIDTH, SCREEN_HEIGHT, vw, vh} from '../../../../utils/dimension';
 import {useThemeColors} from '../../../../utils/theme';
 import {useTranslation} from 'react-i18next';
+import {size} from '../../../../utils/size';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { BottomTabParamList } from '../../../../utils/types';
 
-const Dashboard = () => {
+interface dashboardProps {
+  navigation: BottomTabNavigationProp<BottomTabParamList>;
+}
+
+const Dashboard = ({navigation}: dashboardProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
   const {t} = useTranslation();
-  const navigation = useNavigation();
   const handleAdd = () => {
     navigation.navigate('TabNavigator');
   };
@@ -27,7 +32,7 @@ const Dashboard = () => {
         <Text style={styles.headerText}>{t('dashboard.dashboard')}</Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Settings');
+            navigation.navigate('Settings'); // This TypeScript error will be handled in future
           }}>
           <Image source={Icons.settings} style={styles.settingsImg} />
         </TouchableOpacity>
@@ -61,7 +66,7 @@ const Styles = (theme: any) =>
       backgroundColor: '#5698D3',
     },
     headerText: {
-      fontSize: 18,
+      fontSize: size.headerTitle,
       fontWeight: '600',
       color: '#ffffff',
     },

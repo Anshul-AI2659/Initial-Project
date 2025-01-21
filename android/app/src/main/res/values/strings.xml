@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">InitialProject</string>
+
+<string name="facebook_app_id">654103630282561</string>
+<string name="fb_login_protocol_scheme">fb1234</string>
+<string name="facebook_client_token">10c68842272ca30b0b38bd03c0f9e58a</string>
+
+
 </resources>

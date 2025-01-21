@@ -46,11 +46,12 @@ export const Hindi = {
 
   forgotPassword: {
     title: 'पासवर्ड भूल गए?',
-    subTitle: 'चिंता न करें, हम सत्यापन के लिए आपके पंजीकृत मोबाइल नंबर पर एक ओटीपी भेजेंगे।',
+    subTitle:
+      'चिंता न करें, हम सत्यापन के लिए आपके पंजीकृत मोबाइल नंबर पर एक ओटीपी भेजेंगे।',
     phoneLabel: 'मोबाइल नंबर',
     send: 'ओटीपी भेजें',
   },
-  
+
   filterScreen: {
     title: 'हमें आपके बारे में और जानने में मदद करें',
     subTitle: 'कृपया उस स्टूडियो का चयन करें जिसके लिए आप काम करते हैं',
@@ -71,14 +72,17 @@ export const Hindi = {
       uploadFromGallery: 'गैलरी से अपलोड करें',
       openCamera: 'कैमरा खोलें',
       removeIcon: 'आइकन हटाएं',
-      logout: 'लॉगआउट',
+      logout: 'लॉग आउट',
     },
   },
   theme: {
     headerTitle: 'थीम',
+    light: 'लाइट थीम',
     dark: 'डार्क थीम',
-    save: 'सेव करें',
+    system: 'सिस्टम डिफ़ॉल्ट',
+    save: 'सहेजें',
   },
+  
   dashboard: {
     dashboard: 'डैशबोर्ड',
   },

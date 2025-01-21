@@ -1,6 +1,7 @@
 import {StyleSheet,Platform} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
+import { size } from '../../utils/size';
 
 export const Styles = (theme: any) =>
   StyleSheet.create({
@@ -16,7 +17,7 @@ export const Styles = (theme: any) =>
     },
     contentHeader: {},
     headerText: {
-      fontSize: 24,
+      fontSize: size.title,
       fontWeight: 'bold',
       color: theme.textColor,
     },
@@ -25,7 +26,7 @@ export const Styles = (theme: any) =>
       marginBottom: vh(10),
     },
     detailText: {
-      fontSize: 15,
+      fontSize: size.subTitle,
       color: 'gray',
     },
     focusedInputContainer: {
@@ -56,7 +57,7 @@ export const Styles = (theme: any) =>
       color: 'grey',
     },
     loginText: {
-      fontSize: 16,
+      fontSize: size.button,
       fontWeight: '600',
       color: Colors.primary,
     },
@@ -71,12 +72,9 @@ export const Styles = (theme: any) =>
     },
     phoneInput: {
       width: '74%',
-      // width: '95%',
       paddingVertical: vh(16),
-      fontSize: 15,
+      fontSize: 16,
       backgroundColor: theme.backgroundColor,
-      // backgroundColor:'red',
-      // marginHorizontal: 8,
       overflow: 'hidden',
     },
     iconButton: {
@@ -95,7 +93,7 @@ export const Styles = (theme: any) =>
       alignSelf: 'flex-end',
     },
     forgotPassText: {
-      fontSize: 15,
+      fontSize: size.button,
       color: Colors.primary,
     },
     google: {
@@ -118,7 +116,7 @@ export const Styles = (theme: any) =>
       padding: vw(14),
     },
     googleText:{
-      fontSize: 15,
+      fontSize: size.button,
       marginLeft: vw(6),
       color:theme.textColor,
     },
@@ -136,7 +134,7 @@ export const Styles = (theme: any) =>
       padding: vw(14),
     },
     facebookText: {
-      fontSize: 15,
+      fontSize: size.button,
       color: 'white',
       marginLeft: vw(6),
     },

@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -7,11 +6,12 @@ import {
   Text,
   ImageSourcePropType,
 } from 'react-native';
-import CountryPicker, {Country} from 'react-native-country-picker-modal';
 import {TextInput} from 'react-native-paper';
+import {CountryPicker} from 'react-native-country-codes-picker';
 import {Styles} from './styles';
 import {validatePhoneNumber} from '../../utils/validations';
 import {useThemeColors} from '../../utils/theme';
+import {Icons} from '../../assets';
 
 interface CustomMobileInputBoxProps {
   countryCode?: any;
@@ -19,7 +19,7 @@ interface CustomMobileInputBoxProps {
   label: string;
   phoneNumber: string;
   setPhoneNumber: (text: string) => void;
-  onSelect?: (country: Country) => void;
+  onSelect?: (country: any) => void;
   setPickerVisible?: any;
   Icon: ImageSourcePropType;
   error: boolean;
@@ -28,13 +28,10 @@ interface CustomMobileInputBoxProps {
 }
 
 const CustomMobileInputBox = ({
-  countryCode,
   callingCode,
   label,
   phoneNumber,
   setPhoneNumber,
-  onSelect,
-  setPickerVisible,
   Icon,
   error,
   setError,
@@ -42,6 +39,13 @@ const CustomMobileInputBox = ({
 }: CustomMobileInputBoxProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
+
+  const [show, setShow] = useState(false);
+  const [selectedCountryCode, setSelectedCountryCode] = useState(
+    callingCode || '',
+  );
+  const [selectedFlag, setSelectedFlag] = useState('');
+
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
     if (text === '') {
@@ -52,6 +56,7 @@ const CustomMobileInputBox = ({
       setError(true);
     }
   };
+
   return (
     <>
       <View
@@ -62,25 +67,20 @@ const CustomMobileInputBox = ({
             style={[styles.iconStyle, {tintColor: error ? 'red' : 'grey'}]}
           />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.countryCodeButton}
           activeOpacity={1}
-          onPress={() => setPickerVisible(setPickerVisible)}>
-          <CountryPicker
-            countryCode={countryCode}
-            withFlag={true}
-            withCallingCode={true}
-            withFilter={true}
-            onSelect={onSelect}
-            visible={false}
-            containerButtonStyle={styles.flagContainer}
-          />
-          <Text
-            onPress={() => setPickerVisible(setPickerVisible)}
-            style={styles.countryCodeText}>
-            {callingCode}
-          </Text>
+          onPress={() => setShow(true)}>
+          {selectedFlag ? (
+            <Text style={styles.flagStyle}>{selectedFlag}</Text>
+          ) : (
+            <Text style={styles.flagStyle}>🇮🇳</Text>
+          )}
+
+          <Text style={styles.countryCodeText}>{selectedCountryCode}</Text>
         </TouchableOpacity>
+
         <TextInput
           style={styles.phoneInputMobile}
           label={label}
@@ -90,9 +90,7 @@ const CustomMobileInputBox = ({
           value={phoneNumber}
           onChangeText={handlePhoneNumberChange}
           mode="flat"
-          underlineStyle={{
-            display: 'none',
-          }}
+          underlineStyle={{display: 'none'}}
           theme={{
             colors: {
               primary: 'gray',
@@ -102,7 +100,29 @@ const CustomMobileInputBox = ({
             },
           }}
         />
+        <CountryPicker
+          show={show}
+          pickerButtonOnPress={item => {
+            setSelectedCountryCode(item.dial_code);
+            setSelectedFlag(item.flag);
+            setShow(false);
+          }}
+          popularCountries={['en', 'ua', 'pl']}
+          ListHeaderComponent={() => (
+            <View style={styles.modalHeader}>
+              <TouchableOpacity
+                onPress={() => {
+                  setShow(false);
+                }}>
+                <Image source={Icons.close} style={styles.backImg} />
+              </TouchableOpacity>
+              <Text style={styles.modalText}>Select Country</Text>
+            </View>
+          )}
+          lang={''}
+        />
       </View>
+
       {error && <Text style={styles.errorText}>{errorText}</Text>}
     </>
   );

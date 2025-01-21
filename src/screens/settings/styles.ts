@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
+import { size } from '../../utils/size';
 export const Styles = (theme: any) =>
   StyleSheet.create({
     container: {
@@ -28,7 +29,7 @@ export const Styles = (theme: any) =>
       tintColor: '#ffffff',
     },
     headerText: {
-      fontSize: 18,
+      fontSize: size.headerTitle,
       fontWeight: '600',
       color: '#ffffff',
       marginLeft: vw(20),

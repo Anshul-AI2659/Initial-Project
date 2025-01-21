@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   Dimensions,
   I18nManager,
+  Alert,
 } from 'react-native';
 import {Styles} from './styles';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../navigator/StackNavigation';
+import { StackParamList } from '../../utils/types';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '../../assets';
@@ -64,6 +65,37 @@ const Settings = ({navigation}: SettingsProps) => {
   const handleBack = () => {
     navigation.goBack();
   };
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          onPress: async () => {
+            try {
+              await AsyncStorage.removeItem('userToken');
+
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'Login'}],
+              });
+            } catch (error) {
+              console.error('Error removing token', error);
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
   const openGallery = () => {
     launchImageLibrary({mediaType: 'photo', quality: 1}, (response: any) => {
       if (response.assets && response.assets[0]) {
@@ -129,7 +161,10 @@ const Settings = ({navigation}: SettingsProps) => {
             languages={languages}
             changeLanguage={changeLanguage}
           />
-          <TouchableOpacity style={styles.languageButton} onPress={toggleModal} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.languageButton}
+            onPress={toggleModal}
+            activeOpacity={0.7}>
             <Text style={styles.text}>{t('settings.language')}</Text>
             <Image source={Icons.right} style={styles.rightIcon} />
           </TouchableOpacity>
@@ -138,7 +173,9 @@ const Settings = ({navigation}: SettingsProps) => {
       <View style={styles.contentContainer}>
         <Text style={styles.generalText}>{t('settings.content')}</Text>
         <View style={styles.secondContainer}>
-          <TouchableOpacity style={styles.privacyPolicyButton} activeOpacity={1}>
+          <TouchableOpacity
+            style={styles.privacyPolicyButton}
+            activeOpacity={1}>
             <Text style={styles.text}>{t('settings.privacy')}</Text>
             <Image source={Icons.right} style={styles.rightIcon} />
           </TouchableOpacity>
@@ -146,7 +183,10 @@ const Settings = ({navigation}: SettingsProps) => {
             <Text style={styles.text}>{t('settings.terms')}</Text>
             <Image source={Icons.right} style={styles.rightIcon} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.logoutButton} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            activeOpacity={0.7}
+            onPress={handleLogout}>
             <Text style={styles.logoutText}>{t('settings.button.logout')}</Text>
           </TouchableOpacity>
         </View>

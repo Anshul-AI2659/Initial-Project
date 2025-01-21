@@ -4,12 +4,12 @@ export const English = {
     subTitle: 'Please enter your details to sign up.',
     firstNameLabel: 'First Name',
     lastNameLabel: 'Last Name',
-    dob:'Date of Birth',
+    dob: 'Date of Birth',
     emailLabel: 'Email Address',
     phoneLabel: 'Mobile Number',
-    passwordLabel:'Password',
-    cnfPasswordLabel:'Confirm Password',
-    signUp:'Sign up',
+    passwordLabel: 'Password',
+    cnfPasswordLabel: 'Confirm Password',
+    signUp: 'Sign up',
     alreadyAccount: 'Already have an account?',
     login: ' Login',
     selectLanguage: 'Select Language',
@@ -21,15 +21,14 @@ export const English = {
   },
   login: {
     title: 'Sign In',
-    subTitle:
-      'Welcome back! Please enter your details',
+    subTitle: 'Welcome back! Please enter your details',
     phoneLabel: 'Mobile Number',
-    emailLabel:'Email Address',
-    passwordLabel:'Password',
-    forgotPass:'Forgot Password?',
-    signin:'Sign in',
-    google:'Sign in with Google',
-    facebook:'Sign in with Facebook',
+    emailLabel: 'Email Address',
+    passwordLabel: 'Password',
+    forgotPass: 'Forgot Password?',
+    signin: 'Sign in',
+    google: 'Sign in with Google',
+    facebook: 'Sign in with Facebook',
     mobileError: 'Mobile no. should be min 5 digit and max 13 digit.',
     nextButton: 'Next',
     signUpPrompt: "Don't have an account?",
@@ -39,16 +38,10 @@ export const English = {
     title: 'Forgot Password?',
     subTitle:
       'No worries, we will send an otp on your registered mobile number for verification.',
-      phoneLabel: 'Mobile Number',
-      send:'Send OTP',
+    phoneLabel: 'Mobile Number',
+    send: 'Send OTP',
   },
-  filterScreen: {
-    title: 'Help us to know you more',
-    subTitle: 'Please select the studio you work for',
-    placeholder: 'Search studio...',
-    emptyText: 'No records found',
-    continue: 'Continue',
-  },
+ 
 
   settings: {
     headerTitle: 'Settings',
@@ -63,19 +56,21 @@ export const English = {
       uploadFromGallery: 'Upload From Gallery',
       openCamera: 'Open Camera',
       removeIcon: 'Remove Icon',
-      logout: 'Logout',
+      logout: 'Log out',
     },
   },
   theme: {
     headerTitle: 'Theme',
+    light: 'Light Theme',
     dark: 'Dark Theme',
+    system: 'System Default',
     save: 'Save',
   },
-  dashboard:{
-    dashboard:'Dashboard',
+  dashboard: {
+    dashboard: 'Dashboard',
   },
-  generalDetails:{
-    shipment:'shipment1 Type*',
+  generalDetails: {
+    shipment: 'shipment1 Type*',
   },
   studio: {
     title: 'Help us to know you more',

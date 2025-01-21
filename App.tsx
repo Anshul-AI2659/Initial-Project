@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {store} from './src/redux/store';
 import StackNavigation from './src/navigator/StackNavigation';
 import './src/utils/locales/i18n';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   LogBox.ignoreAllLogs();
@@ -12,11 +13,13 @@ const App = () => {
     <Provider store={store}>
       <View style={{flex: 1}}>
         <StatusBar
-          backgroundColor={'#5698D3'}
+          // backgroundColor={'#5698D3'}
           barStyle={'default'}
           translucent={true}
         />
-        <StackNavigation />
+        <NavigationContainer>
+          <StackNavigation />
+        </NavigationContainer>
       </View>
     </Provider>
   );

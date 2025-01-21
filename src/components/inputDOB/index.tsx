@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react-native/no-inline-styles */
+
 import React, {useState} from 'react';
 import {TouchableOpacity, Image, ImageSourcePropType} from 'react-native';
 import {TextInput} from 'react-native-paper';
@@ -90,7 +89,6 @@ const InputDOB = ({
         mode="datetime"
         onConfirm={handleConfirmDate}
         onCancel={hideDatePicker}
-        // maximumDate={new Date()}
       />
     </>
   );

@@ -40,11 +40,12 @@ export const Spanish = {
 
   forgotPassword: {
     title: '¿Olvidaste tu Contraseña?',
-    subTitle: 'No te preocupes, te enviaremos un OTP a tu número de móvil registrado para la verificación.',
+    subTitle:
+      'No te preocupes, te enviaremos un OTP a tu número de móvil registrado para la verificación.',
     phoneLabel: 'Número de Móvil',
     send: 'Enviar OTP',
   },
-  
+
   filterScreen: {
     title: 'Ayúdanos a conocerte mejor',
     subTitle: 'Por favor, selecciona el estudio para el que trabajas',
@@ -70,9 +71,12 @@ export const Spanish = {
   },
   theme: {
     headerTitle: 'Tema',
+    light: 'Tema Claro',
     dark: 'Tema Oscuro',
+    system: 'Predeterminado del Sistema',
     save: 'Guardar',
   },
+
   dashboard: {
     dashboard: 'Tablero',
   },

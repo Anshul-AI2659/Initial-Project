@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
+import { size } from '../../utils/size';
 
 export const Styles = (theme: any) =>
   StyleSheet.create({
@@ -26,7 +27,7 @@ export const Styles = (theme: any) =>
     phoneInput: {
       width: '100%',
       height: vh(50),
-      fontSize: 15,
+      fontSize: size.inputLabel,
       color:theme.backgroundColor,
       marginTop: vh(10),
       overflow: 'hidden',
@@ -36,7 +37,7 @@ export const Styles = (theme: any) =>
     },
     errorText: {
       color: 'red',
-      fontSize: 14,
+      fontSize: size.error,
       marginTop: vw(4),
       textAlign: 'left',
     },

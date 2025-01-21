@@ -16,7 +16,7 @@ import {
 import {Icons} from '../../assets';
 import {Styles} from './styles';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../navigator/StackNavigation';
+import { StackParamList } from '../../utils/types';
 import CustomButton from '../../components/customButton';
 
 interface SignUpVerifyProps {

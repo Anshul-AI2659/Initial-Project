@@ -10,13 +10,11 @@ import {
 } from 'react-native';
 import {Styles} from './styles';
 import CheckBox from 'react-native-check-box';
-import {StackNavigationProp} from '@react-navigation/stack';
-import { StackParamList } from '../../../StackNavigation';
 import { useThemeColors } from '../../../../utils/theme';
 import { useTranslation } from 'react-i18next';
 
 interface GeneralDetailsProps {
-  navigation: StackNavigationProp<StackParamList>;
+  navigation: any;
 }
 
 const GeneralDetails = ({navigation}: GeneralDetailsProps) => {

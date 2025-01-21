@@ -23,7 +23,6 @@ import {useTranslation} from 'react-i18next';
 import {validateField} from '../../../../utils/validations';
 
 interface Shipment1DetailsProps {
-  onClose?: any;
   navigation: any;
 }
 
@@ -78,7 +77,7 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
   const handleShipmentDateChange = (text: string) => {
     setShipmentDate(text);
     if (text === '') {
-      setShipmentDateError(false);
+      setShipmentDateError(true);
     } else if (validateField(text)) {
       setShipmentDateError(false);
     } else {
@@ -141,7 +140,8 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
         break;
     }
   };
-  const isButtonDisabled = shipmentDateError || !validateField(shipmentDate);
+  const isButtonDisabled =
+    shipmentDate === '' || shipmentDateError || !validateField(shipmentDate);
 
   const renderItem = ({item}: any) => (
     <TouchableOpacity

@@ -69,9 +69,12 @@ export const French = {
   },
   theme: {
     headerTitle: 'Thème',
+    light: 'Thème Clair',
     dark: 'Thème Sombre',
-    save: 'Enregistrer',
+    system: 'Par Défaut du Système',
+    save: 'Sauvegarder',
   },
+  
   dashboard: {
     dashboard: 'Tableau de Bord',
   },

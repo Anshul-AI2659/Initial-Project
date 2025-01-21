@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh, SCREEN_WIDTH, SCREEN_HEIGHT} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
+import { size } from '../../utils/size';
 
 export const Styles = (theme: any) =>
   StyleSheet.create({
@@ -18,14 +19,14 @@ export const Styles = (theme: any) =>
       height: SCREEN_HEIGHT / 1.6,
     },
     title: {
-      fontSize: 18,
+      fontSize: size.headerTitle,
       fontWeight: 'bold',
       color: theme.textColor,
       marginTop: vh(10),
       textAlign: 'center',
     },
     description: {
-      fontSize: 14,
+      fontSize: size.description,
       color: 'grey',
       fontWeight: '300',
       marginTop: vh(20),
@@ -59,7 +60,7 @@ export const Styles = (theme: any) =>
     },
     nextButtonText: {
       color: Colors.White,
-      fontSize: 16,
+      fontSize: size.button,
       fontWeight: '700',
       textAlign: 'center',
     },
@@ -71,7 +72,7 @@ export const Styles = (theme: any) =>
     },
     skipButtonText: {
       color: theme.textColor,
-      fontSize: 16,
+      fontSize: size.button,
       fontWeight: '600',
     },
   });

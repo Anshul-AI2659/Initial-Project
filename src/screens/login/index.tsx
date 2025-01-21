@@ -1,6 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   StatusBar,
   Text,
@@ -9,11 +6,10 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
-  useColorScheme,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Styles} from './styles';
 import CustomInputBox from '../../components/customInput';
 import CustomButton from '../../components/customButton';
@@ -22,6 +18,7 @@ import {validateEmail, validatePassword} from '../../utils/validations';
 import {Icons} from '../../assets';
 import {useThemeColors} from '../../utils/theme';
 import {useTranslation} from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface LoginProps {
   onClose?: any;
@@ -39,6 +36,21 @@ const Login = ({navigation}: LoginProps) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken) {
+        setIsLoggedIn(true);
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Dashboard'}],
+        });
+      }
+    };
+    checkLoginStatus();
+  }, [navigation]);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -65,13 +77,15 @@ const Login = ({navigation}: LoginProps) => {
     }
   };
 
-  const handleNext = () => {
-    if (!error) {
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'BottomNavigation'}],
-      });
-    }
+  const handleNext = async () => {
+
+    await AsyncStorage.setItem('userToken', 'your_auth_token');
+        setIsLoggedIn(true);
+        console.log('Login successful');
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'BottomNavigation'}],
+        });
   };
 
   const isButtonDisabled =
@@ -95,9 +109,7 @@ const Login = ({navigation}: LoginProps) => {
                 <Text style={styles.headerText}>{t('login.title')}</Text>
               </View>
               <View style={styles.detailTextContainer}>
-                <Text style={styles.detailText}>
-                  {t('login.subTitle')}
-                </Text>
+                <Text style={styles.detailText}>{t('login.subTitle')}</Text>
               </View>
 
               <CustomInputBox
@@ -135,7 +147,9 @@ const Login = ({navigation}: LoginProps) => {
                 onPress={() => {
                   navigation.navigate('ForgotPassword');
                 }}>
-                <Text style={styles.forgotPassText}>{t('login.forgotPass')}</Text>
+                <Text style={styles.forgotPassText}>
+                  {t('login.forgotPass')}
+                </Text>
               </TouchableOpacity>
 
               <CustomButton
@@ -148,7 +162,12 @@ const Login = ({navigation}: LoginProps) => {
                 <Text style={styles.googleText}>{t('login.google')}</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.facebookView} activeOpacity={0.6}>
+              <TouchableOpacity
+                style={styles.facebookView}
+                activeOpacity={0.6}
+                onPress={() => {
+                  navigation.navigate('FacebookLogin');
+                }}>
                 <Image source={Icons.facebook} style={styles.google} />
                 <Text style={styles.facebookText}>{t('login.facebook')}</Text>
               </TouchableOpacity>

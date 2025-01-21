@@ -1,29 +1,37 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Image, ImageSourcePropType} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  ImageSourcePropType,
+} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {format, parse} from 'date-fns';
+import {format} from 'date-fns';
 import {Styles} from './styles';
-import { useThemeColors } from '../../utils/theme';
+import {useThemeColors} from '../../utils/theme';
 
 interface DOBPickerProps {
   label: string;
   Icon: ImageSourcePropType;
   calendarIcon: ImageSourcePropType;
   onDateChange: (selectedDate: Date | undefined) => void;
+  errorText?: string;
+  placeholderText?: string;
 }
 
-const DOBPicker = ({
+const DOBPicker: React.FC<DOBPickerProps> = ({
   label,
   Icon,
   calendarIcon,
   onDateChange,
-}: DOBPickerProps) => {
+  errorText,
+  placeholderText = 'What is your date of birth?',
+}) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
-  const [dob, setDob] = useState('');
+  const [dob, setDob] = useState<string | undefined>(undefined);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -35,61 +43,57 @@ const DOBPicker = ({
   };
 
   const handleConfirmDate = (date: Date) => {
-    const formattedDate = format(date, 'dd/MM/yyyy h:mm');
+    const formattedDate = format(date, 'dd/MM/yyyy');
     setDob(formattedDate);
     onDateChange(date);
     hideDatePicker();
   };
 
-  const handleDateInput = (input: string) => {
-    setDob(input);
-
-    const parsedDate = parse(input, 'dd/MM/yyyy h:mm', new Date());
-    if (!isNaN(parsedDate.getTime())) {
-      onDateChange(parsedDate);
-    }
-  };
-
   return (
-    <View style={styles.inputContainer}>
-      <TouchableOpacity activeOpacity={1} style={styles.iconButton}>
-        <Image source={Icon} style={[styles.iconStyle]} />
+    <View>
+      <TouchableOpacity
+        style={styles.inputContainer}
+        activeOpacity={0.7}
+        onPress={showDatePicker}>
+        <TouchableOpacity activeOpacity={1} style={styles.iconButton}>
+          <Image source={Icon} style={styles.iconStyle} />
+        </TouchableOpacity>
+
+        <TextInput
+          label={label}
+          value={dob}
+          textColor={theme.textColor}
+          placeholder={placeholderText}
+          onPress={showDatePicker}
+          editable={false}
+          mode="flat"
+          right={
+            <TextInput.Icon
+              icon={() => (
+                <Image source={calendarIcon} style={styles.iconStyle} />
+              )}
+            />
+          }
+          underlineColor="transparent"
+          style={styles.phoneInput}
+          theme={{
+            colors: {
+              primary: 'gray',
+              placeholder: 'grey',
+              background: 'transparent',
+              disabled: 'transparent',
+            },
+          }}
+        />
       </TouchableOpacity>
 
-      <TextInput
-        style={styles.phoneInput}
-        label={label}
-        value={dob}
-        onPress={showDatePicker}
-        onChangeText={handleDateInput}
-        textColor={theme.textColor}
-        keyboardType="numeric"
-        mode="flat"
-        underlineStyle={{
-          display: 'none',
-        }}
-        right={
-          <TextInput.Icon
-            icon={() => (
-              <TouchableOpacity onPress={showDatePicker}>
-                <Image source={calendarIcon} style={styles.calendarImg} />
-              </TouchableOpacity>
-            )}
-          />
-        }
-        theme={{
-          colors: {
-            primary: 'gray',
-            placeholder: 'grey',
-            background: 'transparent',
-            disabled: 'transparent',
-          },
-        }}
-      />
+      {errorText ? (
+        <Text style={styles.errorText}>{errorText}</Text>
+      ) : null}
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
-        mode="datetime"
+        mode="date"
         onConfirm={handleConfirmDate}
         onCancel={hideDatePicker}
         maximumDate={new Date()}

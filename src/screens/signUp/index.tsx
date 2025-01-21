@@ -1,6 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   StatusBar,
   Text,
@@ -9,15 +6,11 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
-  useColorScheme,
   ScrollView,
 } from 'react-native';
-// import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import React, {useState} from 'react';
 import {Styles} from './styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
-// import {CountryCode} from 'react-native-country-picker-modal';
-// import CustomMobileInputBox from '../../components/customMobile';
 import CustomInputBox from '../../components/customInput';
 import CustomButton from '../../components/customButton';
 import CustomPasswordInputBox from '../../components/customPassword';
@@ -25,11 +18,13 @@ import {
   validateEmail,
   validateName,
   validatePassword,
+  validatePhoneNumber,
 } from '../../utils/validations';
 import {Icons} from '../../assets';
 import DOBPicker from '../../components/customDOB';
 import {useThemeColors} from '../../utils/theme';
 import {useTranslation} from 'react-i18next';
+import CustomMobileInputBox from '../../components/CustomMobileInputBox';
 
 interface SignUpProps {
   onClose?: any;
@@ -47,8 +42,6 @@ const SignUp = ({navigation}: SignUpProps) => {
     setModalVisible(!modalVisible);
   };
 
-  // const [countryCode, setCountryCode] = useState<CountryCode>('IN');
-  // const [callingCode, setCallingCode] = useState('+91');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -65,6 +58,7 @@ const SignUp = ({navigation}: SignUpProps) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
+  const [callingCode, setCallingCode] = useState('+91');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
 
   const handleDateChange = (date: Date | undefined) => {
@@ -100,11 +94,6 @@ const SignUp = ({navigation}: SignUpProps) => {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
 
-  // const onSelect = (country: any) => {
-  //   setCountryCode(country.cca2);
-  //   setCallingCode(`+${country.callingCode[0]}`);
-  //   setPickerVisible(false);
-  // };
   const handleEmailChange = (text: string) => {
     setEmail(text);
     if (text === '') {
@@ -140,11 +129,12 @@ const SignUp = ({navigation}: SignUpProps) => {
 
   const handleNext = () => {
     if (!error) {
-      navigation.navigate('Login', {phoneNumber});
+      navigation.navigate('SignUpVerify', {phoneNumber});
     }
   };
 
   const isButtonDisabled =
+    phoneNumber.length < 5 ||
     firstNameError ||
     lastNameError ||
     emailError ||
@@ -152,7 +142,7 @@ const SignUp = ({navigation}: SignUpProps) => {
     !validateName(firstName) ||
     !validateName(lastName) ||
     !validateEmail(email) ||
-    !validatePassword(password);
+    !validatePhoneNumber;
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -227,13 +217,12 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onChangeText={handlePasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                // errorText="Password must be at least 6 characters"
                 errorText={[
-                  'Password must contain an UpperCase Letter.',
-                  'Password must contain a LowerCase Letter.',
-                  'Password must contain a numeric value.',
-                  'Password must contain a special character.',
-                  'Password must be at least 8 characters.',
+                  '* Password must contain an UpperCase Letter.',
+                  '* Password must contain a LowerCase Letter.',
+                  '* Password must contain a numeric value.',
+                  '* Password must contain a special character.',
+                  '* Password must be at least 8 characters.',
                 ]}
               />
               <CustomPasswordInputBox
@@ -248,19 +237,18 @@ const SignUp = ({navigation}: SignUpProps) => {
                 keyboardType="default"
                 errorText={['Passwords do not match']}
               />
-              {/* <CustomMobileInputBox
-                label={'Mobile Number'}
-                countryCode={countryCode}
+              <CustomMobileInputBox
+                label={t('forgotPassword.phoneLabel')}
                 callingCode={callingCode}
                 phoneNumber={phoneNumber}
                 setPhoneNumber={setPhoneNumber}
-                onSelect={onSelect}
-                setPickerVisible={setPickerVisible}
                 Icon={Icons.telephone}
                 error={error}
                 setError={setError}
-                errorText={'Mobile no. should be min 5 digit and max 13 digit.'}
-              /> */}
+                errorText={
+                  'Mobile no. should be min 5 digits and max 13 digits.'
+                }
+              />
 
               <CustomButton
                 title={t('signUp.signUp')}
