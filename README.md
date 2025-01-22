@@ -1,5 +1,7 @@
 This is an initial application that can be used in Onboarding Process of any new React Native Application.
+
 Screens it contains:-
+
 1. Splash Screen:{
   a. Navigate to Tutorial if the App is newly installed.
   b. Navigate to Login if the app is not Logged in by the user.
