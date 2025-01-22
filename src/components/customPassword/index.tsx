@@ -81,12 +81,13 @@ const CustomPasswordInputBox = ({
         </TouchableOpacity>
       </View>
 
-      {Error &&
+      {/* {Error &&
         errorText.map((message: any, index: any) => (
           <Text key={index} style={styles.errorText}>
             {message}
           </Text>
-        ))}
+        ))} */}
+       {Error && <Text style={styles.errorText}>{errorText}</Text>}
     </>
   );
 };

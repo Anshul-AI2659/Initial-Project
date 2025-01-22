@@ -34,14 +34,14 @@ const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
     hideDatePicker();
   };
 
-  const handleDateInput = (input: string) => {
-    setDob(input);
+  // const handleDateInput = (input: string) => {
+  //   setDob(input);
 
-    const parsedDate = parse(input, 'dd/MM/yyyy h:mm', new Date());
-    if (!isNaN(parsedDate.getTime())) {
-      onDateChange(parsedDate);
-    }
-  };
+  //   const parsedDate = parse(input, 'dd/MM/yyyy h:mm', new Date());
+  //   if (!isNaN(parsedDate.getTime())) {
+  //     onDateChange(parsedDate);
+  //   }
+  // };
 
   return (
     <>
@@ -51,9 +51,8 @@ const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
         value={dob}
         onPress={showDatePicker}
         textColor={theme.textColor}
-        onChangeText={handleDateInput}
-        keyboardType="numeric"
         mode="outlined"
+        editable={false}
         underlineStyle={{
           display: 'none',
         }}

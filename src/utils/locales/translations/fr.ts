@@ -15,9 +15,10 @@ export const French = {
     selectLanguage: 'Sélectionner la Langue',
     error: {
       name: 'Veuillez utiliser uniquement des lettres alphabétiques et la longueur minimale est de 3 caractères.',
-      email: 'Veuillez entrer un email valide',
-      mobile:
-        'Le numéro de mobile doit comporter un minimum de 5 chiffres et un maximum de 13 chiffres.',
+  email: 'Veuillez entrer une adresse e-mail valide.',
+  password: 'Le mot de passe doit contenir : une lettre majuscule, une lettre minuscule, une valeur numérique, un caractère spécial et au moins 8 caractères.',
+  confirmPassword: 'Les mots de passe ne correspondent pas.',
+  mobile: 'Le numéro de mobile doit contenir au moins 5 chiffres et un maximum de 13 chiffres.'
     },
   },
   login: {

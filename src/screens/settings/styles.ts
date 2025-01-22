@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
-import { size } from '../../utils/size';
+import {size} from '../../utils/size';
 export const Styles = (theme: any) =>
   StyleSheet.create({
     container: {
@@ -22,8 +22,8 @@ export const Styles = (theme: any) =>
       paddingBottom: vh(20),
       backgroundColor: '#5698D3',
     },
-    backButton:{
-      paddingHorizontal:vw(10),
+    backButton: {
+      paddingHorizontal: vw(10),
     },
     Left: {
       width: vw(20),

@@ -14,10 +14,13 @@ export const Spanish = {
     login: ' Iniciar Sesión',
     selectLanguage: 'Seleccionar Idioma',
     error: {
-      name: 'Por favor, usa solo letras alfabéticas y la longitud mínima es de 3 caracteres.',
-      email: 'Por favor, introduce un correo electrónico válido',
+      name: 'Por favor, use solo letras alfabéticas y el mínimo es de 3 caracteres.',
+      email: 'Por favor, ingrese un correo electrónico válido.',
+      password:
+        'La contraseña debe contener: una letra mayúscula, una letra minúscula, un valor numérico, un carácter especial y al menos 8 caracteres.',
+      confirmPassword: 'Las contraseñas no coinciden.',
       mobile:
-        'El número de móvil debe tener un mínimo de 5 dígitos y un máximo de 13.',
+        'El número de móvil debe tener un mínimo de 5 dígitos y un máximo de 13 dígitos.',
     },
   },
 

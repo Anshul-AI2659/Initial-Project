@@ -5,52 +5,13 @@ import { useNavigation } from '@react-navigation/native';
 
 const Fingerprint: React.FC = () => {
   const [biometricModalVisible, setBiometricModalVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false); // State to track if the component is mounted
-  const navigation = useNavigation(); // Hook to access navigation
+  const [isMounted, setIsMounted] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    setIsMounted(true); // Set the component as mounted
-    return () => setIsMounted(false); // Cleanup when unmounting
+    setIsMounted(true); 
+    return () => setIsMounted(false); 
   }, []);
-
-  // Function to check if biometric is available and then authenticate
- 
-//   const handleBiometricLogin = async () => {
-//     const rnBiometrics = new ReactNativeBiometrics();
-//     const { available, biometryType } = await rnBiometrics.isSensorAvailable();
-  
-//     console.log("Biometric Available: ", available);
-//     console.log("Biometry Type: ", biometryType);
-  
-//     if (available) {
-//       if (biometryType === ReactNativeBiometrics.Biometrics || biometryType === ReactNativeBiometrics.Fingerprint) {
-//         setBiometricModalVisible(true);
-  
-//         rnBiometrics.simplePrompt({ promptMessage: 'Confirm your fingerprint to login' })
-//           .then(resultObject => {
-//             const { success } = resultObject;
-  
-//             if (success) {
-//               Alert.alert('Authentication successful', 'You are now logged in.');
-//               setBiometricModalVisible(false);
-//               navigation.navigate('BottomNavigation');
-//             } else {
-//               Alert.alert('Authentication failed', 'Please try again.');
-//               setBiometricModalVisible(false);
-//             }
-//           })
-//           .catch(() => {
-//             Alert.alert('Biometric prompt failed', 'Authentication canceled or unavailable.');
-//             setBiometricModalVisible(false);
-//           });
-//       } else {
-//         Alert.alert('Biometric Authentication', 'Biometric authentication not supported on this device.');
-//       }
-//     } else {
-//       Alert.alert('Biometric Authentication', 'Biometric authentication not available.');
-//     }
-//   };
-  
 
 const handleBiometricLogin = async () => {
     const rnBiometrics = new ReactNativeBiometrics();
@@ -59,9 +20,7 @@ const handleBiometricLogin = async () => {
     console.log("Biometric Available: ", available);
     console.log("Biometry Type: ", biometryType);
   
-    // Ensure biometric authentication is available
     if (available) {
-      // Check if the biometryType is Biometrics or any other supported type
       if (biometryType) {
         setBiometricModalVisible(true);
   
@@ -74,7 +33,6 @@ const handleBiometricLogin = async () => {
               setBiometricModalVisible(false);
               navigation.navigate('BottomNavigation');
             } else {
-            //   Alert.alert('Authentication failed', 'Please try again.');
               setBiometricModalVisible(false);
             }
           })
@@ -96,7 +54,6 @@ const handleBiometricLogin = async () => {
         <Text style={styles.loginButtonText}>Login with Fingerprint</Text>
       </TouchableOpacity>
 
-      {/* Biometric Modal */}
       <Modal
         visible={biometricModalVisible}
         transparent={true}

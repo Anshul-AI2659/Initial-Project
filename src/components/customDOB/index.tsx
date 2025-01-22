@@ -27,7 +27,6 @@ const DOBPicker: React.FC<DOBPickerProps> = ({
   calendarIcon,
   onDateChange,
   errorText,
-  placeholderText = 'What is your date of birth?',
 }) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
@@ -63,7 +62,6 @@ const DOBPicker: React.FC<DOBPickerProps> = ({
           label={label}
           value={dob}
           textColor={theme.textColor}
-          placeholder={placeholderText}
           onPress={showDatePicker}
           editable={false}
           mode="flat"
@@ -87,9 +85,7 @@ const DOBPicker: React.FC<DOBPickerProps> = ({
         />
       </TouchableOpacity>
 
-      {errorText ? (
-        <Text style={styles.errorText}>{errorText}</Text>
-      ) : null}
+      {errorText ? <Text style={styles.errorText}>{errorText}</Text> : null}
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

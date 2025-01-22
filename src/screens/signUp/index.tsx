@@ -46,7 +46,6 @@ const SignUp = ({navigation}: SignUpProps) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isPickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [firstNameError, setFirstNameError] = useState(false);
@@ -172,7 +171,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 Error={firstNameError}
                 setError={setFirstNameError}
                 errorText={
-                  'Please use only alphabetical letters and minimum length is 3 characters.'
+                  t('signUp.error.name')
                 }
               />
               <CustomInputBox
@@ -186,7 +185,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 Error={lastNameError}
                 setError={setLastNameError}
                 errorText={
-                  'Please use only alphabetical letters and minimum length is 3 characters.'
+                  t('signUp.error.name')
                 }
               />
               <DOBPicker
@@ -205,7 +204,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 Icon={Icons.email}
                 Error={emailError}
                 setError={setEmailError}
-                errorText={'Please enter valid email'}
+                errorText={t('signUp.error.email')}
               />
               <CustomPasswordInputBox
                 name={password}
@@ -217,13 +216,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onChangeText={handlePasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                errorText={[
-                  '* Password must contain an UpperCase Letter.',
-                  '* Password must contain a LowerCase Letter.',
-                  '* Password must contain a numeric value.',
-                  '* Password must contain a special character.',
-                  '* Password must be at least 8 characters.',
-                ]}
+                errorText={t('signUp.error.password')}
               />
               <CustomPasswordInputBox
                 name={confirmPassword}
@@ -235,7 +228,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onChangeText={handleConfirmPasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                errorText={['Passwords do not match']}
+                errorText={t('signUp.error.confirmPassword')}
               />
               <CustomMobileInputBox
                 label={t('forgotPassword.phoneLabel')}
@@ -246,7 +239,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 error={error}
                 setError={setError}
                 errorText={
-                  'Mobile no. should be min 5 digits and max 13 digits.'
+                  t('signUp.error.mobile')
                 }
               />
 

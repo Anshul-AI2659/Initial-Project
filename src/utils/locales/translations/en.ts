@@ -16,7 +16,9 @@ export const English = {
     error: {
       name: 'Please use only alphabetical letters and minimum length is 3 characters.',
       email: 'Please enter valid email',
-      mobile: 'Mobile no. should be min 5 digit and max 13 digit.',
+      password:'Password must contain: an UpperCase Letter, a LowerCase Letter, a Numeric Value, a Special Character and at 8 Characters.',
+      confirmPassword:'Passwords do not match',
+      mobile: 'Mobile no. should be min 5 digit and max 13 digit.'
     },
   },
   login: {

@@ -78,14 +78,13 @@ const Login = ({navigation}: LoginProps) => {
   };
 
   const handleNext = async () => {
-
     await AsyncStorage.setItem('userToken', 'your_auth_token');
-        setIsLoggedIn(true);
-        console.log('Login successful');
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'BottomNavigation'}],
-        });
+    setIsLoggedIn(true);
+    console.log('Login successful');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'BottomNavigation'}],
+    });
   };
 
   const isButtonDisabled =
@@ -122,7 +121,7 @@ const Login = ({navigation}: LoginProps) => {
                 Icon={Icons.email}
                 Error={emailError}
                 setError={setEmailError}
-                errorText={'Please enter valid email'}
+                errorText={t('signUp.error.email')}
               />
               <CustomPasswordInputBox
                 name={password}
@@ -134,13 +133,9 @@ const Login = ({navigation}: LoginProps) => {
                 onChangeText={handlePasswordChange}
                 maxLength={50}
                 keyboardType="default"
-                errorText={[
-                  'Password must contain an UpperCase Letter.',
-                  'Password must contain a LowerCase Letter.',
-                  'Password must contain a Numeric value.',
-                  'Password must contain a Special character.',
-                  'Password must be at least 8 characters.',
-                ]}
+                errorText={
+                  t('signUp.error.password')
+                }
               />
               <TouchableOpacity
                 style={styles.forgotPass}

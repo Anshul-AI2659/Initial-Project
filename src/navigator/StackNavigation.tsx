@@ -17,6 +17,7 @@ import {toggleTheme, setTheme} from '../redux/config/ThemeSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackParamList} from '../utils/types';
 import Fingerprint from '../screens/fingerPrint';
+import SignInGoogle from '../screens/signinGoogle';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -51,7 +52,7 @@ const StackNavigation = () => {
   }, [dispatch, currentSystemTheme]);
   return (
     <Stack.Navigator
-      initialRouteName="Fingerprint"
+      initialRouteName="SplashScreen"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="TutorialScreen" component={TutorialScreen} />
@@ -65,6 +66,7 @@ const StackNavigation = () => {
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Theme" component={Theme} />
       <Stack.Screen name="Fingerprint" component={Fingerprint} />
+      <Stack.Screen name="SignInGoogle" component={SignInGoogle} />
     </Stack.Navigator>
   );
 };

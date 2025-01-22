@@ -12,7 +12,20 @@
           "package_name": "com.initialproject"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "739662407076-881abf9kce16jlvpr34383h0pbtttj34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.initialproject",
+            "certificate_hash": "74db3afcbbb68a53b1d600c44196bc80bf2345d2"
+          }
+        },
+        {
+          "client_id": "739662407076-23a2v5hq07d427iaf1rkbu3d5qo6g2ab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA5x4G6l9VGueKAVwGeS2gaQGFYZDofsxY"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739662407076-23a2v5hq07d427iaf1rkbu3d5qo6g2ab.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "739662407076-p4mvhipve925vuhdg6sf1l1nssk9f84v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.InitialProject"
+              }
+            }
+          ]
         }
       }
     }

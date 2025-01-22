@@ -76,7 +76,7 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
                 error={error}
                 setError={setError}
                 errorText={
-                  'Mobile no. should be min 5 digits and max 13 digits.'
+                  t('signUp.error.mobile')
                 }
               />
 
