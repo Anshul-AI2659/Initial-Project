@@ -3,13 +3,19 @@ This is an initial application that can be used in Onboarding Process of any new
 Screens it contains:-
 
 1. Splash Screen:{
+   
   a. Navigate to Tutorial if the App is newly installed.
+
   b. Navigate to Login if the app is not Logged in by the user.
+
   c. Navigate to BottomNavigation if User has already loggedIn in the Application.
+
 }
 
-2. Tutorial Screen:{
+3. Tutorial Screen:{
+
   a. Would be visible only once when the App is newly installed
+
 }
 
 4. Login:{
