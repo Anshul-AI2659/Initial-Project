@@ -5,17 +5,17 @@ import {Styles} from './styles';
 import {useThemeColors} from '../../utils/theme';
 
 interface InputFieldProps {
-  name: any;
+  name: string;
   setName?: (text: string) => void;
   Error?: boolean;
   label: string;
   onPress?: any;
   setError?: (hasError: boolean) => void;
-  onChangeText: any;
-  onFocus?: any;
-  onBlur?: any;
-  errorText?: any;
-  maxLength?: any;
+  onChangeText: (text: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  errorText?:  string;
+  maxLength?: number;
   keyboardType: any;
   rightIcon?: any;
 }

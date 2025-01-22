@@ -28,10 +28,7 @@ export const Styles = (theme: any) =>
     phoneInput: {
       width: '100%',
       height: vh(50),
-      // width: '95%',
       fontSize: size.inputLabel,
-      // backgroundColor:'red',
-      // marginHorizontal: 8,
       marginTop: vh(10),
       overflow: 'hidden',
     },

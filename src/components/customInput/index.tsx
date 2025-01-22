@@ -17,11 +17,11 @@ interface CustomInputProps {
   Error?: boolean;
   label: string;
   setError?: (hasError: boolean) => void;
-  onChangeText: any;
-  onFocus?: any;
-  onBlur?: any;
-  errorText?: any;
-  maxLength?: any;
+  onChangeText: (text: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  errorText?: string;
+  maxLength?: number;
   keyboardType: any;
 }
 

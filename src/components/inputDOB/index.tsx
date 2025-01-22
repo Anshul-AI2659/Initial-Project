@@ -34,14 +34,6 @@ const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
     hideDatePicker();
   };
 
-  // const handleDateInput = (input: string) => {
-  //   setDob(input);
-
-  //   const parsedDate = parse(input, 'dd/MM/yyyy h:mm', new Date());
-  //   if (!isNaN(parsedDate.getTime())) {
-  //     onDateChange(parsedDate);
-  //   }
-  // };
 
   return (
     <>
