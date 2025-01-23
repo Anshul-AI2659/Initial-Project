@@ -152,7 +152,7 @@ const Login = ({navigation}: LoginProps) => {
                 onPress={handleNext}
                 isButtonDisabled={isButtonDisabled}
               />
-              <TouchableOpacity style={styles.googleView} activeOpacity={0.6}>
+              <TouchableOpacity style={styles.googleView} activeOpacity={0.6} onPress={()=>navigation.navigate('SignInGoogle')}>
                 <Image source={Icons.google} style={styles.google} />
                 <Text style={styles.googleText}>{t('login.google')}</Text>
               </TouchableOpacity>

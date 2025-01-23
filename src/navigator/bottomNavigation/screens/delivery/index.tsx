@@ -1,21 +1,17 @@
-/* eslint-disable react-native/no-inline-styles */
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { Icons } from '../../../../assets';
-import { vw,vh } from '../../../../utils/dimension';
-import { size } from '../../../../utils/size';
+import {vw, vh} from '../../../../utils/dimension';
+import {size} from '../../../../utils/size';
 
 const Delivery = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Delivery</Text>
-        <TouchableOpacity >
-          <Image source={Icons.settings} style={styles.settingsImg} />
-        </TouchableOpacity>
       </View>
-      <View style={{width:'100%',height:'80%',alignItems:'center',justifyContent:'center'}}>
-        <Text style={{fontSize:24}}> In Progress......</Text>
+      <View style={styles.subContainer}>
+        <Text style={styles.bodyText}> In Progress......</Text>
       </View>
     </View>
   );
@@ -34,17 +30,26 @@ const styles = StyleSheet.create({
     height: '14%',
     alignItems: 'flex-end',
     paddingHorizontal: vw(15),
-    paddingBottom:vh(20),
+    paddingBottom: vh(20),
     backgroundColor: '#5698D3',
   },
-  headerText:{
-    fontSize:size.headerTitle,
-    fontWeight:'600',
-    color:'#ffffff',
+  headerText: {
+    fontSize: size.headerTitle,
+    fontWeight: '600',
+    color: '#ffffff',
   },
   settingsImg: {
     width: vw(24),
     height: vw(24),
-    resizeMode:'contain',
+    resizeMode: 'contain',
+  },
+  subContainer: {
+    width: '100%',
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bodyText: {
+    fontSize: 24,
   },
 });

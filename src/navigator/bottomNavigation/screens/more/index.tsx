@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Icons} from '../../../../assets';
 import {vh, vw} from '../../../../utils/dimension';
@@ -9,18 +9,10 @@ const More = () => {
     <View style={styles.mainContainer}>
       <View style={styles.header}>
         <Text style={styles.headerText}>More Menu</Text>
-        <TouchableOpacity>
-          <Image source={Icons.settings} style={styles.settingsImg} />
-        </TouchableOpacity>
       </View>
       <View
-        style={{
-          width: '100%',
-          height: '80%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text style={{fontSize: 24}}> In Progress......</Text>
+        style={styles.subContainer}>
+        <Text style={styles.bodyText}> In Progress......</Text>
       </View>
     </View>
   );
@@ -51,5 +43,14 @@ const styles = StyleSheet.create({
     width: vw(24),
     height: vw(24),
     resizeMode: 'contain',
+  },
+  subContainer: {
+    width: '100%',
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bodyText:{
+    fontSize:24,
   },
 });
