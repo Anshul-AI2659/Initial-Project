@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Modal,
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
   Button,
+  FlatList,
+  Modal,
+  Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import {styles} from './styles';
+import { styles } from './styles';
 
 interface LanguageItem {
   code: string;

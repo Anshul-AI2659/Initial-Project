@@ -1,15 +1,16 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Image, StyleSheet } from 'react-native';
+import { Icons } from '../../assets';
+import { vh, vw } from '../../utils/dimension';
+import { useThemeColors } from '../../utils/theme';
+import { BottomTabParamList } from '../../utils/types';
 import Dashboard from './screens/dashboard';
-import Trips from './screens/trips';
 import Delivery from './screens/delivery';
-import Orders from './screens/orders';
 import More from './screens/more';
-import {vh, vw} from '../../utils/dimension';
-import {Icons} from '../../assets';
-import {useThemeColors} from '../../utils/theme';
-import {BottomTabParamList} from '../../utils/types';
+import Orders from './screens/orders';
+import Trips from './screens/trips';
+import { Colors } from '../../utils/colors';
 
 type TabBarIconProps = {
   focused: boolean;
@@ -19,35 +20,35 @@ const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const DashBoardTabIcon = ({focused}: TabBarIconProps) => (
   <Image
-    style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
+    style={[styles.icon, {tintColor: focused ? Colors.primary : 'grey'}]}
     source={Icons.dashboard}
   />
 );
 
 const TripTabIcon = ({focused}: TabBarIconProps) => (
   <Image
-    style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
+    style={[styles.icon, {tintColor: focused ? Colors.primary : 'grey'}]}
     source={Icons.trip}
   />
 );
 
 const DeliveryTabIcon = ({focused}: TabBarIconProps) => (
   <Image
-    style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
+    style={[styles.icon, {tintColor: focused ? Colors.primary : 'grey'}]}
     source={Icons.delivery}
   />
 );
 
 const OrderTabIcon = ({focused}: TabBarIconProps) => (
   <Image
-    style={[styles.icon, {tintColor: focused ? '#5698D3' : 'grey'}]}
+    style={[styles.icon, {tintColor: focused ? Colors.primary : 'grey'}]}
     source={Icons.order}
   />
 );
 
 const MoreTabIcon = ({focused}: TabBarIconProps) => (
   <Image
-    style={[styles.moreIcon, {tintColor: focused ? '#5698D3' : 'grey'}]}
+    style={[styles.moreIcon, {tintColor: focused ? Colors.primary : 'grey'}]}
     source={Icons.more}
   />
 );
@@ -59,7 +60,7 @@ const BottomNavigation = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarActiveTintColor: '#5698D3',
+        tabBarActiveTintColor: Colors.primary,
         tabBarStyle: {
           height: vh(80),
           justifyContent: 'center',

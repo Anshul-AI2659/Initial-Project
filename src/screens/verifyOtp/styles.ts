@@ -1,14 +1,23 @@
-import {StyleSheet} from 'react-native';
-import {vw, vh} from '../../utils/dimension';
-export const Styles = (theme: any) =>
+import {Platform, StyleSheet} from 'react-native';
+import {vh, vw} from '../../utils/dimension';
+import {size} from '../../utils/size';
+import Theme from '../theme';
+
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
-    mainContainer: {
-      backgroundColor: theme === 'dark' ? '#000' : '#FFF',
+    container: {
       flex: 1,
+      backgroundColor: theme.backgroundColor,
     },
     subContainer: {
-      paddingVertical: vh(50),
-      paddingHorizontal: vw(26),
+      paddingVertical: vh(25),
+      paddingHorizontal: vw(20),
+      marginTop: Platform.OS === 'android' ? vh(40) : vh(5),
     },
     backButton: {
       width: vw(40),
@@ -24,81 +33,46 @@ export const Styles = (theme: any) =>
       resizeMode: 'contain',
     },
     titleContainer: {
-      marginTop: vh(26),
+      fontWeight: 'bold',
+      marginTop: vh(20),
     },
     title: {
-      fontSize: 24,
+      fontSize: size.title,
+      color: theme.textColor,
       fontWeight: 'bold',
-      color: theme === 'dark' ? '#FFF' : '#000',
     },
     subtitle: {
-      marginTop: vh(10),
       fontSize: 15,
-      color: '#6c6c6c',
+      color: '#666',
     },
     mobileText: {
-      fontWeight: '600',
-      color: theme === 'dark' ? '#FFF' : '#000',
-    },
-    otpText: {
-      fontSize: 14,
-      marginTop: vh(20),
-      marginBottom: vh(14),
-    },
-    otpContainer: {
-      marginTop: vh(26),
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-    otpInput: {
-      paddingHorizontal: vw(20),
-      paddingVertical: vh(13),
-      borderWidth: 1,
-      backgroundColor: '#fff',
-      borderRadius: 8,
-      textAlign: 'center',
-      fontSize: 18,
-      marginHorizontal: vw(6),
+      fontSize: 16,
+      color: theme.textColor,
+      fontWeight: 'bold',
     },
     error: {
       color: 'red',
-      marginTop: vh(10),
+      marginTop: 10,
     },
-    button: {
-      width: '85%',
-      backgroundColor: '#486284',
-      paddingVertical: vh(15),
-      paddingHorizontal: vw(50),
-      alignSelf: 'center',
-      marginTop: vh(50),
-      borderRadius: 12,
-    },
-    buttonText: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      color: 'white',
-      textAlign: 'center',
-    },
-    signUpContainer: {
+    resendContainer: {
       flexDirection: 'row',
-      alignSelf: 'center',
-    },
-    newAccountText: {
-      fontSize: 16,
-      fontWeight: '400',
-      color: 'grey',
+      justifyContent: 'center',
+      marginTop: 20,
     },
     resendText: {
       fontSize: 16,
-      fontWeight: '600',
+      color: '#666',
+    },
+    resendLink: {
+      fontSize: 16,
+      fontWeight: 'bold',
     },
     timerContainer: {
-      marginTop: vh(30),
       alignItems: 'center',
+      marginTop: 10,
     },
     timerText: {
       fontSize: 16,
-      color: '#486284',
-      fontWeight: 'bold',
+      color: '#666',
     },
   });

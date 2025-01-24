@@ -1,8 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../../../utils/dimension';
 import {Colors} from '../../../../utils/colors';
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
 
-export const Styles = (theme: any) =>
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
@@ -37,15 +41,15 @@ export const Styles = (theme: any) =>
       justifyContent: 'center',
       borderRadius:10,
       paddingVertical: vh(10),
-      backgroundColor: '#FFF',
-      shadowColor: '#000',
+      backgroundColor: Colors.White,
+      shadowColor: Colors.Black,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.8,
       shadowRadius: 3,
       elevation: 5,
     },
     disabledButtonText: {
-      color: '#888888', // Grey text for disabled button
+      color: Colors.disableButton, // Grey text for disabled button
       fontSize: 16,
       fontWeight: 'bold',
     },
@@ -69,7 +73,7 @@ export const Styles = (theme: any) =>
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
-      backgroundColor: '#fff',
+      backgroundColor: Colors.White,
       borderRadius: 10,
       padding: vw(20),
     },
@@ -82,11 +86,11 @@ export const Styles = (theme: any) =>
       padding: vw(15),
       width: '100%',
       borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
+      borderBottomColor: Colors.border,
     },
     optionText: {
       fontSize: 16,
-      color: '#333',
+      color: Colors.Black,
     },
     closeButton: {
       marginTop: vh(20),
@@ -95,7 +99,7 @@ export const Styles = (theme: any) =>
       borderRadius: 5,
     },
     closeButtonText: {
-      color: '#fff',
+      color: Colors.White,
       fontSize: 16,
       textAlign: 'center',
     },

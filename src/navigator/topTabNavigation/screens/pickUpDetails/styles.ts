@@ -2,7 +2,12 @@ import {StyleSheet} from 'react-native';
 import { vw,vh } from '../../../../utils/dimension';
 import { Colors } from '../../../../utils/colors';
 
-export const Styles = (theme: any) =>
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
@@ -24,14 +29,7 @@ export const Styles = (theme: any) =>
       color: Colors.blue,
     },
 
-    forgotPass: {
-      marginTop: vw(14),
-      alignSelf: 'flex-end',
-    },
-    forgotPassText: {
-      fontSize: 15,
-      color: '#3797EF',
-    },
+  
     footer: {
         width: '100%',
         alignSelf: 'center',

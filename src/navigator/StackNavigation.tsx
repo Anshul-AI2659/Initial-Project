@@ -11,13 +11,11 @@ import TabNavigator from './topTabNavigation';
 import BottomNavigation from './bottomNavigation';
 import Settings from '../screens/settings';
 import Theme from '../screens/theme';
-import FaceBookLogin from '../screens/signinFacebook';
 import {useDispatch} from 'react-redux';
 import {toggleTheme, setTheme} from '../redux/config/ThemeSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StackParamList} from '../utils/types';
 import Fingerprint from '../screens/fingerPrint';
-import SignInGoogle from '../screens/signinGoogle';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -62,11 +60,9 @@ const StackNavigation = () => {
       <Stack.Screen name="SignUpVerify" component={SignUpVerify} />
       <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
-      <Stack.Screen name="FacebookLogin" component={FaceBookLogin} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Theme" component={Theme} />
       <Stack.Screen name="Fingerprint" component={Fingerprint} />
-      <Stack.Screen name="SignInGoogle" component={SignInGoogle} />
     </Stack.Navigator>
   );
 };

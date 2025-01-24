@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {vw, vh} from '../../../../utils/dimension';
-import {size} from '../../../../utils/size';
+import { StyleSheet, Text, View } from 'react-native';
+import { vh, vw } from '../../../../utils/dimension';
+import { size } from '../../../../utils/size';
+import { Colors } from '../../../../utils/colors';
 
 const Orders = () => {
   return (
@@ -30,12 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingHorizontal: vw(15),
     paddingBottom: vh(20),
-    backgroundColor: '#5698D3',
+    backgroundColor: Colors.primary,
   },
   headerText: {
     fontSize: size.headerTitle,
     fontWeight: '600',
-    color: '#ffffff',
+    color: Colors.White,
   },
   settingsImg: {
     width: vw(24),

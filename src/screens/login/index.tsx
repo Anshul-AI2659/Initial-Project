@@ -1,28 +1,32 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
-  View,
-  Image,
-  Keyboard,
   TouchableWithoutFeedback,
-  ScrollView,
-  SafeAreaView,
+  View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {Styles} from './styles';
-import CustomInputBox from '../../components/customInput';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import { Icons } from '../../assets';
 import CustomButton from '../../components/customButton';
-import CustomPasswordInputBox from '../../components/customPassword';
-import {validateEmail, validatePassword} from '../../utils/validations';
-import {Icons} from '../../assets';
-import {useThemeColors} from '../../utils/theme';
-import {useTranslation} from 'react-i18next';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomInputBox from '../../components/customInput';
+import { useThemeColors } from '../../utils/theme';
+import { StackParamList } from '../../utils/types';
+import { validateEmail, validatePassword } from '../../utils/validations';
+import { Styles } from './styles';
+import useGoogleSignIn, { useFacebookSignIn } from '../../utils/commonFunctions';
+import { ScreenNames } from '../../utils/screenNames';
 
 interface LoginProps {
-  onClose?: any;
-  navigation: any;
+  onClose?: StackNavigationProp<StackParamList>;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
 const Login = ({navigation}: LoginProps) => {
@@ -30,12 +34,23 @@ const Login = ({navigation}: LoginProps) => {
   const styles = Styles(theme);
   const {t} = useTranslation();
 
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const {handleGoogleSignup} = useGoogleSignIn();
+  const {handleFacebookLogin} = useFacebookSignIn();
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [errors, setErrors] = useState({
+    emailError: false,
+    passwordError: false,
+  });
+
+  const [visibility, setVisibility] = useState({
+    isPasswordVisible: false,
+  });
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
@@ -45,39 +60,44 @@ const Login = ({navigation}: LoginProps) => {
         setIsLoggedIn(true);
         navigation.reset({
           index: 0,
-          routes: [{name: 'Dashboard'}],
+          routes: [{name: 'BottomNavigation'}],
         });
       }
     };
     checkLoginStatus();
   }, [navigation]);
 
+ 
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({...prev, [field]: value}));
+
+    switch (field) {
+      case 'email':
+        setErrors(prev => ({
+          ...prev,
+          emailError: value === '' ? false : !validateEmail(value),
+        }));
+        break;
+      case 'password':
+        setErrors(prev => ({
+          ...prev,
+          passwordError: value === '' ? false : !validatePassword(value),
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
   const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
+    setVisibility(prev => ({
+      ...prev,
+      isPasswordVisible: !prev.isPasswordVisible,
+    }));
   };
 
-  const handleEmailChange = (text: string) => {
-    setEmail(text);
-    if (text === '') {
-      setEmailError(false);
-    } else if (validateEmail(text)) {
-      setEmailError(false);
-    } else {
-      setEmailError(true);
-    }
-  };
-  const handlePasswordChange = (text: string) => {
-    setPassword(text);
-    if (text.length === 0) {
-      setPasswordError(false);
-    } else if (validatePassword(text)) {
-      setPasswordError(false);
-    } else {
-      setPasswordError(true);
-    }
-  };
-
-  const handleNext = async () => {
+  const handleLogin = async () => {
     await AsyncStorage.setItem('userToken', 'your_auth_token');
     setIsLoggedIn(true);
     console.log('Login successful');
@@ -88,10 +108,10 @@ const Login = ({navigation}: LoginProps) => {
   };
 
   const isButtonDisabled =
-    emailError ||
-    passwordError ||
-    !validateEmail(email) ||
-    !validatePassword(password);
+    errors.emailError ||
+    errors.passwordError ||
+    !validateEmail(formData.email) ||
+    !validatePassword(formData.password);
 
   return (
     <>
@@ -112,35 +132,32 @@ const Login = ({navigation}: LoginProps) => {
               </View>
 
               <CustomInputBox
-                name={email}
+                name={formData.email}
                 label={t('login.emailLabel')}
-                maxLength={50}
+                maxLength={20}
                 keyboardType={'email-address'}
-                onChangeText={handleEmailChange}
-                setName={setEmail}
+                onChangeText={text => handleInputChange('email', text)}
                 Icon={Icons.email}
-                Error={emailError}
-                setError={setEmailError}
+                Error={errors.emailError}
                 errorText={t('signUp.error.email')}
               />
-              <CustomPasswordInputBox
-                name={password}
+              <CustomInputBox
+                name={formData.password}
                 label={t('login.passwordLabel')}
                 Icon={Icons.lock}
-                isPasswordVisible={isPasswordVisible}
-                togglePasswordVisibility={togglePasswordVisibility}
-                Error={passwordError}
-                onChangeText={handlePasswordChange}
-                maxLength={50}
+                Error={errors.passwordError}
+                errorText={t('signUp.error.password')}
+                maxLength={20}
                 keyboardType="default"
-                errorText={
-                  t('signUp.error.password')
-                }
+                onChangeText={text => handleInputChange('password', text)}
+                isPassword
+                isPasswordVisible={visibility.isPasswordVisible}
+                togglePasswordVisibility={togglePasswordVisibility}
               />
               <TouchableOpacity
                 style={styles.forgotPass}
                 onPress={() => {
-                  navigation.navigate('ForgotPassword');
+                  navigation.navigate(ScreenNames.ForgotPassword);
                 }}>
                 <Text style={styles.forgotPassText}>
                   {t('login.forgotPass')}
@@ -148,24 +165,26 @@ const Login = ({navigation}: LoginProps) => {
               </TouchableOpacity>
 
               <CustomButton
-                title={t('login.signin')}
-                onPress={handleNext}
+                buttonText={t('login.signin')}
+                onPress={handleLogin}
                 isButtonDisabled={isButtonDisabled}
               />
-              <TouchableOpacity style={styles.googleView} activeOpacity={0.6} onPress={()=>navigation.navigate('SignInGoogle')}>
-                <Image source={Icons.google} style={styles.google} />
-                <Text style={styles.googleText}>{t('login.google')}</Text>
-              </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.facebookView}
-                activeOpacity={0.6}
-                onPress={() => {
-                  navigation.navigate('FacebookLogin');
-                }}>
-                <Image source={Icons.facebook} style={styles.google} />
-                <Text style={styles.facebookText}>{t('login.facebook')}</Text>
-              </TouchableOpacity>
+              <CustomButton
+                iconSource={Icons.google}
+                buttonStyle={styles.googleView}
+                buttonText={t('login.google')}
+                textStyle={styles.googleText}
+                onPress={handleGoogleSignup}
+              />
+
+              <CustomButton
+                iconSource={Icons.facebook}
+                buttonStyle={styles.facebookView}
+                buttonText={t('login.facebook')}
+                textStyle={styles.facebookText}
+                onPress={handleFacebookLogin}
+              />
             </View>
             <View style={styles.loginContainer}>
               <Text style={styles.accountText}>{t('login.signUpPrompt')}</Text>
@@ -173,7 +192,7 @@ const Login = ({navigation}: LoginProps) => {
                 onPress={() =>
                   navigation.reset({
                     index: 0,
-                    routes: [{name: 'SignUp'}],
+                    routes: [{name: ScreenNames.SignUp}],
                   })
                 }>
                 <Text style={styles.loginText}> {t('login.signUp')}</Text>

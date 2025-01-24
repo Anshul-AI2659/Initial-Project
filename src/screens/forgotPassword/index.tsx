@@ -1,26 +1,28 @@
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
+  Image,
+  Keyboard,
+  SafeAreaView,
+  ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
-  View,
-  Image,
-  Keyboard,
   TouchableWithoutFeedback,
-  useColorScheme,
-  ScrollView,
-  SafeAreaView,
+  View
 } from 'react-native';
-import React, {useState} from 'react';
-import {Styles} from './styles';
+import { Icons } from '../../assets';
 import CustomMobileInputBox from '../../components/CustomMobileInputBox';
 import CustomButton from '../../components/customButton';
-import {Icons} from '../../assets';
-import {useTranslation} from 'react-i18next';
-import {useThemeColors} from '../../utils/theme';
+import { useThemeColors } from '../../utils/theme';
+import { Styles } from './styles';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../utils/types';
+import { ScreenNames } from '../../utils/screenNames';
 
 interface ForgotPasswordProps {
-  onClose?: any;
-  navigation: any;
+  onClose?: StackNavigationProp<StackParamList>;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
 const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
@@ -38,7 +40,7 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
 
   const handleNext = () => {
     if (!error) {
-      navigation.navigate('SignUpVerify', {phoneNumber});
+      navigation.navigate(ScreenNames.VerifyOtp);
     }
   };
 
@@ -81,7 +83,7 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
               />
 
               <CustomButton
-                title={t('forgotPassword.send')}
+                buttonText={t('forgotPassword.send')}
                 onPress={handleNext}
                 isButtonDisabled={isButtonDisabled}
               />

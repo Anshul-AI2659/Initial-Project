@@ -1,22 +1,27 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
-import { size } from '../../utils/size';
+import {size} from '../../utils/size';
+import { Colors } from '../../utils/colors';
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
 
-export const Styles = (theme: any) =>
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     inputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       marginTop: vh(16),
       borderWidth: 1,
-      backgroundColor:theme.backgroundColor,
+      backgroundColor: theme.backgroundColor,
       borderRadius: 10,
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       width: '100%',
     },
     iconButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRightWidth: 1,
       marginRight: vw(4),
     },
@@ -26,12 +31,9 @@ export const Styles = (theme: any) =>
       resizeMode: 'contain',
     },
     phoneInput: {
-      width: '82%',
-      // width: '95%',
-      fontSize: size.inputLabel,
+      width: '82%', 
+      fontSize: size.inputLabel, 
       backgroundColor: theme.backgroundColor,
-      // backgroundColor:'red',
-      // marginHorizontal: 8,
       overflow: 'hidden',
     },
     errorContainer: {
@@ -42,5 +44,12 @@ export const Styles = (theme: any) =>
       fontSize: size.error,
       marginTop: vw(4),
       textAlign: 'left',
+    },
+    eyeImg: {
+      width: vw(24),
+      height: vw(24),
+      resizeMode: 'contain',
+      tintColor:'grey',
+      marginTop: vh(7),
     },
   });

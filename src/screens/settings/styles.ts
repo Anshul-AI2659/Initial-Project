@@ -1,7 +1,13 @@
-import {StyleSheet} from 'react-native';
-import {vw, vh} from '../../utils/dimension';
-import {size} from '../../utils/size';
-export const Styles = (theme: any) =>
+import { StyleSheet } from 'react-native';
+import { vh, vw } from '../../utils/dimension';
+import { size } from '../../utils/size';
+import { Colors } from '../../utils/colors';
+
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -20,7 +26,7 @@ export const Styles = (theme: any) =>
       alignItems: 'flex-end',
       paddingHorizontal: vw(8),
       paddingBottom: vh(20),
-      backgroundColor: '#5698D3',
+      backgroundColor: Colors.primary,
     },
     backButton: {
       paddingHorizontal: vw(10),
@@ -29,12 +35,12 @@ export const Styles = (theme: any) =>
       width: vw(20),
       height: vw(20),
       resizeMode: 'contain',
-      tintColor: '#ffffff',
+      tintColor: Colors.White,
     },
     headerText: {
       fontSize: size.headerTitle,
       fontWeight: '600',
-      color: '#ffffff',
+      color: Colors.White,
       marginLeft: vw(10),
     },
     profileSection: {
@@ -68,7 +74,7 @@ export const Styles = (theme: any) =>
     },
     bgColor: {
       flex: 1,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: Colors.White,
     },
     marginSide: {
       marginHorizontal: vw(20),
@@ -109,7 +115,7 @@ export const Styles = (theme: any) =>
     },
     firstContainer: {
       borderWidth: 1,
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRadius: 10,
       marginHorizontal: vw(15),
       marginTop: vh(15),
@@ -122,7 +128,7 @@ export const Styles = (theme: any) =>
       height: vh(60),
       paddingHorizontal: vw(15),
       borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
+      borderBottomColor: Colors.border,
     },
     rightIcon: {
       width: vw(16),
@@ -143,7 +149,7 @@ export const Styles = (theme: any) =>
     },
     secondContainer: {
       borderWidth: 1,
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRadius: 10,
       marginHorizontal: vw(15),
       marginTop: vh(15),
@@ -156,7 +162,7 @@ export const Styles = (theme: any) =>
       height: vh(60),
       paddingHorizontal: vw(15),
       borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
+      borderBottomColor: Colors.border,
     },
     termsButton: {
       flexDirection: 'row',
@@ -166,7 +172,7 @@ export const Styles = (theme: any) =>
       height: vh(60),
       paddingHorizontal: vw(15),
       borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
+      borderBottomColor: Colors.border,
     },
     logoutButton: {
       width: '100%',

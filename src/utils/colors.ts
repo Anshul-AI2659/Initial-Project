@@ -3,6 +3,8 @@ const Colors = {
   White: '#fff',
   primary: '#5698D3',
   blue: '#3797EF',
+  disableButton:'#E2E2E2',
+  border:'#ccc',
 };
 const lightThemeColors = {
   backgroundColor: '#FFFFFF',
@@ -19,4 +21,3 @@ const darkThemeColors = {
 };
 export {Colors, lightThemeColors, darkThemeColors};
 
-// #D5E4F2,

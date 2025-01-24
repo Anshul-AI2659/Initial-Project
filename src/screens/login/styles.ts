@@ -3,7 +3,12 @@ import {vw, vh} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
 import { size } from '../../utils/size';
 
-export const Styles = (theme: any) =>
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
@@ -13,7 +18,6 @@ export const Styles = (theme: any) =>
       paddingVertical: vh(35),
       paddingHorizontal: vw(20),
       marginTop: Platform.OS === 'android' ? vh(40) : vh(5),
-      // backgroundColor: 'red',
     },
     contentHeader: {},
     headerText: {
@@ -49,7 +53,6 @@ export const Styles = (theme: any) =>
     loginContainer: {
       flexDirection: 'row',
       alignSelf: 'center',
-      // marginTop: vh(10),
     },
     accountText: {
       fontSize: 16,
@@ -67,7 +70,7 @@ export const Styles = (theme: any) =>
       marginTop: vh(16),
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       width: '100%',
     },
     phoneInput: {
@@ -79,7 +82,7 @@ export const Styles = (theme: any) =>
     },
     iconButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRightWidth: 1,
       marginRight: vw(4),
     },
@@ -103,39 +106,43 @@ export const Styles = (theme: any) =>
       resizeMode: 'contain',
     },
     googleView: {
-      elevation: vh(10),
-      justifyContent: 'center',
-      alignItems: 'center',
+      width: '85%',
+      borderWidth:1,
+      borderColor:Colors.border,
       flexDirection: 'row',
-      shadowColor: '#C3C3C3',
-      shadowOpacity: 5,
-      shadowRadius: 3,
+      paddingHorizontal:vw(60),
+      alignContent:'center',
       backgroundColor: theme.backgroundColor,
       borderRadius: vh(10),
-      marginTop: vh(30),
-      padding: vw(14),
+      marginTop: vh(15),
+      paddingVertical:vh(10),
     },
     googleText:{
+      width: '85%',
       fontSize: size.button,
-      marginLeft: vw(6),
+      fontWeight:'400',
+      marginLeft: vw(12),
       color:theme.textColor,
     },
     facebookView: {
+      width: '85%',
       elevation: vh(10),
-      justifyContent: 'center',
-      alignItems: 'center',
+      paddingHorizontal:vw(50),
+      alignContent:'center',
       flexDirection: 'row',
       shadowColor: '#C3C3C3',
       shadowOpacity: 5,
       shadowRadius: 3,
       backgroundColor: '#4267B2',
       borderRadius: vh(10),
-      marginTop: vh(20),
-      padding: vw(14),
+      marginTop: vh(15),
+      paddingVertical: vw(10),
     },
     facebookText: {
+      width: '85%',
       fontSize: size.button,
-      color: 'white',
-      marginLeft: vw(6),
+      fontWeight:'400',
+      marginLeft: vw(12),
+      color:Colors.White,
     },
   });

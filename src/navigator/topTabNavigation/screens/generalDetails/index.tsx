@@ -1,20 +1,32 @@
-
-
+import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   FlatList,
   SafeAreaView,
+  Text,
   TouchableOpacity,
   View,
-  Text,
 } from 'react-native';
-import {Styles} from './styles';
 import CheckBox from 'react-native-check-box';
-import { useThemeColors } from '../../../../utils/theme';
-import { useTranslation } from 'react-i18next';
+import {useThemeColors} from '../../../../utils/theme';
+import {TopTabParamList} from '../../../../utils/types';
+import {Styles} from './styles';
+import {Colors} from '../../../../utils/colors';
+import {ScreenNames} from '../../../../utils/screenNames';
+import CustomButton from '../../../../components/customButton';
 
+interface Item {
+  id: number;
+  title: string;
+}
+
+interface RenderItemProps {
+  item: Item;
+  index: number;
+}
 interface GeneralDetailsProps {
-  navigation: any;
+  navigation: MaterialTopTabNavigationProp<TopTabParamList>;
 }
 
 const GeneralDetails = ({navigation}: GeneralDetailsProps) => {
@@ -31,18 +43,17 @@ const GeneralDetails = ({navigation}: GeneralDetailsProps) => {
     new Array(itemsArray.length).fill(false),
   );
 
-
-  const handleCheckboxToggle = (index: any) => {
+  const handleCheckboxToggle = (index: number) => {
     const updatedCheckedItems = [...checkedItems];
     updatedCheckedItems[index] = !updatedCheckedItems[index];
     setCheckedItems(updatedCheckedItems);
   };
 
   const handleContinue = () => {
-    navigation.navigate('Shipment1Details');
+    navigation.navigate(ScreenNames.Shipment);
   };
 
-  const renderItem = ({item, index}: any) => (
+  const renderItem = ({item, index}: RenderItemProps) => (
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={() => handleCheckboxToggle(index)}
@@ -51,7 +62,7 @@ const GeneralDetails = ({navigation}: GeneralDetailsProps) => {
         style={styles.checkbox}
         onClick={() => handleCheckboxToggle(index)}
         isChecked={checkedItems[index]}
-        checkBoxColor={checkedItems[index] ? '#486284' : '#486284'}
+        checkBoxColor={checkedItems[index] ? Colors.primary : Colors.primary}
         checkedImage={
           <View style={styles.checkedBox}>
             <Text style={styles.tick}>✓</Text>
@@ -75,23 +86,21 @@ const GeneralDetails = ({navigation}: GeneralDetailsProps) => {
           renderItem={renderItem}
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(_item, index) => index.toString()}
           ListHeaderComponent={
             <View style={styles.subContainer}>
               <View style={styles.contentHeader}>
-                <Text style={styles.headerText}>{t('generalDetails.shipment')}</Text>
+                <Text style={styles.headerText}>
+                  {t('generalDetails.shipment')}
+                </Text>
               </View>
             </View>
           }
         />
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.submitButton}
-          onPress={handleContinue}
-          activeOpacity={0.7}>
-          <Text style={styles.submitButtonText}>Next</Text>
-        </TouchableOpacity>
+       
+        <CustomButton buttonText={'Next'} onPress={handleContinue} />
       </View>
     </SafeAreaView>
   );

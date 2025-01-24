@@ -1,7 +1,12 @@
 import {StyleSheet} from 'react-native';
 import { vw,vh } from '../../../../utils/dimension';
 import { Colors } from '../../../../utils/colors';
-export const Styles = (theme: any) =>
+
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     safeareastyle: {
       flex: 1,
@@ -38,18 +43,18 @@ export const Styles = (theme: any) =>
     checkedText: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: '#486284',
+      color: Colors.primary,
     },
     checkedBox: {
       width: vw(20),
       height: vw(20),
-      backgroundColor: '#486284',
+      backgroundColor: Colors.primary,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 5,
     },
     tick: {
-      color: '#fff',
+      color: Colors.White,
       fontSize: 15,
       fontWeight: 'bold',
     },
@@ -57,8 +62,8 @@ export const Styles = (theme: any) =>
       width: vw(20),
       height: vw(20),
       borderWidth: 2,
-      borderColor: '#000',
-      backgroundColor: '#fff',
+      borderColor: Colors.Black,
+      backgroundColor: Colors.White,
       borderRadius: 5,
     },
     footer: {
@@ -78,7 +83,7 @@ export const Styles = (theme: any) =>
       borderRadius: 10,
     },
     submitButtonText: {
-      color: 'white',
+      color: Colors.White,
       fontSize: 16,
       fontWeight: 'bold',
     },

@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
   Keyboard,
-  TouchableWithoutFeedback,
   SafeAreaView,
-  ScrollView,
+  Text,
+  TouchableWithoutFeedback
 } from 'react-native';
-import React, {useState} from 'react';
-import {Styles} from './styles';
-import {useThemeColors} from '../../../../utils/theme';
-import {useTranslation} from 'react-i18next';
+import { useThemeColors } from '../../../../utils/theme';
+import { TopTabParamList } from '../../../../utils/types';
+import { Styles } from './styles';
 
 interface OtherDetailsProps {
-  navigation: any;
+  navigation: MaterialTopTabNavigationProp<TopTabParamList>;
 }
 
 const OtherDetails = ({navigation}: OtherDetailsProps) => {

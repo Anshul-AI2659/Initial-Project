@@ -3,7 +3,12 @@ import {vw, vh} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
 import {size} from '../../utils/size';
 
-export const Styles = (theme: any) =>
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
@@ -38,7 +43,7 @@ export const Styles = (theme: any) =>
     },
     telephoneButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRightWidth: 1,
       marginRight: vw(4),
     },

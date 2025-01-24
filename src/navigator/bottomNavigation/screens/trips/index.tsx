@@ -1,9 +1,8 @@
-
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {Icons} from '../../../../assets';
-import {vw, vh} from '../../../../utils/dimension';
+import {StyleSheet, Text, View} from 'react-native';
+import {vh, vw} from '../../../../utils/dimension';
 import {size} from '../../../../utils/size';
+import { Colors } from '../../../../utils/colors';
 
 const Trips = () => {
   return (
@@ -11,8 +10,7 @@ const Trips = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Trips</Text>
       </View>
-      <View
-        style={styles.subContainer}>
+      <View style={styles.subContainer}>
         <Text style={styles.bodyText}> In Progress......</Text>
       </View>
     </View>
@@ -33,12 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingHorizontal: vw(15),
     paddingBottom: vh(20),
-    backgroundColor: '#5698D3',
+    backgroundColor: Colors.primary,
   },
   headerText: {
     fontSize: size.headerTitle,
     fontWeight: '600',
-    color: '#ffffff',
+    color: Colors.White,
   },
   settingsImg: {
     width: vw(24),
@@ -51,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  bodyText:{
-    fontSize:24,
+  bodyText: {
+    fontSize: 24,
   },
 });

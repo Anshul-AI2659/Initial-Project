@@ -1,25 +1,26 @@
-import React, {useRef, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
+  Alert,
   Dimensions,
   I18nManager,
-  Alert,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {Styles} from './styles';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {StackNavigationProp} from '@react-navigation/stack';
-import { StackParamList } from '../../utils/types';
+import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {useTranslation} from 'react-i18next';
-import {Icons} from '../../assets';
-import {useThemeColors} from '../../utils/theme';
-import LanguageModal from '../../components/LanguageModal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart';
+import { Icons } from '../../assets';
+import LanguageModal from '../../components/LanguageModal';
 import i18n from '../../utils/locales/i18n';
+import { useThemeColors } from '../../utils/theme';
+import { StackParamList } from '../../utils/types';
+import { Styles } from './styles';
+import { ScreenNames } from '../../utils/screenNames';
 
 interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
@@ -83,7 +84,7 @@ const Settings = ({navigation}: SettingsProps) => {
 
               navigation.reset({
                 index: 0,
-                routes: [{name: 'Login'}],
+                routes: [{name: ScreenNames.Login}],
               });
             } catch (error) {
               console.error('Error removing token', error);
@@ -97,30 +98,30 @@ const Settings = ({navigation}: SettingsProps) => {
   };
 
   const openGallery = () => {
-    launchImageLibrary({mediaType: 'photo', quality: 1}, (response: any) => {
-      if (response.assets && response.assets[0]) {
+    launchImageLibrary({mediaType: 'photo', quality: 1}, (response: ImagePickerResponse) => {
+      if (response.assets && response.assets[0] && response.assets[0].uri) {
         setImageUri(response.assets[0].uri);
       }
     });
-    refRBSheet.current.close();
+    refRBSheet.current?.close();
   };
   const handleTakePhoto = () => {
-    refRBSheet.current.close();
-    launchCamera({mediaType: 'photo', quality: 1}, (response: any) => {
-      if (response.assets && response.assets[0]) {
-        setImageUri(response.assets[0].uri);
+    refRBSheet.current?.close();
+    launchCamera({mediaType: 'photo', quality: 1}, (response: ImagePickerResponse) => {
+      if (response.assets && response.assets[0] && response.assets[0].uri) {
+        setImageUri(response.assets[0].uri); // Only set if uri is defined
       }
     });
   };
   const handleRemove = () => {
-    refRBSheet.current.close();
+    refRBSheet.current?.close();
     setImageUri('');
   };
 
-  const refRBSheet = useRef<any>();
+  const refRBSheet =useRef<React.ElementRef<typeof RBSheet>>(null);;
 
   const handleMoreOption = () => {
-    refRBSheet.current.open();
+    refRBSheet.current?.open();
   };
 
   return (
@@ -148,7 +149,7 @@ const Settings = ({navigation}: SettingsProps) => {
           <TouchableOpacity
             style={styles.themeButton}
             onPress={() => {
-              navigation.navigate('Theme');
+              navigation.navigate(ScreenNames.theme);
             }}
             activeOpacity={0.7}>
             <Text style={styles.text}>{t('settings.theme')}</Text>

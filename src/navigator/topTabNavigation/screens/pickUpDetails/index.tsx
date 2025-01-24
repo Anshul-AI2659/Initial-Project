@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   StatusBar,
   Text,
@@ -22,9 +21,13 @@ import {Icons} from '../../../../assets';
 import {useThemeColors} from '../../../../utils/theme';
 import {useTranslation} from 'react-i18next';
 import InputDOB from '../../../../components/inputDOB';
+import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
+import { TopTabParamList } from '../../../../utils/types';
+import { ScreenNames } from '../../../../utils/screenNames';
+import CustomButton from '../../../../components/customButton';
 
 interface PickUpDetailsProps {
-  navigation: any;
+  navigation:MaterialTopTabNavigationProp<TopTabParamList>;
 }
 
 const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
@@ -111,13 +114,7 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
 
   const handleStartTimeChange = (text: string) => {
     setStartTime(text);
-    if (text === '') {
-      setStartTimeError(false);
-    } else if (validateField(text)) {
-      setStartTimeError(false);
-    } else {
-      setStartTimeError(true);
-    }
+    
   };
 
   const handleEndTimeChange = (text: string) => {
@@ -132,7 +129,7 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
   };
 
   const handleContinue = () => {
-    navigation.navigate('OtherDetails');
+    navigation.navigate(ScreenNames.other);
   };
 
   return (
@@ -208,6 +205,7 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               Icon={Icons.birthday}
               calendarIcon={Icons.calendar}
               onDateChange={handleStartTimeChange}
+              mode = {'time'}
             />
 
             <InputDOB
@@ -215,15 +213,21 @@ const PickUpDetails = ({navigation}: PickUpDetailsProps) => {
               Icon={Icons.birthday}
               calendarIcon={Icons.calendar}
               onDateChange={handleEndTimeChange}
+              mode = {'time'}
+
             />
           </ScrollView>
           <View style={styles.footer}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.submitButton}
               onPress={handleContinue}
               activeOpacity={0.7}>
               <Text style={styles.submitButtonText}>Next</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <CustomButton
+                buttonText={t('signUp.signUp')}
+                onPress={handleContinue}
+              />
           </View>
         </SafeAreaView>
       </TouchableWithoutFeedback>

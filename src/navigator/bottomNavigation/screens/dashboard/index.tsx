@@ -14,6 +14,8 @@ import {useTranslation} from 'react-i18next';
 import {size} from '../../../../utils/size';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { BottomTabParamList } from '../../../../utils/types';
+import { Colors } from '../../../../utils/colors';
+import { ScreenNames } from '../../../../utils/screenNames';
 
 interface dashboardProps {
   navigation: BottomTabNavigationProp<BottomTabParamList>;
@@ -32,7 +34,7 @@ const Dashboard = ({navigation}: dashboardProps) => {
         <Text style={styles.headerText}>{t('dashboard.dashboard')}</Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Settings'); // This TypeScript error will be handled in future
+            navigation.navigate(ScreenNames.Settings); // This TypeScript error will be handled in future
           }}>
           <Image source={Icons.settings} style={styles.settingsImg} />
         </TouchableOpacity>
@@ -49,7 +51,12 @@ const Dashboard = ({navigation}: dashboardProps) => {
 
 export default Dashboard;
 
-const Styles = (theme: any) =>
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+const Styles = (theme: Theme) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
@@ -63,12 +70,12 @@ const Styles = (theme: any) =>
       alignItems: 'flex-end',
       paddingHorizontal: vw(15),
       paddingBottom: vh(20),
-      backgroundColor: '#5698D3',
+      backgroundColor: Colors.primary,
     },
     headerText: {
       fontSize: size.headerTitle,
       fontWeight: '600',
-      color: '#ffffff',
+      color: Colors.White,
     },
     settingsImg: {
       width: vw(24),

@@ -1,147 +1,140 @@
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
+  Keyboard,
+  ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
-  View,
-  Image,
-  Keyboard,
   TouchableWithoutFeedback,
-  ScrollView,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Styles} from './styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomInputBox from '../../components/customInput';
+import {Icons} from '../../assets';
 import CustomButton from '../../components/customButton';
-import CustomPasswordInputBox from '../../components/customPassword';
+import DOBPicker from '../../components/customDOB';
+import CustomInputBox from '../../components/customInput';
+import CustomMobileInputBox from '../../components/CustomMobileInputBox';
+import {useThemeColors} from '../../utils/theme';
 import {
   validateEmail,
   validateName,
   validatePassword,
   validatePhoneNumber,
 } from '../../utils/validations';
-import {Icons} from '../../assets';
-import DOBPicker from '../../components/customDOB';
-import {useThemeColors} from '../../utils/theme';
-import {useTranslation} from 'react-i18next';
-import CustomMobileInputBox from '../../components/CustomMobileInputBox';
+import {Styles} from './styles';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../utils/types';
+import { ScreenNames } from '../../utils/screenNames';
 
 interface SignUpProps {
-  onClose?: any;
-  navigation: any;
+  onClose?: StackNavigationProp<StackParamList>;
+  navigation: StackNavigationProp<StackParamList>;
 }
 
 const SignUp = ({navigation}: SignUpProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
   const {t} = useTranslation();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    confirmPassword: '',
+    callingCode: '+91',
+    selectedDate: undefined as Date | undefined,
+  });
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [errors, setErrors] = useState({
+    firstNameError: false,
+    lastNameError: false,
+    emailError: false,
+    passwordError: false,
+    confirmPasswordError: false,
+    phoneError: false,
+  });
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
+  const [visibility, setVisibility] = useState({
+    isPasswordVisible: false,
+    isConfirmPasswordVisible: false,
+  });
+
+  // Handlers for input changes
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({...prev, [field]: value}));
+
+    // Validate fields dynamically
+    switch (field) {
+      case 'firstName':
+        setErrors(prev => ({
+          ...prev,
+          firstNameError: value === '' ? false : !validateName(value),
+        }));
+        break;
+      case 'lastName':
+        setErrors(prev => ({
+          ...prev,
+          lastNameError: value === '' ? false : !validateName(value),
+        }));
+        break;
+      case 'email':
+        setErrors(prev => ({
+          ...prev,
+          emailError: value === '' ? false : !validateEmail(value),
+        }));
+        break;
+      case 'password':
+        setErrors(prev => ({
+          ...prev,
+          passwordError: value === '' ? false : !validatePassword(value),
+        }));
+        break;
+      case 'confirmPassword':
+        setErrors(prev => ({
+          ...prev,
+          confirmPasswordError:
+            value === '' ? false : value !== formData.password,
+        }));
+        break;
+      default:
+        break;
+    }
   };
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [error, setError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [firstNameError, setFirstNameError] = useState(false);
-  const [lastNameError, setLastNameError] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-    useState(false);
-  const [callingCode, setCallingCode] = useState('+91');
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  // Toggle password visibility
+  const toggleVisibility = (field: string) => {
+    setVisibility(prev => ({
+      ...prev,
+      [field]: !prev[field as keyof typeof visibility],
+    }));
+  };
 
+  // Handle date change
   const handleDateChange = (date: Date | undefined) => {
-    setSelectedDate(date);
+    setFormData(prev => ({...prev, selectedDate: date}));
   };
 
-  const handlePasswordChange = (text: string) => {
-    setPassword(text);
-    if (text.length === 0) {
-      setPasswordError(false);
-    } else if (validatePassword(text)) {
-      setPasswordError(false);
-    } else {
-      setPasswordError(true);
-    }
-  };
-  const handleConfirmPasswordChange = (text: string) => {
-    setConfirmPassword(text);
-    if (text.length === 0) {
-      setConfirmPasswordError(false);
-    } else if (text !== password) {
-      setConfirmPasswordError(true);
-    } else {
-      setConfirmPasswordError(false);
-    }
-  };
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
-  };
-
-  const handleEmailChange = (text: string) => {
-    setEmail(text);
-    if (text === '') {
-      setEmailError(false);
-    } else if (validateEmail(text)) {
-      setEmailError(false);
-    } else {
-      setEmailError(true);
-    }
-  };
-
-  const handleFirstNameChange = (text: string) => {
-    setFirstName(text);
-    if (text === '') {
-      setFirstNameError(false);
-    } else if (validateName(text)) {
-      setFirstNameError(false);
-    } else {
-      setFirstNameError(true);
-    }
-  };
-
-  const handleLastNameChange = (text: string) => {
-    setLastName(text);
-    if (text === '') {
-      setLastNameError(false);
-    } else if (validateName(text)) {
-      setLastNameError(false);
-    } else {
-      setLastNameError(true);
-    }
-  };
-
+  // Handle next button press
   const handleNext = () => {
-    if (!error) {
-      navigation.navigate('SignUpVerify', {phoneNumber});
+    if (!errors.phoneError) {
+      navigation.navigate(ScreenNames.VerifyOtp);
     }
   };
 
+  // Check if the button should be disabled
   const isButtonDisabled =
-    phoneNumber.length < 5 ||
-    firstNameError ||
-    lastNameError ||
-    emailError ||
-    passwordError ||
-    !validateName(firstName) ||
-    !validateName(lastName) ||
-    !validateEmail(email) ||
-    !validatePhoneNumber;
+    formData.phoneNumber.length < 5 ||
+    errors.firstNameError ||
+    errors.lastNameError ||
+    errors.emailError ||
+    errors.passwordError ||
+    errors.confirmPasswordError ||
+    !validateName(formData.firstName) ||
+    !validateName(formData.lastName) ||
+    !validateEmail(formData.email) ||
+    !validatePhoneNumber(formData.phoneNumber);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -161,32 +154,24 @@ const SignUp = ({navigation}: SignUpProps) => {
               </View>
 
               <CustomInputBox
-                name={firstName}
+                name={formData.firstName}
                 label={t('signUp.firstNameLabel')}
                 maxLength={25}
                 keyboardType={'name-phone-pad'}
-                onChangeText={handleFirstNameChange}
-                setName={setFirstName}
+                onChangeText={text => handleInputChange('firstName', text)}
                 Icon={Icons.user}
-                Error={firstNameError}
-                setError={setFirstNameError}
-                errorText={
-                  t('signUp.error.name')
-                }
+                Error={errors.firstNameError}
+                errorText={t('signUp.error.name')}
               />
               <CustomInputBox
-                name={lastName}
+                name={formData.lastName}
                 label={t('signUp.lastNameLabel')}
                 maxLength={25}
                 keyboardType="name-phone-pad"
-                onChangeText={handleLastNameChange}
-                setName={setLastName}
+                onChangeText={text => handleInputChange('lastName', text)}
                 Icon={Icons.user}
-                Error={lastNameError}
-                setError={setLastNameError}
-                errorText={
-                  t('signUp.error.name')
-                }
+                Error={errors.lastNameError}
+                errorText={t('signUp.error.name')}
               />
               <DOBPicker
                 label={t('signUp.dob')}
@@ -195,56 +180,62 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onDateChange={handleDateChange}
               />
               <CustomInputBox
-                name={email}
+                name={formData.email}
                 label={t('signUp.emailLabel')}
-                maxLength={50}
+                maxLength={20}
                 keyboardType={'email-address'}
-                onChangeText={handleEmailChange}
-                setName={setEmail}
+                onChangeText={text => handleInputChange('email', text)}
                 Icon={Icons.email}
-                Error={emailError}
-                setError={setEmailError}
+                Error={errors.emailError}
                 errorText={t('signUp.error.email')}
               />
-              <CustomPasswordInputBox
-                name={password}
+              <CustomInputBox
+                name={formData.password}
                 label={t('signUp.passwordLabel')}
                 Icon={Icons.lock}
-                isPasswordVisible={isPasswordVisible}
-                togglePasswordVisibility={togglePasswordVisibility}
-                Error={passwordError}
-                onChangeText={handlePasswordChange}
-                maxLength={50}
-                keyboardType="default"
+                Error={errors.passwordError}
                 errorText={t('signUp.error.password')}
+                maxLength={13}
+                keyboardType="default"
+                onChangeText={text => handleInputChange('password', text)}
+                isPassword
+                isPasswordVisible={visibility.isPasswordVisible}
+                togglePasswordVisibility={() =>
+                  toggleVisibility('isPasswordVisible')
+                }
               />
-              <CustomPasswordInputBox
-                name={confirmPassword}
+              <CustomInputBox
+                name={formData.confirmPassword}
                 label={t('signUp.cnfPasswordLabel')}
                 Icon={Icons.lock}
-                isPasswordVisible={isConfirmPasswordVisible}
-                togglePasswordVisibility={toggleConfirmPasswordVisibility}
-                Error={confirmPasswordError}
-                onChangeText={handleConfirmPasswordChange}
-                maxLength={50}
-                keyboardType="default"
+                Error={errors.confirmPasswordError}
                 errorText={t('signUp.error.confirmPassword')}
+                maxLength={13}
+                keyboardType="default"
+                onChangeText={text =>
+                  handleInputChange('confirmPassword', text)
+                }
+                isPassword
+                isPasswordVisible={visibility.isConfirmPasswordVisible}
+                togglePasswordVisibility={() =>
+                  toggleVisibility('isConfirmPasswordVisible')
+                }
               />
               <CustomMobileInputBox
                 label={t('forgotPassword.phoneLabel')}
-                callingCode={callingCode}
-                phoneNumber={phoneNumber}
-                setPhoneNumber={setPhoneNumber}
+                callingCode={formData.callingCode}
+                phoneNumber={formData.phoneNumber}
+                setPhoneNumber={text => handleInputChange('phoneNumber', text)}
                 Icon={Icons.telephone}
-                error={error}
-                setError={setError}
-                errorText={
-                  t('signUp.error.mobile')
+                error={errors.phoneError}
+                setError={value =>
+                  setErrors(prev => ({...prev, phoneError: value}))
                 }
+                errorText={t('signUp.error.mobile')}
               />
 
               <CustomButton
-                title={t('signUp.signUp')}
+                buttonText={t('signUp.signUp')}
                 onPress={handleNext}
                 isButtonDisabled={isButtonDisabled}
               />
@@ -257,7 +248,7 @@ const SignUp = ({navigation}: SignUpProps) => {
                 onPress={() =>
                   navigation.reset({
                     index: 0,
-                    routes: [{name: 'Login'}],
+                    routes: [{name: ScreenNames.Login}],
                   })
                 }>
                 <Text style={styles.loginText}> {t('signUp.login')}</Text>

@@ -13,14 +13,20 @@ import {validatePhoneNumber} from '../../utils/validations';
 import {useThemeColors} from '../../utils/theme';
 import {Icons} from '../../assets';
 
+interface Country {
+  code: string;
+  name: string;
+  callingCode: string;
+}
+
 interface CustomMobileInputBoxProps {
-  countryCode?: any;
+  countryCode?: String;
   callingCode?: string;
   label: string;
   phoneNumber: string;
   setPhoneNumber: (text: string) => void;
-  onSelect?: (country: any) => void;
-  setPickerVisible?: any;
+  onSelect?: (country:Country) => void;
+  setPickerVisible?: boolean;
   Icon: ImageSourcePropType;
   error: boolean;
   setError: (hasError: boolean) => void;

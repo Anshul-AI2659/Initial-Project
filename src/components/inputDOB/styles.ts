@@ -1,8 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import { size } from '../../utils/size';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-export const Styles = (theme: any) =>
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     inputContainer: {
       flexDirection: 'row',
@@ -15,7 +21,7 @@ export const Styles = (theme: any) =>
     },
     iconButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRightWidth: 1,
       marginRight: vw(4),
     },

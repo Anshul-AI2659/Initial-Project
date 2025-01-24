@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import { format } from 'date-fns';
+import React, { useState } from 'react';
 import {
-  View,
-  TouchableOpacity,
   Image,
-  Text,
   ImageSourcePropType,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {format} from 'date-fns';
-import {Styles} from './styles';
-import {useThemeColors} from '../../utils/theme';
+import { TextInput } from 'react-native-paper';
+import { useThemeColors } from '../../utils/theme';
+import { Styles } from './styles';
 
 interface DOBPickerProps {
   label: string;

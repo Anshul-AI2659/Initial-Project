@@ -1,8 +1,12 @@
-import {StyleSheet} from 'react-native';
-import {vw, vh} from '../../utils/dimension';
-import {Colors} from '../../utils/colors';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../utils/colors';
+import { vh, vw } from '../../utils/dimension';
 import { size } from '../../utils/size';
-export const Styles = (theme: any) =>
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
@@ -15,18 +19,18 @@ export const Styles = (theme: any) =>
       alignItems: 'flex-end',
       paddingHorizontal: vw(15),
       paddingBottom: vh(20),
-      backgroundColor: '#5698D3',
+      backgroundColor: Colors.primary,
     },
     Left: {
       width: vw(20),
       height: vw(20),
       resizeMode: 'contain',
-      tintColor: '#ffffff',
+      tintColor: Colors.White,
     },
     headerText: {
       fontSize: size.headerTitle,
       fontWeight: '600',
-      color: '#ffffff',
+      color: Colors.White,
       marginLeft: vw(20),
     },
     subContainer: {
@@ -77,7 +81,7 @@ export const Styles = (theme: any) =>
       height: vh(60),
       paddingHorizontal: vw(15),
       borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
+      borderBottomColor: Colors.border,
     },
     tickMark:{
       fontSize:20,

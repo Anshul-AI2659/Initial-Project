@@ -13,7 +13,6 @@ const App = () => {
     <Provider store={store}>
       <View style={{flex: 1}}>
         <StatusBar
-          // backgroundColor={'#5698D3'}
           barStyle={'default'}
           translucent={true}
         />

@@ -1,19 +1,22 @@
-import React, {useState} from 'react';
-import {TouchableOpacity, Image, ImageSourcePropType} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import { format } from 'date-fns';
+import React, { useState } from 'react';
+import { Image, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {format, parse} from 'date-fns';
-import {Styles} from './styles';
-import {useThemeColors} from '../../utils/theme';
+import { TextInput } from 'react-native-paper';
+import { useThemeColors } from '../../utils/theme';
+import { Styles } from './styles';
+import { Colors } from '../../utils/colors';
 
 interface DOBPickerProps {
   label: string;
   Icon: ImageSourcePropType;
   calendarIcon: ImageSourcePropType;
   onDateChange: any;
+  mode: 'date' | 'time' | 'datetime';
+
 }
 
-const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
+const InputDOB = ({label, calendarIcon, onDateChange,mode}: DOBPickerProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
   const [dob, setDob] = useState('');
@@ -28,15 +31,22 @@ const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
   };
 
   const handleConfirmDate = (date: Date) => {
-    const formattedDate = format(date, 'dd/MM/yyyy h:mm');
+    let formattedDate;
+    if (mode === 'time') {
+      formattedDate = format(date, 'h:mm a'); 
+    } else if (mode === 'date') {
+      formattedDate = format(date, 'dd/MM/yyyy'); 
+    } else {
+      formattedDate = format(date, 'dd/MM/yyyy h:mm a');
+    }
     setDob(formattedDate);
     onDateChange(date);
     hideDatePicker();
   };
 
-
   return (
     <>
+    <TouchableOpacity onPress={showDatePicker}>
       <TextInput
         style={styles.phoneInput}
         label={label}
@@ -49,7 +59,7 @@ const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
           display: 'none',
         }}
         outlineStyle={{
-          borderColor: '#cccccc',
+          borderColor: Colors.border,
         }}
         right={
           <TextInput.Icon
@@ -69,10 +79,11 @@ const InputDOB = ({label, calendarIcon, onDateChange}: DOBPickerProps) => {
           },
         }}
       />
+      </TouchableOpacity>
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
-        mode="datetime"
+        mode={mode}
         onConfirm={handleConfirmDate}
         onCancel={hideDatePicker}
       />

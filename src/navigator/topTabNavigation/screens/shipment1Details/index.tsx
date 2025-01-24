@@ -1,29 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  Keyboard,
-  TouchableWithoutFeedback,
-  useColorScheme,
-  ScrollView,
   FlatList,
+  Keyboard,
   Modal,
   SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Styles} from './styles';
-import InputField from '../../../../components/inputField';
 import {Icons} from '../../../../assets';
 import InputDOB from '../../../../components/inputDOB';
+import InputField from '../../../../components/inputField';
 import {useThemeColors} from '../../../../utils/theme';
-import {useTranslation} from 'react-i18next';
 import {validateField} from '../../../../utils/validations';
+import {Styles} from './styles';
+import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
+import {TopTabParamList} from '../../../../utils/types';
+import { ScreenNames } from '../../../../utils/screenNames';
+import CustomButton from '../../../../components/customButton';
+
+type Option = 'high' | 'low' | 'very high' | 'very low';
 
 interface Shipment1DetailsProps {
-  navigation: any;
+  navigation: MaterialTopTabNavigationProp<TopTabParamList>;
 }
 
 const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
@@ -102,10 +104,10 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
   };
 
   const handleContinue = () => {
-    navigation.navigate('PickUpDetails');
+    navigation.navigate(ScreenNames.PickUp);
   };
 
-  const handleOptionSelect = (option: any) => {
+  const handleOptionSelect = (option: Option) => {
     setInputValue(option);
     setIsModalVisible(false);
     switch (option) {
@@ -121,13 +123,13 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
         setShippingCost('50');
         setWeight('20');
         break;
-      case 'veryHigh':
+      case 'very high':
         setValue('200');
         setVolume('500');
         setShippingCost('100');
         setWeight('50');
         break;
-      case 'veryLow':
+      case 'very low':
         setValue('50');
         setVolume('200');
         setShippingCost('15');
@@ -184,13 +186,14 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
               Icon={Icons.birthday}
               calendarIcon={Icons.calendar}
               onDateChange={handleShipmentDateChange}
+              mode={'datetime'}
             />
             <InputField
               name={inputValue}
               label={'Priority'}
               maxLength={50}
               onPress={() => setIsModalVisible(true)}
-              keyboardType={'default'}
+              showKeyboard={false}
               onChangeText={setInputValue}
               setName={setPriority}
               errorText={'Please enter valid Priority'}
@@ -255,22 +258,11 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
             </TouchableOpacity>
           </Modal>
           <View style={styles.footer}>
-            <TouchableOpacity
-              style={
-                isButtonDisabled ? styles.disabledButton : styles.submitButton
-              }
-              onPress={handleContinue}
-              activeOpacity={0.7}
-              disabled={isButtonDisabled}>
-              <Text
-                style={
-                  isButtonDisabled
-                    ? styles.disabledButtonText
-                    : styles.submitButtonText
-                }>
-                Next
-              </Text>
-            </TouchableOpacity>
+            <CustomButton
+                buttonText={'Next'}
+                onPress={handleContinue}
+                isButtonDisabled={isButtonDisabled}
+              />
           </View>
         </SafeAreaView>
       </TouchableWithoutFeedback>

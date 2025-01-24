@@ -5,38 +5,48 @@ import {
   Image,
   Text,
   ImageSourcePropType,
+  KeyboardTypeOptions,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Styles} from './styles';
 import {useThemeColors} from '../../utils/theme';
+import {Icons} from '../../assets';
 
 interface CustomInputProps {
-  name: any;
-  setName?: (text: string) => void;
+  name: string;
+  label: string;
   Icon: ImageSourcePropType;
   Error?: boolean;
-  label: string;
+  setName?: (text: string) => void;
+  errorText?: string;
   setError?: (hasError: boolean) => void;
+  maxLength?: number;
+  keyboardType: KeyboardTypeOptions;
   onChangeText: (text: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
-  errorText?: string;
-  maxLength?: number;
-  keyboardType: any;
+  isPassword?: boolean; 
+  isPasswordVisible?: boolean;
+  togglePasswordVisibility?: () => void; 
+
 }
 
-const CustomInputBox = ({
+const CustomInput = ({
   name,
   label,
   Icon,
   Error,
-  onChangeText,
   errorText,
   maxLength,
   keyboardType,
+  onChangeText,
+  isPassword = false,
+  isPasswordVisible = false,
+  togglePasswordVisibility,
 }: CustomInputProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
+
   return (
     <>
       <View
@@ -47,12 +57,14 @@ const CustomInputBox = ({
             style={[styles.iconStyle, {tintColor: Error ? 'red' : 'grey'}]}
           />
         </TouchableOpacity>
+
         <TextInput
           style={[styles.phoneInput]}
           label={label}
           keyboardType={keyboardType}
           value={name}
           maxLength={maxLength}
+          secureTextEntry={isPassword && !isPasswordVisible}
           textColor={theme.textColor}
           onChangeText={onChangeText}
           mode="flat"
@@ -67,6 +79,15 @@ const CustomInputBox = ({
               disabled: 'transparent',
             },
           }}
+          right={
+            isPassword && togglePasswordVisibility ? (
+              <TextInput.Icon
+                icon={isPasswordVisible ? Icons.eye_off : Icons.eye}
+                onPress={togglePasswordVisibility}
+                color={Error ? 'red' : 'grey'}
+              />
+            ) : null
+          }
         />
       </View>
       {Error && <Text style={styles.errorText}>{errorText}</Text>}
@@ -74,4 +95,4 @@ const CustomInputBox = ({
   );
 };
 
-export default CustomInputBox;
+export default CustomInput;

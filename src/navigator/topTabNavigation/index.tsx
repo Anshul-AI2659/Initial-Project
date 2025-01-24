@@ -1,17 +1,17 @@
-
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Shipment1Details from './screens/shipment1Details';
-import PickUpDetails from './screens/pickUpDetails';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Icons } from '../../assets';
+import { vh, vw } from '../../utils/dimension';
+import { size } from '../../utils/size';
+import { useThemeColors } from '../../utils/theme';
+import { TopTabParamList } from '../../utils/types';
 import GeneralDetails from './screens/generalDetails';
-import {vw, vh} from '../../utils/dimension';
-import {Icons} from '../../assets';
-import {useNavigation} from '@react-navigation/native';
-import {useThemeColors} from '../../utils/theme';
 import OtherDetails from './screens/otherDetails';
-import {size} from '../../utils/size';
-import {TopTabParamList} from '../../utils/types';
+import PickUpDetails from './screens/pickUpDetails';
+import Shipment1Details from './screens/shipment1Details';
+import { Colors } from '../../utils/colors';
 
 const TopTab = createMaterialTopTabNavigator<TopTabParamList>();
 const TabNavigator = () => {
@@ -36,13 +36,13 @@ const TabNavigator = () => {
         screenOptions={{
           tabBarScrollEnabled: true,
           tabBarStyle: {
-            height: '8%',
+            // height: '8%',
             backgroundColor: theme.backgroundColor,
             justifyContent: 'center',
           },
           tabBarBounces: false,
           swipeEnabled: false,
-          tabBarActiveTintColor: '#5698D3',
+          tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: theme.textColor,
           tabBarLabelStyle: {fontSize: 14, fontWeight: '500'},
         }}
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     paddingBottom: vh(20),
     flexDirection: 'row',
     paddingHorizontal: vw(20),
-    backgroundColor: '#5698D3',
+    backgroundColor: Colors.primary,
   },
   backButton: {
     alignItems: 'center',
@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
     width: vw(20),
     height: vw(20),
     resizeMode: 'contain',
-    tintColor: '#ffffff',
+    tintColor: Colors.White,
   },
   headerText: {
     fontSize: size.headerTitle,
     fontWeight: '600',
-    color: '#ffffff',
+    color: Colors.White,
     marginLeft: vw(20),
   },
 });

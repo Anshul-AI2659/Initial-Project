@@ -36,14 +36,6 @@ i18n
     },
     initImmediate: false,
   })
-  // .then(() => {
-  //   // After i18n initialization, check AsyncStorage for language preference
-  //   AsyncStorage.getItem('i18n-locale').then(storedLang => {
-  //     if (storedLang) {
-  //       i18n.changeLanguage(storedLang); // Change language based on AsyncStorage
-  //     }
-  //   });
-  // });
 
   .then(() => {
     AsyncStorage.getItem('i18n-locale').then(storedLang => {

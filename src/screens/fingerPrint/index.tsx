@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Modal, Alert, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ReactNativeBiometrics from 'react-native-biometrics';
-import { useNavigation } from '@react-navigation/native';
+import { StackParamList } from '../../utils/types';
+import { Colors } from '../../utils/colors';
 
-const Fingerprint: React.FC = () => {
+interface ForgotPasswordProps {
+  onClose?: StackNavigationProp<StackParamList>;
+  navigation: StackNavigationProp<StackParamList>;
+}
+
+const Fingerprint= ({navigation}:ForgotPasswordProps) => {
   const [biometricModalVisible, setBiometricModalVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     setIsMounted(true); 
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   loginButton: {
-    backgroundColor: '#0288D1',
+    backgroundColor: Colors.primary,
     padding: 15,
     borderRadius: 10,
   },

@@ -1,8 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import { size } from '../../utils/size';
+import { Colors } from '../../utils/colors';
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
 
-export const Styles = (theme: any) =>
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     inputContainer: {
       flexDirection: 'row',
@@ -10,12 +15,12 @@ export const Styles = (theme: any) =>
       marginTop: vh(16),
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       width: '100%',
     },
     iconButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRightWidth: 1,
       marginRight: vw(4),
     },

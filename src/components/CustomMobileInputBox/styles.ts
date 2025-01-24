@@ -1,8 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import { size } from '../../utils/size';
+import { Colors } from '../../utils/colors';
+type Theme = {
+  backgroundColor: string;
+  textColor: string;
+};
 
-export const Styles = (theme: any) =>
+export const Styles = (theme: Theme) =>
   StyleSheet.create({
     inputContainer: {
       flexDirection: 'row',
@@ -10,14 +15,14 @@ export const Styles = (theme: any) =>
       marginTop: vh(16),
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       backgroundColor: theme.backgroundColor,
       width: '100%',
     },
     flagContainer: {},
     telephoneButton: {
       paddingHorizontal: vw(14),
-      borderColor: '#ccc',
+      borderColor: Colors.border,
       borderRightWidth: 1,
       marginRight: vw(4),
     },
@@ -36,8 +41,9 @@ export const Styles = (theme: any) =>
       color: theme.textColor,
     },
     phoneInputMobile: {
-      width: '60%',
-      borderRadius: 10,
+      width: '59%',
+      borderBottomRightRadius:10,
+      borderTopRightRadius:10,
       fontSize: size.inputLabel,
       backgroundColor: theme.backgroundColor,
       overflow: 'hidden',
@@ -62,25 +68,14 @@ export const Styles = (theme: any) =>
       fontWeight: 'bold',
       marginLeft:vw(20),
     },
-    closeButton: {
-      position: 'absolute',
-      top: 10,
-      right: 10,
-      padding: 8,
-      backgroundColor: '#f1f1f1',
-      borderRadius: 5,
-    },
-    closeButtonText: {
-      color: 'black',
-      fontWeight: 'bold',
-    },
+    
     flagStyle: {
       fontSize: 24,
       color: theme.textColor,
       marginHorizontal: vw(5),
     },
     codePicker: {
-      backgroundColor: '#ffffff',
+      backgroundColor:Colors.White,
       borderRadius: 10,
       padding: 15,
       width: '90%',
