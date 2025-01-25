@@ -25,10 +25,9 @@ interface CustomInputProps {
   onChangeText: (text: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
-  isPassword?: boolean; 
+  isPassword?: boolean;
   isPasswordVisible?: boolean;
-  togglePasswordVisibility?: () => void; 
-
+  togglePasswordVisibility?: () => void;
 }
 
 const CustomInput = ({

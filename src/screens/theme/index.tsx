@@ -1,6 +1,5 @@
-
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,10 +7,11 @@ import {toggleTheme} from '../../redux/config/ThemeSlice';
 import {useThemeColors} from '../../utils/theme';
 import {Styles} from './styles';
 import {Icons} from '../../assets';
+import Header from '../../components/customHeader';
 
 interface RootState {
   ThemeSlice: {
-    themeMode: string; 
+    themeMode: string;
   };
 }
 
@@ -19,7 +19,9 @@ const Theme = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const dispatch = useDispatch();
-  const currentTheme = useSelector((state: RootState) => state.ThemeSlice.themeMode);
+  const currentTheme = useSelector(
+    (state: RootState) => state.ThemeSlice.themeMode,
+  );
 
   const theme = useThemeColors();
   const styles = Styles(theme);
@@ -38,13 +40,14 @@ const Theme = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack}>
-          <Image source={Icons.back} style={styles.Left} />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>{t('theme.headerTitle')}</Text>
-      </View>
-
+      <Header
+        title={t('theme.headerTitle')}
+        headerStyle={styles.header}
+        headerTextStyle={styles.headerText}
+        showBackButton={true}
+        backButtonIcon={Icons.back}
+        onBackPress={handleBack}
+      />
       <View style={styles.subContainer}>
         <View style={styles.themeContainer}>
           <TouchableOpacity

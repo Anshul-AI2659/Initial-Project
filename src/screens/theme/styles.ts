@@ -13,11 +13,10 @@ export const Styles = (theme: Theme) =>
       backgroundColor: theme.backgroundColor,
     },
     header: {
+      flex:0.14,
       flexDirection: 'row',
-      width: '100%',
-      height: '12.7%',
-      alignItems: 'flex-end',
-      paddingHorizontal: vw(15),
+      alignItems:'flex-end',
+      paddingHorizontal: vw(8),
       paddingBottom: vh(20),
       backgroundColor: Colors.primary,
     },
@@ -31,7 +30,7 @@ export const Styles = (theme: Theme) =>
       fontSize: size.headerTitle,
       fontWeight: '600',
       color: Colors.White,
-      marginLeft: vw(20),
+      marginLeft: vw(10),
     },
     subContainer: {
       flex: 1,

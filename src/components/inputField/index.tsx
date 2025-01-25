@@ -45,7 +45,7 @@ const InputField = ({
 
   return (
     <>
-      <TouchableOpacity onPress={onPress} disabled={showKeyboard}>
+      <TouchableOpacity onPress={onPress} disabled={showKeyboard} activeOpacity={1}>
         <TextInput
           style={[styles.phoneInput]}
           label={label}

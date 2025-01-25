@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
-import { vh, vw } from '../../utils/dimension';
-import { size } from '../../utils/size';
-import { Colors } from '../../utils/colors';
+import {StyleSheet} from 'react-native';
+import {vh, vw} from '../../utils/dimension';
+import {size} from '../../utils/size';
+import {Colors} from '../../utils/colors';
 
 type Theme = {
   backgroundColor: string;
@@ -20,10 +20,9 @@ export const Styles = (theme: Theme) =>
       marginVertical: vw(10),
     },
     header: {
+      flex:0.35,
       flexDirection: 'row',
-      width: '100%',
-      height: '12.7%',
-      alignItems: 'flex-end',
+      alignItems:'flex-end',
       paddingHorizontal: vw(8),
       paddingBottom: vh(20),
       backgroundColor: Colors.primary,

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Alert,
   Dimensions,
@@ -11,16 +11,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { ImagePickerResponse, launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import {
+  ImagePickerResponse,
+  launchCamera,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import RNRestart from 'react-native-restart';
-import { Icons } from '../../assets';
+import {Icons} from '../../assets';
 import LanguageModal from '../../components/LanguageModal';
 import i18n from '../../utils/locales/i18n';
-import { useThemeColors } from '../../utils/theme';
-import { StackParamList } from '../../utils/types';
-import { Styles } from './styles';
-import { ScreenNames } from '../../utils/screenNames';
+import {useThemeColors} from '../../utils/theme';
+import {StackParamList} from '../../utils/types';
+import {Styles} from './styles';
+import {ScreenNames} from '../../utils/screenNames';
+import Header from '../../components/customHeader';
 
 interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
@@ -31,7 +36,7 @@ const Settings = ({navigation}: SettingsProps) => {
   const styles = Styles(theme);
   const {t} = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [languages, setLanguages] = useState([
+  const [languages] = useState([
     {code: 'English', name: 'English'},
     {code: 'Spanish', name: 'Español'},
     {code: 'Hindi', name: 'हिंदी'},
@@ -98,27 +103,33 @@ const Settings = ({navigation}: SettingsProps) => {
   };
 
   const openGallery = () => {
-    launchImageLibrary({mediaType: 'photo', quality: 1}, (response: ImagePickerResponse) => {
-      if (response.assets && response.assets[0] && response.assets[0].uri) {
-        setImageUri(response.assets[0].uri);
-      }
-    });
+    launchImageLibrary(
+      {mediaType: 'photo', quality: 1},
+      (response: ImagePickerResponse) => {
+        if (response.assets && response.assets[0] && response.assets[0].uri) {
+          setImageUri(response.assets[0].uri);
+        }
+      },
+    );
     refRBSheet.current?.close();
   };
   const handleTakePhoto = () => {
     refRBSheet.current?.close();
-    launchCamera({mediaType: 'photo', quality: 1}, (response: ImagePickerResponse) => {
-      if (response.assets && response.assets[0] && response.assets[0].uri) {
-        setImageUri(response.assets[0].uri); // Only set if uri is defined
-      }
-    });
+    launchCamera(
+      {mediaType: 'photo', quality: 1},
+      (response: ImagePickerResponse) => {
+        if (response.assets && response.assets[0] && response.assets[0].uri) {
+          setImageUri(response.assets[0].uri); // Only set if uri is defined
+        }
+      },
+    );
   };
   const handleRemove = () => {
     refRBSheet.current?.close();
     setImageUri('');
   };
 
-  const refRBSheet =useRef<React.ElementRef<typeof RBSheet>>(null);;
+  const refRBSheet = useRef<React.ElementRef<typeof RBSheet>>(null);
 
   const handleMoreOption = () => {
     refRBSheet.current?.open();
@@ -126,12 +137,14 @@ const Settings = ({navigation}: SettingsProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-          <Image source={Icons.back} style={styles.Left} />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>{t('settings.headerTitle')}</Text>
-      </View>
+      <Header
+        title={t('settings.headerTitle')}
+        headerStyle={styles.header}
+        headerTextStyle={styles.headerText}
+        showBackButton={true}
+        backButtonIcon={Icons.back}
+        onBackPress={handleBack}
+      />
       <View style={styles.profileSection}>
         <Image
           style={styles.profileImage}

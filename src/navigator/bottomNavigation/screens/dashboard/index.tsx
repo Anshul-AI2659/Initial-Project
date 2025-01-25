@@ -1,6 +1,5 @@
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   TouchableOpacity,
@@ -12,10 +11,11 @@ import {SCREEN_WIDTH, SCREEN_HEIGHT, vw, vh} from '../../../../utils/dimension';
 import {useThemeColors} from '../../../../utils/theme';
 import {useTranslation} from 'react-i18next';
 import {size} from '../../../../utils/size';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { BottomTabParamList } from '../../../../utils/types';
-import { Colors } from '../../../../utils/colors';
-import { ScreenNames } from '../../../../utils/screenNames';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {BottomTabParamList} from '../../../../utils/types';
+import {Colors} from '../../../../utils/colors';
+import {ScreenNames} from '../../../../utils/screenNames';
+import Header from '../../../../components/customHeader';
 
 interface dashboardProps {
   navigation: BottomTabNavigationProp<BottomTabParamList>;
@@ -30,15 +30,14 @@ const Dashboard = ({navigation}: dashboardProps) => {
   };
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{t('dashboard.dashboard')}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(ScreenNames.Settings); // This TypeScript error will be handled in future
-          }}>
-          <Image source={Icons.settings} style={styles.settingsImg} />
-        </TouchableOpacity>
-      </View>
+      <Header
+        title={t('dashboard.dashboard')}
+         headerStyle={styles.header}
+        headerTextStyle={styles.headerText}
+        icon={Icons.settings}
+        onPress={() => navigation.navigate(ScreenNames.Settings)}
+        showRightIcon={true}
+      />
       <Image source={Images.dashboardImage} style={styles.mainImage} />
       <View style={styles.addContainer}>
         <TouchableOpacity style={styles.addButton} onPress={handleAdd}>
@@ -62,12 +61,12 @@ const Styles = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.backgroundColor,
     },
-    header: {
+    header:{
+      flex:0.85,
+      width:'100%',
       flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '100%',
-      height: '14%',
-      alignItems: 'flex-end',
+      alignItems:'flex-end',
+      justifyContent:'space-between',
       paddingHorizontal: vw(15),
       paddingBottom: vh(20),
       backgroundColor: Colors.primary,

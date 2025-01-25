@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { TextInput, TextStyle, View } from 'react-native';
-import { useThemeColors } from '../../utils/theme';
-import { Styles } from './styles';
-import { Colors } from '../../utils/colors';
-
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useRef, useState} from 'react';
+import {TextInput, TextStyle, View} from 'react-native';
+import {useThemeColors} from '../../utils/theme';
+import {Styles} from './styles';
+import {Colors} from '../../utils/colors';
 
 interface OTPInputProps {
   otpLength: number;
@@ -11,7 +11,7 @@ interface OTPInputProps {
   error?: string;
   autoFocus?: boolean;
   inputStyle?: TextStyle;
-  secureTextEntry?: boolean; 
+  secureTextEntry?: boolean;
 }
 
 const OTPInput = ({
@@ -89,7 +89,5 @@ const OTPInput = ({
     </View>
   );
 };
-
-
 
 export default OTPInput;
