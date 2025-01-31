@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import auth from '@react-native-firebase/auth';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,16 +12,15 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import { Icons } from '../../assets';
 import CustomButton from '../../components/customButton';
 import CustomInputBox from '../../components/customInput';
+import useGoogleSignIn, { useFacebookSignIn } from '../../utils/commonFunctions';
+import { ScreenNames } from '../../utils/screenNames';
 import { useThemeColors } from '../../utils/theme';
 import { StackParamList } from '../../utils/types';
 import { validateEmail, validatePassword } from '../../utils/validations';
 import { Styles } from './styles';
-import useGoogleSignIn, { useFacebookSignIn } from '../../utils/commonFunctions';
-import { ScreenNames } from '../../utils/screenNames';
 
 interface LoginProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -32,7 +30,7 @@ interface LoginProps {
 const Login = ({navigation}: LoginProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
-  const {t} = useTranslation();
+  const {t} = useTranslation(); 
 
   const {handleGoogleSignup} = useGoogleSignIn();
   const {handleFacebookLogin} = useFacebookSignIn();
@@ -66,8 +64,6 @@ const Login = ({navigation}: LoginProps) => {
     };
     checkLoginStatus();
   }, [navigation]);
-
- 
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({...prev, [field]: value}));

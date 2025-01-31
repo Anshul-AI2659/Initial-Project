@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   View,
@@ -5,18 +6,22 @@ import {
   Image,
   Text,
   ImageSourcePropType,
+  Modal,
+  FlatList,
+  SafeAreaView,
+  TextInput as RNTextInput,
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
-import {CountryPicker} from 'react-native-country-codes-picker';
 import {Styles} from './styles';
+import {TextInput} from 'react-native-paper';
 import {validatePhoneNumber} from '../../utils/validations';
 import {useThemeColors} from '../../utils/theme';
-import {Icons} from '../../assets';
+import {countries} from '../../assets/countries';
 
 interface Country {
+  flag: any;
   code: string;
   name: string;
-  callingCode: string;
+  calling_code: string;
 }
 
 interface CustomMobileInputBoxProps {
@@ -25,7 +30,7 @@ interface CustomMobileInputBoxProps {
   label: string;
   phoneNumber: string;
   setPhoneNumber: (text: string) => void;
-  onSelect?: (country:Country) => void;
+  onSelect?: (country: Country) => void;
   setPickerVisible?: boolean;
   Icon: ImageSourcePropType;
   error: boolean;
@@ -34,7 +39,6 @@ interface CustomMobileInputBoxProps {
 }
 
 const CustomMobileInputBox = ({
-  callingCode,
   label,
   phoneNumber,
   setPhoneNumber,
@@ -46,11 +50,16 @@ const CustomMobileInputBox = ({
   const theme = useThemeColors();
   const styles = Styles(theme);
 
-  const [show, setShow] = useState(false);
-  const [selectedCountryCode, setSelectedCountryCode] = useState(
-    callingCode || '',
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(
+    countries.countries[0],
   );
-  const [selectedFlag, setSelectedFlag] = useState('');
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filterCountries = countries.countries.filter(country =>
+    country.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   const handlePhoneNumberChange = (text: string) => {
     setPhoneNumber(text);
@@ -61,6 +70,11 @@ const CustomMobileInputBox = ({
     } else {
       setError(true);
     }
+  };
+
+  const handleSelectCountry = (country: Country) => {
+    setSelectedCountry(country);
+    setShowModal(false);
   };
 
   return (
@@ -77,14 +91,11 @@ const CustomMobileInputBox = ({
         <TouchableOpacity
           style={styles.countryCodeButton}
           activeOpacity={1}
-          onPress={() => setShow(true)}>
-          {selectedFlag ? (
-            <Text style={styles.flagStyle}>{selectedFlag}</Text>
-          ) : (
-            <Text style={styles.flagStyle}>🇮🇳</Text>
-          )}
-
-          <Text style={styles.countryCodeText}>{selectedCountryCode}</Text>
+          onPress={() => setShowModal(true)}>
+          <Text style={styles.flagStyle}>{selectedCountry.flag}</Text>
+          <Text style={styles.countryCodeText}>
+            {selectedCountry.calling_code}
+          </Text>
         </TouchableOpacity>
 
         <TextInput
@@ -106,30 +117,45 @@ const CustomMobileInputBox = ({
             },
           }}
         />
-        <CountryPicker
-          show={show}
-          pickerButtonOnPress={item => {
-            setSelectedCountryCode(item.dial_code);
-            setSelectedFlag(item.flag);
-            setShow(false);
-          }}
-          popularCountries={['en', 'ua', 'pl']}
-          ListHeaderComponent={() => (
-            <View style={styles.modalHeader}>
-              <TouchableOpacity
-                onPress={() => {
-                  setShow(false);
-                }}>
-                <Image source={Icons.close} style={styles.backImg} />
-              </TouchableOpacity>
-              <Text style={styles.modalText}>Select Country</Text>
-            </View>
-          )}
-          lang={''}
-        />
       </View>
 
       {error && <Text style={styles.errorText}>{errorText}</Text>}
+
+      <Modal visible={showModal} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.modalText}>Select Country</Text>
+          </View>
+            <RNTextInput
+              style={styles.searchInput}
+              placeholder="Search country..."
+              value={searchQuery}
+              onChangeText={text => {
+                setSearchQuery(text);
+                filterCountries;
+              }}
+            />
+          <FlatList
+            data={filterCountries}
+            keyExtractor={item => item.name}
+            renderItem={({item}: {item: any}) => (
+              <TouchableOpacity
+                style={styles.countryButton}
+                onPress={() => handleSelectCountry(item)}>
+                <Text style={styles.countryText}>{item.flag}</Text>
+                <Text style={styles.countryName}>
+                  {item.name} ({item.calling_code})
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setShowModal(false)}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </Modal>
     </>
   );
 };

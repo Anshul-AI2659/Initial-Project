@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { styles } from './styles';
+import {styles} from './styles';
 
 interface LanguageItem {
   code: string;
@@ -40,7 +40,7 @@ const LanguageModal = ({
       onRequestClose={toggleModal}>
       <View style={[styles.modalContainer]}>
         <TouchableWithoutFeedback onPress={toggleModal}>
-          <View style={styles.subContainer}></View>
+          <View style={styles.subContainer} />
         </TouchableWithoutFeedback>
 
         <View style={[styles.modalContent]}>

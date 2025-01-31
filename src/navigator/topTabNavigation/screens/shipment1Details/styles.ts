@@ -33,7 +33,7 @@ export const Styles = (theme: Theme) =>
       alignSelf: 'center',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: vh(14),
+      paddingBottom:10,
     },
     disabledButton: {
       width: '85%',

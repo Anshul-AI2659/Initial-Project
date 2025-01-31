@@ -19,7 +19,7 @@ import {validateField} from '../../../../utils/validations';
 import {Styles} from './styles';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {TopTabParamList} from '../../../../utils/types';
-import { ScreenNames } from '../../../../utils/screenNames';
+import {ScreenNames} from '../../../../utils/screenNames';
 import CustomButton from '../../../../components/customButton';
 
 type Option = 'high' | 'low' | 'very high' | 'very low';
@@ -31,7 +31,6 @@ interface Shipment1DetailsProps {
 const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
-  const {t} = useTranslation();
   const [shipmentNumber, setShipmentNumber] = useState('');
   const [shipmentNumberError, setShipmentNumberError] = useState(false);
 
@@ -259,10 +258,10 @@ const Shipment1Details = ({navigation}: Shipment1DetailsProps) => {
           </Modal>
           <View style={styles.footer}>
             <CustomButton
-                buttonText={'Next'}
-                onPress={handleContinue}
-                isButtonDisabled={isButtonDisabled}
-              />
+              buttonText={'Next'}
+              onPress={handleContinue}
+              isButtonDisabled={isButtonDisabled}
+            />
           </View>
         </SafeAreaView>
       </TouchableWithoutFeedback>

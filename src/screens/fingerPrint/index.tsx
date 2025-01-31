@@ -1,41 +1,52 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useEffect, useState} from 'react';
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import ReactNativeBiometrics from 'react-native-biometrics';
-import { StackParamList } from '../../utils/types';
-import { Colors } from '../../utils/colors';
+import {StackParamList} from '../../utils/types';
+import {Colors} from '../../utils/colors';
 
 interface ForgotPasswordProps {
   onClose?: StackNavigationProp<StackParamList>;
   navigation: StackNavigationProp<StackParamList>;
 }
 
-const Fingerprint= ({navigation}:ForgotPasswordProps) => {
+const Fingerprint = ({navigation}: ForgotPasswordProps) => {
   const [biometricModalVisible, setBiometricModalVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-
+  
   useEffect(() => {
-    setIsMounted(true); 
-    return () => setIsMounted(false); 
+    setIsMounted(true);
+    return () => setIsMounted(false);
   }, []);
 
-const handleBiometricLogin = async () => {
+  const handleBiometricLogin = async () => {
     const rnBiometrics = new ReactNativeBiometrics();
-    const { available, biometryType } = await rnBiometrics.isSensorAvailable();
-  
-    console.log("Biometric Available: ", available);
-    console.log("Biometry Type: ", biometryType);
-  
+    const {available, biometryType} = await rnBiometrics.isSensorAvailable();
+
+    console.log('Biometric Available: ', available);
+    console.log('Biometry Type: ', biometryType);
+
     if (available) {
       if (biometryType) {
         setBiometricModalVisible(true);
-  
-        rnBiometrics.simplePrompt({ promptMessage: 'Confirm your fingerprint to login' })
+
+        rnBiometrics
+          .simplePrompt({promptMessage: 'Confirm your fingerprint to login'})
           .then(resultObject => {
-            const { success } = resultObject;
-  
+            const {success} = resultObject;
+
             if (success) {
-              Alert.alert('Authentication successful', 'You are now logged in.');
+              Alert.alert(
+                'Authentication successful',
+                'You are now logged in.',
+              );
               setBiometricModalVisible(false);
               navigation.navigate('BottomNavigation');
             } else {
@@ -43,30 +54,39 @@ const handleBiometricLogin = async () => {
             }
           })
           .catch(() => {
-            Alert.alert('Biometric prompt failed', 'Authentication canceled or unavailable.');
+            Alert.alert(
+              'Biometric prompt failed',
+              'Authentication canceled or unavailable.',
+            );
             setBiometricModalVisible(false);
           });
       } else {
-        Alert.alert('Biometric Authentication', 'Biometric authentication not supported on this device.');
+        Alert.alert(
+          'Biometric Authentication',
+          'Biometric authentication not supported on this device.',
+        );
       }
     } else {
-      Alert.alert('Biometric Authentication', 'Biometric authentication not available.');
+      Alert.alert(
+        'Biometric Authentication',
+        'Biometric authentication not available.',
+      );
     }
   };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login with Fingerprint</Text>
-      <TouchableOpacity style={styles.loginButton} onPress={handleBiometricLogin}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={handleBiometricLogin}>
         <Text style={styles.loginButtonText}>Login with Fingerprint</Text>
       </TouchableOpacity>
 
       <Modal
         visible={biometricModalVisible}
         transparent={true}
-        onRequestClose={() => setBiometricModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-        </View>
+        onRequestClose={() => setBiometricModalVisible(false)}>
+        <View style={styles.modalContainer}></View>
       </Modal>
     </View>
   );

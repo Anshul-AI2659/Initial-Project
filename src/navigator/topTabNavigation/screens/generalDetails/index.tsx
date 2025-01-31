@@ -99,7 +99,6 @@ const GeneralDetails = ({navigation}: GeneralDetailsProps) => {
         />
       </View>
       <View style={styles.footer}>
-       
         <CustomButton buttonText={'Next'} onPress={handleContinue} />
       </View>
     </SafeAreaView>

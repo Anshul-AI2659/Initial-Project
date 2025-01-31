@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import {useEffect} from 'react';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { WEB_CLIENT_ID } from '@env';
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {WEB_CLIENT_ID} from '@env';
+import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 
 type RootStackParamList = {
   BottomNavigation: undefined;
@@ -14,14 +17,14 @@ const useGoogleSignIn = () => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: WEB_CLIENT_ID, 
+      webClientId: WEB_CLIENT_ID,
       offlineAccess: false,
     });
   }, []);
 
   const handleGoogleSignup = async () => {
     try {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
       const response = await GoogleSignin.signIn();
       console.log('12345678-->', response);
       const idToken = response?.data?.idToken;
@@ -48,7 +51,7 @@ const useGoogleSignIn = () => {
     }
   };
 
-  return { handleGoogleSignup };
+  return {handleGoogleSignup};
 };
 
 export default useGoogleSignIn;
@@ -84,7 +87,7 @@ const useFacebookSignIn = () => {
     }
   };
 
-  return { handleFacebookLogin };
+  return {handleFacebookLogin};
 };
 
-export {useFacebookSignIn,useGoogleSignIn};
+export {useFacebookSignIn, useGoogleSignIn};

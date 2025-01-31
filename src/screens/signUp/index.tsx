@@ -25,7 +25,7 @@ import {
 import {Styles} from './styles';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../../utils/types';
-import { ScreenNames } from '../../utils/screenNames';
+import {ScreenNames} from '../../utils/screenNames';
 
 interface SignUpProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -61,11 +61,9 @@ const SignUp = ({navigation}: SignUpProps) => {
     isConfirmPasswordVisible: false,
   });
 
-  // Handlers for input changes
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({...prev, [field]: value}));
 
-    // Validate fields dynamically
     switch (field) {
       case 'firstName':
         setErrors(prev => ({
@@ -103,7 +101,6 @@ const SignUp = ({navigation}: SignUpProps) => {
     }
   };
 
-  // Toggle password visibility
   const toggleVisibility = (field: string) => {
     setVisibility(prev => ({
       ...prev,
@@ -111,19 +108,16 @@ const SignUp = ({navigation}: SignUpProps) => {
     }));
   };
 
-  // Handle date change
   const handleDateChange = (date: Date | undefined) => {
     setFormData(prev => ({...prev, selectedDate: date}));
   };
 
-  // Handle next button press
   const handleNext = () => {
     if (!errors.phoneError) {
       navigation.navigate(ScreenNames.VerifyOtp);
     }
   };
 
-  // Check if the button should be disabled
   const isButtonDisabled =
     formData.phoneNumber.length < 5 ||
     errors.firstNameError ||
@@ -139,7 +133,9 @@ const SignUp = ({navigation}: SignUpProps) => {
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <SafeAreaView style={styles.mainContainer}>
-          <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={styles.scrollView}
+            showsVerticalScrollIndicator={false}>
             <StatusBar
               backgroundColor={'transparent'}
               barStyle={'dark-content'}

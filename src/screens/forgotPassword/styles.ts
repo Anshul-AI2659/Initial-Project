@@ -25,7 +25,7 @@ export const Styles = (theme: Theme) =>
       height: vw(40),
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.textColor,
+      backgroundColor: Colors.border,
       borderRadius: 50,
     },
     Left: {

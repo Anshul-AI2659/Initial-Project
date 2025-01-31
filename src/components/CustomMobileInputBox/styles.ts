@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
-import { size } from '../../utils/size';
-import { Colors } from '../../utils/colors';
+import {size} from '../../utils/size';
+import {Colors} from '../../utils/colors';
 type Theme = {
   backgroundColor: string;
   textColor: string;
@@ -42,8 +42,8 @@ export const Styles = (theme: Theme) =>
     },
     phoneInputMobile: {
       width: '59%',
-      borderBottomRightRadius:10,
-      borderTopRightRadius:10,
+      borderBottomRightRadius: 10,
+      borderTopRightRadius: 10,
       fontSize: size.inputLabel,
       backgroundColor: theme.backgroundColor,
       overflow: 'hidden',
@@ -57,32 +57,83 @@ export const Styles = (theme: Theme) =>
       marginTop: vh(4),
       textAlign: 'left',
     },
-    modalHeader: {
-      flexDirection: 'row',
-      marginTop: vh(50),
-      marginBottom: vh(10),
-      paddingHorizontal:vw(10),
-    },
-    modalText: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginLeft:vw(20),
-    },
-    
+
     flagStyle: {
-      fontSize: 24,
+      fontSize: 18,
       color: theme.textColor,
       marginHorizontal: vw(5),
     },
     codePicker: {
-      backgroundColor:Colors.White,
+      backgroundColor: Colors.White,
       borderRadius: 10,
-      padding: 15,
+      padding: vw(15),
       width: '90%',
     },
-    backImg:{
-      width:vw(22),
-      height:vw(22),
-      resizeMode:'contain',
+    backImg: {
+      width: vw(22),
+      height: vw(22),
+      resizeMode: 'contain',
+    },
+    flag: {
+      fontSize: 20,
+      marginRight: 5,
+    },
+    callingCode: {
+      fontSize: 16,
+      color: '#000',
+    },
+    modalContainer: {
+      flex: 1,
+      paddingHorizontal:vw(20),
+      backgroundColor: 'white',
+      justifyContent: 'center',
+    },
+    searchInput: {
+      height: vh(40),
+      paddingHorizontal: vw(10),
+      marginHorizontal:vw(20),
+      borderColor: 'gray',
+      borderWidth: 1,
+      borderRadius: 15,
+      backgroundColor: '#F2F2F2',
+    },
+    countryButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: vh(20),
+      paddingHorizontal:vw(20),
+      borderBottomColor: '#E0E0E0',
+      borderBottomWidth: 1,
+    },
+    countryText: {
+      fontSize: 18,
+      marginRight: vw(10),
+    },
+    countryName: {
+      fontSize: 16,
+      color: '#333333',
+    },
+    closeButton: {
+      marginTop: vh(20),
+      marginHorizontal:vw(20),
+      backgroundColor: Colors.primary,
+      padding: vw(10),
+      borderRadius: 8,
+      alignItems: 'center',
+    },
+    closeButtonText: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    modalHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: vh(20),
+      paddingHorizontal:vw(20),
+    },
+    modalText: {
+      fontSize: 18,
+      fontWeight: 'bold',
     },
   });

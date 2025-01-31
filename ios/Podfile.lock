@@ -1376,6 +1376,8 @@ PODS:
     - Yoga
   - react-native-maps (1.20.1):
     - React-Core
+  - react-native-netinfo (11.4.1):
+    - React-Core
   - react-native-pager-view (6.6.1):
     - DoubleConversion
     - glog
@@ -2048,6 +2050,7 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -2195,6 +2198,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-restart:
@@ -2337,6 +2342,7 @@ SPEC CHECKSUMS:
   react-native-geolocation: a2778ea7c815d1f8d3bccaa6fc386b66a55fb469
   react-native-image-picker: 8d06080ecb33269e77e0728f1fd8a16f2f5aad07
   react-native-maps: ee1e65647460c3d41e778071be5eda10e3da6225
+  react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-pager-view: d43f2637dd5952c1486b9baf2d8f9bb3dd83c46f
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: e0625eb857b816dff4aca46e125759cb0927e225

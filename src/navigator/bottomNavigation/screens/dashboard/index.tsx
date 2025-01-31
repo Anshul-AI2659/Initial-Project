@@ -3,7 +3,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 import React from 'react';
 import {Icons, Images} from '../../../../assets';
@@ -35,7 +34,7 @@ const Dashboard = ({navigation}: dashboardProps) => {
          headerStyle={styles.header}
         headerTextStyle={styles.headerText}
         icon={Icons.settings}
-        onPress={() => navigation.navigate(ScreenNames.Settings)}
+        onPress={() => navigation.navigate(ScreenNames.Settings)} // This will be resolved in future.
         showRightIcon={true}
       />
       <Image source={Images.dashboardImage} style={styles.mainImage} />
@@ -62,7 +61,7 @@ const Styles = (theme: Theme) =>
       backgroundColor: theme.backgroundColor,
     },
     header:{
-      flex:0.85,
+      height:'13.5%',
       width:'100%',
       flexDirection: 'row',
       alignItems:'flex-end',
@@ -89,7 +88,6 @@ const Styles = (theme: Theme) =>
     addContainer: {
       alignItems: 'flex-end',
       paddingHorizontal: vw(15),
-      paddingTop: Platform.OS === 'android' ? vh(40) : vh(15),
       backgroundColor: theme.backgroundColor,
     },
     addButton: {
