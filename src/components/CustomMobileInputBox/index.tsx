@@ -18,7 +18,7 @@ import {useThemeColors} from '../../utils/theme';
 import {countries} from '../../assets/countries';
 
 interface Country {
-  flag: any;
+  flag: string;
   code: string;
   name: string;
   calling_code: string;
@@ -126,15 +126,15 @@ const CustomMobileInputBox = ({
           <View style={styles.modalHeader}>
             <Text style={styles.modalText}>Select Country</Text>
           </View>
-            <RNTextInput
-              style={styles.searchInput}
-              placeholder="Search country..."
-              value={searchQuery}
-              onChangeText={text => {
-                setSearchQuery(text);
-                filterCountries;
-              }}
-            />
+          <RNTextInput
+            style={styles.searchInput}
+            placeholder="Search country..."
+            value={searchQuery}
+            onChangeText={text => {
+              setSearchQuery(text);
+              filterCountries;
+            }}
+          />
           <FlatList
             data={filterCountries}
             keyExtractor={item => item.name}

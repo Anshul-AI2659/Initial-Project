@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useRef, useState} from 'react';
-import {useTranslation} from 'react-i18next';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Alert,
   Dimensions,
@@ -18,14 +18,14 @@ import {
 } from 'react-native-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import RNRestart from 'react-native-restart';
-import {Icons} from '../../assets';
+import { Icons } from '../../assets';
+import Header from '../../components/customHeader';
 import LanguageModal from '../../components/LanguageModal';
 import i18n from '../../utils/locales/i18n';
-import {useThemeColors} from '../../utils/theme';
-import {StackParamList} from '../../utils/types';
-import {Styles} from './styles';
-import {ScreenNames} from '../../utils/screenNames';
-import Header from '../../components/customHeader';
+import { ScreenNames } from '../../utils/screenNames';
+import { useThemeColors } from '../../utils/theme';
+import { StackParamList } from '../../utils/types';
+import { Styles } from './styles';
 
 interface SettingsProps {
   navigation: StackNavigationProp<StackParamList>;
@@ -119,7 +119,7 @@ const Settings = ({navigation}: SettingsProps) => {
       {mediaType: 'photo', quality: 1},
       (response: ImagePickerResponse) => {
         if (response.assets && response.assets[0] && response.assets[0].uri) {
-          setImageUri(response.assets[0].uri); // Only set if uri is defined
+          setImageUri(response.assets[0].uri);
         }
       },
     );

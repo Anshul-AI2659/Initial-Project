@@ -1,21 +1,21 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useEffect, useState} from 'react';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
   SafeAreaView,
-  StatusBar,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Icons} from '../../assets';
+import { Icons } from '../../assets';
 import CustomButton from '../../components/customButton';
 import OTPInput from '../../components/customOtp';
-import {useThemeColors} from '../../utils/theme';
-import {StackParamList} from '../../utils/types';
-import {Styles} from './styles';
-import {ScreenNames} from '../../utils/screenNames';
+import CustomStatusBar from '../../components/statusBar';
+import { ScreenNames } from '../../utils/screenNames';
+import { useThemeColors } from '../../utils/theme';
+import { StackParamList } from '../../utils/types';
+import { Styles } from './styles';
 
 interface SignUpVerifyProps {
   navigation: StackNavigationProp<StackParamList>;
@@ -72,7 +72,9 @@ const SignUpVerify = ({navigation}: SignUpVerifyProps) => {
   };
 
   const handleResend = () => {
-    if (timer > 0) {return;}
+    if (timer > 0) {
+      return;
+    }
     setTimer(30);
     Alert.alert(
       'Code Resent',
@@ -82,11 +84,7 @@ const SignUpVerify = ({navigation}: SignUpVerifyProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        backgroundColor={'transparent'}
-        barStyle={'dark-content'}
-        translucent={true}
-      />
+      <CustomStatusBar />
       <View style={styles.subContainer}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Image source={Icons.back} style={styles.Left} />

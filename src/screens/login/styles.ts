@@ -1,7 +1,7 @@
-import {StyleSheet,Platform} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {vw, vh} from '../../utils/dimension';
 import {Colors} from '../../utils/colors';
-import { size } from '../../utils/size';
+import {size} from '../../utils/size';
 
 type Theme = {
   backgroundColor: string;
@@ -13,6 +13,9 @@ export const Styles = (theme: Theme) =>
     mainContainer: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
+    },
+    scrollView: {
+      flex: 1,
     },
     subContainer: {
       paddingVertical: vh(35),
@@ -107,28 +110,28 @@ export const Styles = (theme: Theme) =>
     },
     googleView: {
       width: '85%',
-      borderWidth:1,
-      borderColor:Colors.border,
+      borderWidth: 1,
+      borderColor: Colors.border,
       flexDirection: 'row',
-      paddingHorizontal:vw(60),
-      alignContent:'center',
+      paddingHorizontal: vw(60),
+      alignContent: 'center',
       backgroundColor: theme.backgroundColor,
       borderRadius: vh(10),
       marginTop: vh(15),
-      paddingVertical:vh(10),
+      paddingVertical: vh(10),
     },
-    googleText:{
+    googleText: {
       width: '85%',
       fontSize: size.button,
-      fontWeight:'400',
+      fontWeight: '400',
       marginLeft: vw(12),
-      color:theme.textColor,
+      color: theme.textColor,
     },
     facebookView: {
       width: '85%',
       elevation: vh(10),
-      paddingHorizontal:vw(50),
-      alignContent:'center',
+      paddingHorizontal: vw(50),
+      alignContent: 'center',
       flexDirection: 'row',
       shadowColor: '#C3C3C3',
       shadowOpacity: 5,
@@ -141,8 +144,8 @@ export const Styles = (theme: Theme) =>
     facebookText: {
       width: '85%',
       fontSize: size.button,
-      fontWeight:'400',
+      fontWeight: '400',
       marginLeft: vw(12),
-      color:Colors.White,
+      color: Colors.White,
     },
   });

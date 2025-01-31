@@ -21,6 +21,7 @@ import { useThemeColors } from '../../utils/theme';
 import { StackParamList } from '../../utils/types';
 import { validateEmail, validatePassword } from '../../utils/validations';
 import { Styles } from './styles';
+import CustomStatusBar from '../../components/statusBar';
 
 interface LoginProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -30,7 +31,7 @@ interface LoginProps {
 const Login = ({navigation}: LoginProps) => {
   const theme = useThemeColors();
   const styles = Styles(theme);
-  const {t} = useTranslation(); 
+  const {t} = useTranslation();
 
   const {handleGoogleSignup} = useGoogleSignIn();
   const {handleFacebookLogin} = useFacebookSignIn();
@@ -113,12 +114,8 @@ const Login = ({navigation}: LoginProps) => {
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <SafeAreaView style={styles.mainContainer}>
-          <ScrollView style={{flex: 1}}>
-            <StatusBar
-              backgroundColor={'transparent'}
-              barStyle={'dark-content'}
-              translucent={true}
-            />
+          <ScrollView style={styles.scrollView}>
+            <CustomStatusBar/>
             <View style={styles.subContainer}>
               <View style={styles.contentHeader}>
                 <Text style={styles.headerText}>{t('login.title')}</Text>
@@ -133,14 +130,14 @@ const Login = ({navigation}: LoginProps) => {
                 maxLength={20}
                 keyboardType={'email-address'}
                 onChangeText={text => handleInputChange('email', text)}
-                Icon={Icons.email}
+                leftIcon={Icons.email}
                 Error={errors.emailError}
                 errorText={t('signUp.error.email')}
               />
               <CustomInputBox
                 name={formData.password}
                 label={t('login.passwordLabel')}
-                Icon={Icons.lock}
+                leftIcon={Icons.lock}
                 Error={errors.passwordError}
                 errorText={t('signUp.error.password')}
                 maxLength={20}

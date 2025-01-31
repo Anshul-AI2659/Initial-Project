@@ -14,6 +14,9 @@ export const Styles = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.backgroundColor,
     },
+    scrollView:{
+      flex:1,
+    },
     subContainer: {
       paddingVertical: vh(25),
       paddingHorizontal: vw(20),

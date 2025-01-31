@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Keyboard,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  View,
 } from 'react-native';
-import { Icons } from '../../assets';
+import {Icons} from '../../assets';
 import CustomMobileInputBox from '../../components/CustomMobileInputBox';
 import CustomButton from '../../components/customButton';
-import { useThemeColors } from '../../utils/theme';
-import { Styles } from './styles';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParamList } from '../../utils/types';
-import { ScreenNames } from '../../utils/screenNames';
+import {useThemeColors} from '../../utils/theme';
+import {Styles} from './styles';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {StackParamList} from '../../utils/types';
+import {ScreenNames} from '../../utils/screenNames';
+import CustomStatusBar from '../../components/statusBar';
 
 interface ForgotPasswordProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -30,7 +30,7 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
   const styles = Styles(theme);
   const {t} = useTranslation();
 
-  const [callingCode, setCallingCode] = useState('+91');
+  const [callingCode] = useState('+91');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState(false);
 
@@ -49,12 +49,8 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
     <>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <SafeAreaView style={styles.mainContainer}>
-          <ScrollView style={{flex: 1}}>
-            <StatusBar
-              backgroundColor={'transparent'}
-              barStyle={'dark-content'}
-              translucent={true}
-            />
+          <ScrollView style={styles.scrollView}>
+            <CustomStatusBar />
             <View style={styles.subContainer}>
               <TouchableOpacity style={styles.backButton} onPress={handleBack}>
                 <Image source={Icons.back} style={styles.Left} />
@@ -77,9 +73,7 @@ const ForgotPassword = ({navigation}: ForgotPasswordProps) => {
                 Icon={Icons.telephone}
                 error={error}
                 setError={setError}
-                errorText={
-                  t('signUp.error.mobile')
-                }
+                errorText={t('signUp.error.mobile')}
               />
 
               <CustomButton

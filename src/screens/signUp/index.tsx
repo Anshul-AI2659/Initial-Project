@@ -1,9 +1,9 @@
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Keyboard,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -15,7 +15,10 @@ import CustomButton from '../../components/customButton';
 import DOBPicker from '../../components/customDOB';
 import CustomInputBox from '../../components/customInput';
 import CustomMobileInputBox from '../../components/CustomMobileInputBox';
+import CustomStatusBar from '../../components/statusBar';
+import {ScreenNames} from '../../utils/screenNames';
 import {useThemeColors} from '../../utils/theme';
+import {StackParamList} from '../../utils/types';
 import {
   validateEmail,
   validateName,
@@ -23,9 +26,6 @@ import {
   validatePhoneNumber,
 } from '../../utils/validations';
 import {Styles} from './styles';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../utils/types';
-import {ScreenNames} from '../../utils/screenNames';
 
 interface SignUpProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -136,11 +136,7 @@ const SignUp = ({navigation}: SignUpProps) => {
           <ScrollView
             style={styles.scrollView}
             showsVerticalScrollIndicator={false}>
-            <StatusBar
-              backgroundColor={'transparent'}
-              barStyle={'dark-content'}
-              translucent={true}
-            />
+            <CustomStatusBar />
             <View style={styles.subContainer}>
               <View style={styles.contentHeader}>
                 <Text style={styles.headerText}>{t('signUp.title')}</Text>
@@ -152,20 +148,22 @@ const SignUp = ({navigation}: SignUpProps) => {
               <CustomInputBox
                 name={formData.firstName}
                 label={t('signUp.firstNameLabel')}
+                mode={'flat'}
                 maxLength={25}
                 keyboardType={'name-phone-pad'}
                 onChangeText={text => handleInputChange('firstName', text)}
-                Icon={Icons.user}
+                leftIcon={Icons.user}
                 Error={errors.firstNameError}
                 errorText={t('signUp.error.name')}
               />
               <CustomInputBox
                 name={formData.lastName}
                 label={t('signUp.lastNameLabel')}
+                mode={'flat'}
                 maxLength={25}
                 keyboardType="name-phone-pad"
                 onChangeText={text => handleInputChange('lastName', text)}
-                Icon={Icons.user}
+                leftIcon={Icons.user}
                 Error={errors.lastNameError}
                 errorText={t('signUp.error.name')}
               />
@@ -178,17 +176,19 @@ const SignUp = ({navigation}: SignUpProps) => {
               <CustomInputBox
                 name={formData.email}
                 label={t('signUp.emailLabel')}
+                mode={'flat'}
                 maxLength={20}
                 keyboardType={'email-address'}
                 onChangeText={text => handleInputChange('email', text)}
-                Icon={Icons.email}
+                leftIcon={Icons.email}
                 Error={errors.emailError}
                 errorText={t('signUp.error.email')}
               />
               <CustomInputBox
                 name={formData.password}
                 label={t('signUp.passwordLabel')}
-                Icon={Icons.lock}
+                mode={'flat'}
+                leftIcon={Icons.lock}
                 Error={errors.passwordError}
                 errorText={t('signUp.error.password')}
                 maxLength={13}
@@ -203,7 +203,8 @@ const SignUp = ({navigation}: SignUpProps) => {
               <CustomInputBox
                 name={formData.confirmPassword}
                 label={t('signUp.cnfPasswordLabel')}
-                Icon={Icons.lock}
+                mode={'flat'}
+                leftIcon={Icons.lock}
                 Error={errors.confirmPasswordError}
                 errorText={t('signUp.error.confirmPassword')}
                 maxLength={13}

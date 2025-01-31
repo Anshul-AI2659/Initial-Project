@@ -5,13 +5,14 @@ import {Provider} from 'react-redux';
 import {store} from './src/redux/store';
 import StackNavigation from './src/navigator/StackNavigation';
 import './src/utils/locales/i18n';
+import CustomStatusBar from './src/components/statusBar';
 
 const App = () => {
   LogBox.ignoreAllLogs();
   return (
     <Provider store={store}>
       <View style={styles.mainContainer}>
-        <StatusBar barStyle={'default'} translucent={true} />
+        <CustomStatusBar/>
         <StackNavigation />
       </View>
     </Provider>

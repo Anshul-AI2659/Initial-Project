@@ -1,8 +1,7 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
-  View,
-  TouchableOpacity,
   Image,
   Text,
   ImageSourcePropType,
@@ -16,7 +15,8 @@ import {Icons} from '../../assets';
 interface CustomInputProps {
   name: string;
   label: string;
-  Icon: ImageSourcePropType;
+  leftIcon?: ImageSourcePropType;
+  mode?: 'flat' | 'outlined';
   Error?: boolean;
   setName?: (text: string) => void;
   errorText?: string;
@@ -34,10 +34,11 @@ interface CustomInputProps {
 const CustomInput = ({
   name,
   label,
-  Icon,
+  leftIcon,
   Error,
   errorText,
   maxLength,
+  mode,
   keyboardType,
   onChangeText,
   isPassword = false,
@@ -49,47 +50,62 @@ const CustomInput = ({
 
   return (
     <>
-      <View
-        style={[styles.inputContainer, Error ? styles.errorContainer : null]}>
-        <TouchableOpacity activeOpacity={1} style={styles.iconButton}>
+      {/* <View
+        style={[styles.inputContainer, Error ? styles.errorContainer : null]}> */}
+      {/* <TouchableOpacity activeOpacity={1} style={styles.iconButton}>
           <Image
             source={Icon}
             style={[styles.iconStyle, {tintColor: Error ? 'red' : 'grey'}]}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TextInput
-          style={[styles.phoneInput]}
-          label={label}
-          keyboardType={keyboardType}
-          value={name}
-          maxLength={maxLength}
-          secureTextEntry={isPassword && !isPasswordVisible}
-          textColor={theme.textColor}
-          onChangeText={onChangeText}
-          mode="flat"
-          underlineStyle={{
-            display: 'none',
-          }}
-          theme={{
-            colors: {
-              primary: 'gray',
-              placeholder: 'grey',
-              background: 'transparent',
-              disabled: 'transparent',
-            },
-          }}
-          right={
-            isPassword && togglePasswordVisibility ? (
-              <TextInput.Icon
-                icon={isPasswordVisible ? Icons.eye_off : Icons.eye}
-                onPress={togglePasswordVisibility}
-                color={Error ? 'red' : 'grey'}
-              />
-            ) : null
-          }
-        />
-      </View>
+      <TextInput
+        style={[styles.inputContainer, Error ? styles.errorContainer : null]}
+        label={label}
+        keyboardType={keyboardType}
+        value={name}
+        maxLength={maxLength}
+        secureTextEntry={isPassword && !isPasswordVisible}
+        textColor={theme.textColor}
+        onChangeText={onChangeText}
+        mode={mode}
+        underlineStyle={{
+          display: 'none',
+        }}
+        theme={{
+          colors: {
+            primary: 'gray',
+            placeholder: 'grey',
+            background: 'transparent',
+            disabled: 'transparent',
+          },
+        }}
+        left={
+          leftIcon ? (
+            <TextInput.Icon
+              icon={() => (
+                <Image
+                  source={leftIcon}
+                  style={[
+                    styles.iconStyle,
+                    {tintColor: Error ? 'red' : 'grey'},
+                  ]}
+                />
+              )}
+            />
+          ) : null
+        }
+        right={
+          isPassword && togglePasswordVisibility ? (
+            <TextInput.Icon
+              icon={isPasswordVisible ? Icons.eye_off : Icons.eye}
+              onPress={togglePasswordVisibility}
+              color={Error ? 'red' : 'grey'}
+            />
+          ) : null
+        }
+      />
+      {/* </View> */}
       {Error && <Text style={styles.errorText}>{errorText}</Text>}
     </>
   );
