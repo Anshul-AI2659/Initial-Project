@@ -14,6 +14,7 @@ enum ScreenNames {
   PickUp = 'PickUpDetails',
   other = 'OtherDetails',
   theme = 'Theme',
+  chatList = 'ChatList',
 }
 
 export {ScreenNames};

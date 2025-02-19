@@ -1,4 +1,3 @@
-
 const Icons = {
   telephone: require('../assets/icons/telephone.png'),
   back: require('../assets/icons/back.png'),
@@ -30,11 +29,25 @@ const Icons = {
   more: require('../assets/icons/menu.png'),
   settings: require('../assets/icons/settings.png'),
   accountDark: require('../assets/icons/accountDark.png'),
-  right:require('../assets/icons/right-arrow.png'),
+  right: require('../assets/icons/right-arrow.png'),
+  chat: require('../assets/icons/chat.png'),
+  newMsg: require('../assets/icons/newMsg.png'),
+  bottomArrow: require('../assets/icons/bottomArrow.png'),
+  video: require('../assets/icons/video.png'),
+  chatGallery: require('../assets/icons/chatGallery.png'),
+  share: require('../assets/icons/share.png'),
+  mic: require('../assets/icons/mic.png'),
+  emoji1: require('../assets/icons/emoji1.png'),
+  emoji2: require('../assets/icons/emoji2.png'),
+  emoji3: require('../assets/icons/emoji3.png'),
+  emoji4: require('../assets/icons/emoji4.png'),
+  emoji5: require('../assets/icons/emoji5.png'),
+  reply: require('../assets/icons/reply.png'),
+  forward: require('../assets/icons/forward.png'),
 };
 
 const Images = {
   dashboardImage: require('../assets/images/dashboardImage.png'),
-  splash:require('../assets/icons/splash.png'),
+  splash: require('../assets/icons/splash.png'),
 };
 export {Images, Icons};

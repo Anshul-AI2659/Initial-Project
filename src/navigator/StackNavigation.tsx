@@ -10,6 +10,8 @@ import TutorialScreen from '../screens/tutorialScreen';
 import TabNavigator from './topTabNavigation';
 import BottomNavigation from './bottomNavigation';
 import Settings from '../screens/settings';
+import ChatList from '../screens/chatList';
+import Chat from '../screens/chat';
 import Theme from '../screens/theme';
 import {useDispatch} from 'react-redux';
 import {toggleTheme, setTheme} from '../redux/config/ThemeSlice';
@@ -79,6 +81,8 @@ const StackNavigation = () => {
         <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="ChatList" component={ChatList} />
+        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Theme" component={Theme} />
         <Stack.Screen name="Fingerprint" component={Fingerprint} />
 

@@ -1,27 +1,29 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
+  Alert,
   Keyboard,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Icons } from '../../assets';
+import {Icons} from '../../assets';
 import CustomButton from '../../components/customButton';
 import CustomInputBox from '../../components/customInput';
-import useGoogleSignIn, { useFacebookSignIn } from '../../utils/commonFunctions';
-import { ScreenNames } from '../../utils/screenNames';
-import { useThemeColors } from '../../utils/theme';
-import { StackParamList } from '../../utils/types';
-import { validateEmail, validatePassword } from '../../utils/validations';
-import { Styles } from './styles';
+import useGoogleSignIn, {useFacebookSignIn} from '../../utils/commonFunctions';
+import {ScreenNames} from '../../utils/screenNames';
+import {useThemeColors} from '../../utils/theme';
+import {StackParamList} from '../../utils/types';
+import {validateEmail, validatePassword} from '../../utils/validations';
+import {Styles} from './styles';
 import CustomStatusBar from '../../components/statusBar';
+
+import firestore from '@react-native-firebase/firestore';
 
 interface LoginProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -35,6 +37,8 @@ const Login = ({navigation}: LoginProps) => {
 
   const {handleGoogleSignup} = useGoogleSignIn();
   const {handleFacebookLogin} = useFacebookSignIn();
+
+  const [visible, setVisible] = useState(false);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -94,10 +98,39 @@ const Login = ({navigation}: LoginProps) => {
     }));
   };
 
-  const handleLogin = async () => {
+  const loginUser = (email: string) => {
+    setVisible(true);
+    firestore()
+      .collection('users')
+      .where('email', '==', email)
+      .get()
+      .then(res => {
+        setVisible(false);
+        if (res.docs.length > 0) {
+          console.log(JSON.stringify(res.docs[0].data()));
+          handleLogin(
+            res.docs[0].data().name,
+            res.docs[0].data().email,
+            res.docs[0].data().userId,
+          );
+        } else {
+          Alert.alert('User not found');
+        }
+      })
+      .catch(error => {
+        setVisible(false);
+        console.log(error);
+        Alert.alert('User not found');
+      });
+  };
+
+  const handleLogin = async (name: any, email: any, userId: any) => {
     await AsyncStorage.setItem('userToken', 'your_auth_token');
     setIsLoggedIn(true);
     console.log('Login successful');
+    await AsyncStorage.setItem('NAME', name);
+    await AsyncStorage.setItem('EMAIL', email);
+    await AsyncStorage.setItem('USERID', userId);
     navigation.reset({
       index: 0,
       routes: [{name: 'BottomNavigation'}],
@@ -115,7 +148,7 @@ const Login = ({navigation}: LoginProps) => {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <SafeAreaView style={styles.mainContainer}>
           <ScrollView style={styles.scrollView}>
-            <CustomStatusBar/>
+            <CustomStatusBar />
             <View style={styles.subContainer}>
               <View style={styles.contentHeader}>
                 <Text style={styles.headerText}>{t('login.title')}</Text>
@@ -159,7 +192,7 @@ const Login = ({navigation}: LoginProps) => {
 
               <CustomButton
                 buttonText={t('login.signin')}
-                onPress={handleLogin}
+                onPress={() => loginUser(formData.email)}
                 isButtonDisabled={isButtonDisabled}
               />
 

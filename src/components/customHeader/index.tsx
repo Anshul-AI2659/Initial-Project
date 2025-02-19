@@ -15,42 +15,56 @@ import {size} from '../../utils/size';
 
 interface HeaderProps {
   title: string;
-  icon?: ImageSourcePropType;
-  onPress?: () => void; // Optional right icon press handler
-  showRightIcon?: boolean;
+  icon2?: ImageSourcePropType;
+  onIcon2Press?: () => void;
+  showIcon2?: boolean;
   showBackButton?: boolean;
   backButtonIcon?: ImageSourcePropType;
   onBackPress?: () => void;
   headerStyle?: ViewStyle;
   headerTextStyle?: TextStyle;
+  Icon1?: ImageSourcePropType;
+  onIcon1Press?: () => void;
+  showIcon1?: boolean;
 }
 
 const Header = ({
   title,
-  icon,
-  onPress,
+  icon2,
+  onIcon2Press,
   headerStyle,
   headerTextStyle,
-  showRightIcon = false,
+  showIcon2 = false,
   showBackButton = false,
   backButtonIcon,
   onBackPress,
+  Icon1,
+  onIcon1Press,
+  showIcon1 = false,
 }: HeaderProps) => {
   return (
     <View style={headerStyle}>
       {showBackButton && (
         <TouchableOpacity onPress={onBackPress} style={styles.backButton}>
-          <Image source={backButtonIcon} style={styles.leftIcon} />
+          <Image source={backButtonIcon} style={styles.backIcon} />
         </TouchableOpacity>
       )}
 
       <Text style={headerTextStyle}>{title}</Text>
 
-      {showRightIcon && icon && onPress && (
-        <TouchableOpacity onPress={onPress}>
-          <Image source={icon} style={styles.rightIcon} />
-        </TouchableOpacity>
-      )}
+      <View style={styles.rightIconsContainer}>
+        {showIcon1 && Icon1 && onIcon1Press && (
+          <TouchableOpacity onPress={onIcon1Press} style={styles.icon1Button}>
+            <Image source={Icon1} style={styles.Icon1} />
+          </TouchableOpacity>
+        )}
+
+        {showIcon2 && icon2 && onIcon2Press && (
+          <TouchableOpacity onPress={onIcon2Press}>
+            <Image source={icon2} style={styles.Icon2} />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -71,23 +85,30 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: Colors.White,
   },
-  rightIcon: {
+  rightIconsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  icon1Button: {
+    marginRight: 15,
+  },
+  Icon1: {
+    width: vw(24),
+    height: vw(24),
+    resizeMode: 'contain',
+    tintColor: Colors.White,
+  },
+  Icon2: {
     width: vw(24),
     height: vw(24),
     resizeMode: 'contain',
   },
-  //   backButton: {
-  //     marginRight: 10, // Adjust spacing as needed
-  //   },
-  //   leftIcon: {
-  //     width: 24,
-  //     height: 24,
-  //   },
   backButton: {
     paddingHorizontal: vw(10),
     marginRight: vw(10),
   },
-  leftIcon: {
+  backIcon: {
     width: vw(20),
     height: vw(20),
     resizeMode: 'contain',

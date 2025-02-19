@@ -1,0 +1,17 @@
+0 verbose cli /opt/homebrew/Cellar/node/23.7.0/bin/node /opt/homebrew/bin/npm
+1 info using npm@10.9.2
+2 info using node@v23.7.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/user/Desktop/Initial-Project/.npmrc
+5 silly config load:file:/Users/user/.npmrc
+6 silly config load:file:/opt/homebrew/etc/npmrc
+7 verbose title npm
+8 verbose argv "--cache" "clean"
+9 verbose logfile logs-max:10 dir:/Users/user/Desktop/Initial-Project/clean/_logs/2025-02-14T05_05_58_011Z-
+10 verbose logfile /Users/user/Desktop/Initial-Project/clean/_logs/2025-02-14T05_05_58_011Z-debug-0.log
+11 verbose cwd /Users/user/Desktop/Initial-Project
+12 verbose os Darwin 24.1.0
+13 verbose node v23.7.0
+14 verbose npm  v10.9.2
+15 verbose exit 1
+16 verbose code 1

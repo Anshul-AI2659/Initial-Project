@@ -26,6 +26,8 @@ import {
   validatePhoneNumber,
 } from '../../utils/validations';
 import {Styles} from './styles';
+import firestore from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
 
 interface SignUpProps {
   onClose?: StackNavigationProp<StackParamList>;
@@ -60,6 +62,28 @@ const SignUp = ({navigation}: SignUpProps) => {
     isPasswordVisible: false,
     isConfirmPasswordVisible: false,
   });
+
+  const registerUser = () => {
+    const {firstName, lastName, email, phoneNumber, password} = formData;
+    const userId = uuid.v4();
+    firestore()
+      .collection('users')
+      .doc(userId)
+      .set({
+        name: `${firstName} ${lastName}`,
+        email: email,
+        password: password,
+        mobile: phoneNumber,
+        userId: userId,
+      })
+      .then(() => {
+        console.log('user created ');
+        navigation.navigate(ScreenNames.VerifyOtp);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({...prev, [field]: value}));
@@ -112,11 +136,11 @@ const SignUp = ({navigation}: SignUpProps) => {
     setFormData(prev => ({...prev, selectedDate: date}));
   };
 
-  const handleNext = () => {
-    if (!errors.phoneError) {
-      navigation.navigate(ScreenNames.VerifyOtp);
-    }
-  };
+  // const handleNext = () => {
+  //   if (!errors.phoneError) {
+  //     navigation.navigate(ScreenNames.VerifyOtp);
+  //   }
+  // };
 
   const isButtonDisabled =
     formData.phoneNumber.length < 5 ||
@@ -233,7 +257,7 @@ const SignUp = ({navigation}: SignUpProps) => {
 
               <CustomButton
                 buttonText={t('signUp.signUp')}
-                onPress={handleNext}
+                onPress={registerUser}
                 isButtonDisabled={isButtonDisabled}
               />
             </View>

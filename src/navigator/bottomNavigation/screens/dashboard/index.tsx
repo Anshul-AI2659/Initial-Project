@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Icons, Images} from '../../../../assets';
 import {SCREEN_WIDTH, SCREEN_HEIGHT, vw, vh} from '../../../../utils/dimension';
@@ -27,15 +22,24 @@ const Dashboard = ({navigation}: dashboardProps) => {
   const handleAdd = () => {
     navigation.navigate('TabNavigator');
   };
+  const handleIcon1Press = () => {
+    navigation.navigate(ScreenNames.chatList);
+  };
+  const handleIcon2Press = () => {
+    navigation.navigate(ScreenNames.Settings);
+  };
   return (
     <View style={styles.mainContainer}>
       <Header
         title={t('dashboard.dashboard')}
-         headerStyle={styles.header}
+        headerStyle={styles.header}
         headerTextStyle={styles.headerText}
-        icon={Icons.settings}
-        onPress={() => navigation.navigate(ScreenNames.Settings)} // This will be resolved in future.
-        showRightIcon={true}
+        icon2={Icons.settings}
+        onIcon2Press={handleIcon2Press} // This will be resolved in future.
+        showIcon2={true}
+        showIcon1={true}
+        Icon1={Icons.chat}
+        onIcon1Press={handleIcon1Press}
       />
       <Image source={Images.dashboardImage} style={styles.mainImage} />
       <View style={styles.addContainer}>
@@ -60,12 +64,12 @@ const Styles = (theme: Theme) =>
       flex: 1,
       backgroundColor: theme.backgroundColor,
     },
-    header:{
-      height:'13.5%',
-      width:'100%',
+    header: {
+      height: '13.5%',
+      width: '100%',
       flexDirection: 'row',
-      alignItems:'flex-end',
-      justifyContent:'space-between',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
       paddingHorizontal: vw(15),
       paddingBottom: vh(20),
       backgroundColor: Colors.primary,
