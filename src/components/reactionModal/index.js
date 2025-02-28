@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -8,7 +9,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import { Icons } from '../../assets';
+import {Icons} from '../../assets';
 
 const ChatModalLongPress = ({
   visible,
@@ -72,11 +73,8 @@ const ChatModalLongPress = ({
                   onClose();
                 }}>
                 <Image source={Icons.delete} style={styles.buttonIcon} />
-                <Text style={styles.modalButtonTextDelete}>
-                  {'Delete'}
-                </Text>
+                <Text style={styles.modalButtonTextDelete}>{'Delete'}</Text>
               </TouchableOpacity>
-
             </View>
           </View>
         </View>

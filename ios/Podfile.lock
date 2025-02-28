@@ -1145,6 +1145,48 @@ PODS:
     - abseil/meta/type_traits
     - abseil/xcprivacy
   - abseil/xcprivacy (1.20240116.2)
+  - AgoraInfra_iOS (1.2.13)
+  - AgoraIrisRTC_iOS (4.5.0-build.2)
+  - AgoraRtcEngine_iOS (4.5.0):
+    - AgoraRtcEngine_iOS/AIAEC (= 4.5.0)
+    - AgoraRtcEngine_iOS/AIAECLL (= 4.5.0)
+    - AgoraRtcEngine_iOS/AINS (= 4.5.0)
+    - AgoraRtcEngine_iOS/AINSLL (= 4.5.0)
+    - AgoraRtcEngine_iOS/AudioBeauty (= 4.5.0)
+    - AgoraRtcEngine_iOS/ClearVision (= 4.5.0)
+    - AgoraRtcEngine_iOS/ContentInspect (= 4.5.0)
+    - AgoraRtcEngine_iOS/FaceCapture (= 4.5.0)
+    - AgoraRtcEngine_iOS/FaceDetection (= 4.5.0)
+    - AgoraRtcEngine_iOS/LipSync (= 4.5.0)
+    - AgoraRtcEngine_iOS/ReplayKit (= 4.5.0)
+    - AgoraRtcEngine_iOS/RtcBasic (= 4.5.0)
+    - AgoraRtcEngine_iOS/SpatialAudio (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoAv1CodecDec (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoAv1CodecEnc (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoCodecDec (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoCodecEnc (= 4.5.0)
+    - AgoraRtcEngine_iOS/VirtualBackground (= 4.5.0)
+    - AgoraRtcEngine_iOS/VQA (= 4.5.0)
+  - AgoraRtcEngine_iOS/AIAEC (4.5.0)
+  - AgoraRtcEngine_iOS/AIAECLL (4.5.0)
+  - AgoraRtcEngine_iOS/AINS (4.5.0)
+  - AgoraRtcEngine_iOS/AINSLL (4.5.0)
+  - AgoraRtcEngine_iOS/AudioBeauty (4.5.0)
+  - AgoraRtcEngine_iOS/ClearVision (4.5.0)
+  - AgoraRtcEngine_iOS/ContentInspect (4.5.0)
+  - AgoraRtcEngine_iOS/FaceCapture (4.5.0)
+  - AgoraRtcEngine_iOS/FaceDetection (4.5.0)
+  - AgoraRtcEngine_iOS/LipSync (4.5.0)
+  - AgoraRtcEngine_iOS/ReplayKit (4.5.0)
+  - AgoraRtcEngine_iOS/RtcBasic (4.5.0):
+    - AgoraInfra_iOS (= 1.2.13)
+  - AgoraRtcEngine_iOS/SpatialAudio (4.5.0)
+  - AgoraRtcEngine_iOS/VideoAv1CodecDec (4.5.0)
+  - AgoraRtcEngine_iOS/VideoAv1CodecEnc (4.5.0)
+  - AgoraRtcEngine_iOS/VideoCodecDec (4.5.0)
+  - AgoraRtcEngine_iOS/VideoCodecEnc (4.5.0)
+  - AgoraRtcEngine_iOS/VirtualBackground (4.5.0)
+  - AgoraRtcEngine_iOS/VQA (4.5.0)
   - AppAuth (1.7.6):
     - AppAuth/Core (= 1.7.6)
     - AppAuth/ExternalUserAgent (= 1.7.6)
@@ -2555,6 +2597,29 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
+  - react-native-agora (4.5.1):
+    - AgoraIrisRTC_iOS (= 4.5.0-build.2)
+    - AgoraRtcEngine_iOS (= 4.5.0)
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-biometrics (3.0.1):
     - React-Core
   - react-native-fbsdk-next (13.4.1):
@@ -3350,6 +3415,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-agora (from `../node_modules/react-native-agora`)
   - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
@@ -3409,6 +3475,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AgoraInfra_iOS
+    - AgoraIrisRTC_iOS
+    - AgoraRtcEngine_iOS
     - AppAuth
     - BoringSSL-GRPC
     - FBAEMKit
@@ -3513,6 +3582,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-agora:
+    :path: "../node_modules/react-native-agora"
   react-native-biometrics:
     :path: "../node_modules/react-native-biometrics"
   react-native-fbsdk-next:
@@ -3626,6 +3697,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
+  AgoraInfra_iOS: 65e11a2183ab7836258768868d06058c22701b13
+  AgoraIrisRTC_iOS: 67278818a420cf54184a197f7b47afb23704d7e2
+  AgoraRtcEngine_iOS: 38b5e0a49bbad5616f284e6a4f9e4f5bb3fb3b2e
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   BoringSSL-GRPC: ca6a8e5d04812fce8ffd6437810c2d46f925eaeb
@@ -3688,6 +3762,7 @@ SPEC CHECKSUMS:
   React-logger: 1935d6e6461e9c8be4c87af56c56a4876021171e
   React-Mapbuffer: 2976cb8ef91ef01700f56023dcf0b4838a0c4f95
   React-microtasksnativemodule: 7b94bd985daaeab923407ab6d248c02eae734720
+  react-native-agora: a6535019b3ad2a6406efc46373c31a5f5b3323ab
   react-native-biometrics: 352e5a794bfffc46a0c86725ea7dc62deb085bdc
   react-native-fbsdk-next: 1baeeacf0ecdeb839cca16ca75cb16a9bbbf8e03
   react-native-geolocation: 457c6cc4462cffdfc4e63a2b52ec95497eab79cc

@@ -12,6 +12,8 @@ import BottomNavigation from './bottomNavigation';
 import Settings from '../screens/settings';
 import ChatList from '../screens/chatList';
 import Chat from '../screens/chat';
+import GroupChatList from '../screens/groupChatList';
+import GroupChat from '../screens/groupChat';
 import Theme from '../screens/theme';
 import {useDispatch} from 'react-redux';
 import {toggleTheme, setTheme} from '../redux/config/ThemeSlice';
@@ -83,6 +85,8 @@ const StackNavigation = () => {
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="ChatList" component={ChatList} />
         <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="GroupChatList" component={GroupChatList} />
+        <Stack.Screen name="GroupChat" component={GroupChat} />
         <Stack.Screen name="Theme" component={Theme} />
         <Stack.Screen name="Fingerprint" component={Fingerprint} />
 

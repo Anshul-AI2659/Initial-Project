@@ -44,10 +44,15 @@ const Icons = {
   emoji5: require('../assets/icons/emoji5.png'),
   reply: require('../assets/icons/reply.png'),
   forward: require('../assets/icons/forward.png'),
+  group: require('../assets/icons/groupChat.png'),
+  createGroup: require('../assets/icons/createGroup.png'),
+  newChat: require('../assets/icons/newChat.png'),
+  dots: require('../assets/icons/3dots.png'),
 };
 
 const Images = {
   dashboardImage: require('../assets/images/dashboardImage.png'),
+  noInternet: require('../assets/images/noInternet.png'),
   splash: require('../assets/icons/splash.png'),
 };
 export {Images, Icons};

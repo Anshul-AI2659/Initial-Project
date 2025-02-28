@@ -1,8 +1,10 @@
-
 import NetInfo from '@react-native-community/netinfo';
 import React, {useEffect} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {Images} from '../../assets';
+import CustomButton from '../../components/customButton';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {size} from '../../utils/size';
 
 const NetInfoComp = ({isConnected, setIsConnected}) => {
   useEffect(() => {
@@ -24,11 +26,15 @@ const NetInfoComp = ({isConnected, setIsConnected}) => {
     <View style={styles.container}>
       {isConnected === true ? null : (
         <View style={styles.container}>
-          <Image source={Images.dashboardImage} style={styles.image} />
+          <Image source={Images.noInternet} style={styles.image} />
           <Text style={styles.text2}>
             {isConnected === true ? '' : 'No Internet Connection'}
           </Text>
-          {/* <CustomButton title="Reload" onPress={() => checkConnection()} /> */}
+          <CustomButton
+            buttonText="Reload"
+            onPress={() => checkConnection()}
+            textStyle={styles.submitButtonText}
+          />
         </View>
       )}
     </View>
@@ -46,7 +52,16 @@ const styles = StyleSheet.create({
     height: 120,
     alignSelf: 'center',
   },
-  text2: {textAlign: 'center', fontWeight: '500', fontSize: 20},
+  submitButtonText: {
+    color: Colors.White,
+    fontSize: size.button,
+    fontWeight: 'bold',
+  },
+  text2: {
+    textAlign: 'center',
+    fontWeight: '500',
+    fontSize: 20,
+  },
 });
 
 export default NetInfoComp;

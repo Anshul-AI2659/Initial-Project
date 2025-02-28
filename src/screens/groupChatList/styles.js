@@ -1,17 +1,17 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {SCREEN_HEIGHT, vh, vw} from '../../utils/dimension';
 import {size} from '../../utils/size';
+import { Colors } from '../../utils/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    paddingTop: vh(16),
     backgroundColor: 'white',
+    paddingTop:vh(16),
     flex: 1,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
     paddingHorizontal: vw(16),
   },
   title: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   userIcon: {
     width: 40,
     height: 40,
-    resizeMode: 'contain',
+    resizeMode:'contain',
   },
   name: {color: 'black', marginLeft: 20, fontSize: 20},
   backImg: {
@@ -43,8 +43,7 @@ export const styles = StyleSheet.create({
   idContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginRight: vw(16),
+    marginLeft:16,
   },
   id: {
     fontSize: 22,
@@ -134,11 +133,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: 'gray',
   },
-  dot: {
-    width: vw(20),
-    height: vw(20),
-    fontWeight: 'bold',
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -148,68 +142,42 @@ export const styles = StyleSheet.create({
   modalContent: {
     width: '80%',
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     borderRadius: 10,
     alignItems: 'center',
   },
-  modalText: {
+  modalTitle: {
     fontSize: 18,
-    color: '#333',
-    marginBottom: 20,
-    textAlign: 'center',
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  modalButtons: {
+  modalInput: {
+    width: '100%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
   },
-  confirmButton: {
-    backgroundColor: '#FF5C5C',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+  modalButton: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 8,
     flex: 1,
-    marginRight: 10,
+    alignItems: 'center',
+    marginHorizontal: 5,
   },
-  cancelButton: {
-    backgroundColor: '#B0B0B0',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    flex: 1,
-    marginLeft: 10,
+  modalCancelButton: {
+    backgroundColor: 'red',
   },
-  confirmText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+  modalButtonText: {
+    color: '#fff',
     fontSize: 16,
-  },
-  cancelText: {
-    color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: 16,
-  },
-  shimmerProfilePic: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  shimmerDetails: {
-    marginLeft: 10,
-    justifyContent: 'center',
-    flex: 1,
-  },
-  shimmerUserName: {
-    width: 120,
-    height: 20,
-    borderRadius: 4,
-  },
-  shimmerLastMessage: {
-    width: 180,
-    height: 15,
-    marginTop: 5,
-    borderRadius: 4,
   },
 });

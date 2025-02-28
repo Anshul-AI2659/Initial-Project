@@ -6,6 +6,10 @@
 	<string>en</string>
 	   <key>NSPhotoLibraryUsageDescription</key>
     <string>We need access to your photo library to select a photo.</string>
+	<key>NSMicrophoneUsageDescription</key>
+<string>Allow the app to use your microphone for voice calls</string>
+<key>NSCameraUsageDescription</key>
+<string>Allow the app to use your camera for video calls (if needed)</string>
 	<key>CFBundleDisplayName</key>
 	<string>InitialProject</string>
 	<key>CFBundleExecutable</key>

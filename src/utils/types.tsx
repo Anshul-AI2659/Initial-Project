@@ -32,6 +32,8 @@ export type StackParamList = {
   Settings: undefined;
   ChatList: undefined;
   Chat: undefined;
+  GroupChatList:undefined;
+  GroupChat:undefined;
   Theme: undefined;
   FacebookLogin: undefined;
   Fingerprint: undefined;

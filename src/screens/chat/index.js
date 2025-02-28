@@ -1,5 +1,5 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable react-native/no-inline-styles */
-
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
   Text,
-  SafeAreaView,
   Alert,
+  Image,
 } from 'react-native';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import {
@@ -16,18 +16,17 @@ import {
   InputToolbar,
   Send,
   Message,
-  Bubble,
 } from 'react-native-gifted-chat';
 import RNFS from 'react-native-fs';
 import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 import {SCREEN_WIDTH, vh, vw} from '../../utils/dimension';
-import {Image} from 'react-native';
 import {Icons} from '../../assets';
 import ImagePreviewModal from '../../components/imagePreviewModal';
 import CustomAudioMessage from '../../components/customAudioMessage';
 import ChatModalLongPress from '../../components/reactionModal';
-// import ReactionModal from '../../components/reactionModal';
+import CustomStatusBar from '../../components/statusBar';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Chat = () => {
   const [messageList, setMessageList] = useState([]);
@@ -40,6 +39,9 @@ const Chat = () => {
   const [recordingTime, setRecordingTime] = useState('0:00');
   const [isRecordingStopped, setIsRecordingStopped] = useState(false);
   const [audioBase64, setAudioBase64] = useState('');
+  // const [currentlyPlayingAudio, setCurrentlyPlayingAudio] = useState(null);
+  const [playingMessageId, setPlayingMessageId] = useState(null);
+  const [globalPlayer, setGlobalPlayer] = useState(null);
   const audioRecorderPlayer = useRef(new AudioRecorderPlayer()).current;
 
   const navigation = useNavigation();
@@ -94,14 +96,13 @@ const Chat = () => {
       console.log('Recording is already in progress.');
       return;
     }
-
     try {
       console.log('Starting recording...');
       setIsRecording(true);
       setRecordingTime('00:00');
       setIsRecordingStopped(false);
 
-      const path = `${RNFS.DocumentDirectoryPath}/recordedAudio.m4a`; // Use a writable path
+      const path = `${RNFS.DocumentDirectoryPath}/recordedAudio.m4a`;
       console.log('Recording to path:', path);
 
       await audioRecorderPlayer.startRecorder(path);
@@ -139,14 +140,12 @@ const Chat = () => {
 
       console.log('Recording stopped. File saved at path:', path);
 
-      // Check if the recorded file exists
       const fileExists = await RNFS.exists(path);
       if (!fileExists) {
         console.log('File not found at path:', path);
         return;
       }
 
-      // Read the recorded audio file as base64
       const audioData = await RNFS.readFile(path, 'base64');
       console.log(
         'Audio file read successfully, base64 data length:',
@@ -163,10 +162,10 @@ const Chat = () => {
   const sendAudioMessage = base64Audio => {
     console.log('Base64 Audio:', base64Audio);
     const audioMsg = {
-      id: `${new Date().getTime()}-${route.params.id}`, // Unique ID for the message (can combine timestamp and sender ID for uniqueness)
-      createdAt: new Date().getTime(), // Timestamp in milliseconds
-      sendBy: route.params.id, // Sender's user ID
-      sendTo: route.params.data.userId, // Recipient's user ID
+      id: `${new Date().getTime()}-${route.params.id}`,
+      createdAt: new Date().getTime(),
+      sendBy: route.params.id,
+      sendTo: route.params.data.userId,
       audio: base64Audio,
       user: {
         _id: route.params.id,
@@ -223,45 +222,100 @@ const Chat = () => {
     }
   };
 
-  // const showDeleteAlert = messageId => {
-  //   Alert.alert(
-  //     'Delete Message',
-  //     'Are you sure you want to delete this message?',
-  //     [
-  //       {text: 'Cancel', style: 'cancel'},
-  //       {
-  //         text: 'Delete',
-  //         onPress: () => deleteMessage(messageId),
-  //         style: 'destructive',
-  //       },
-  //     ],
-  //     {cancelable: true},
-  //   );
-  // };
+  const showDeleteAlert = messageId => {
+    Alert.alert(
+      'Delete Message',
+      'Are you sure you want to delete this message?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {
+          text: 'Delete',
+          onPress: () => deleteMessage(messageId),
+          style: 'destructive',
+        },
+      ],
+      {cancelable: true},
+    );
+  };
 
-const handlelongPress = (context, currentMessage) => {
-  setSelectedMessageId(currentMessage._id);
+  const handlelongPress = (context, currentMessage) => {
+    setSelectedMessageId(currentMessage._id);
     setModalVisible(true);
-};
+  };
 
-const renderMessageImage = props => {
-      const {currentMessage} = props;
-      if (currentMessage && currentMessage.image) {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              setSelectedImage(currentMessage.image);
-              setIsImagePreviewVisible(true);
-            }}>
-            <Image
-              source={{uri: currentMessage.image}}
-              style={styles.chatImage}
-            />
-          </TouchableOpacity>
-        );
+  const handleReactionSelect = (messageId, reaction) => {
+    console.log('777777', messageId);
+    if (messageId) {
+      const updatedMessages = messageList.map(msg => {
+        if (msg._id === messageId) {
+          return {
+            ...msg,
+            emoji: reaction?.emoji,
+          };
+        }
+        return msg;
+      });
+
+      console.log('msgmsgmsg', updatedMessages);
+      setMessageList(updatedMessages);
+
+      const updatedMessage = updatedMessages.find(msg => msg._id === messageId);
+
+      if (updatedMessage) {
+        const chatDocId1 = `${route.params.id + route.params.data.userId}`;
+        const chatDocId2 = `${route.params.data.userId + route.params.id}`;
+
+        firestore()
+          .collection('chats')
+          .doc(chatDocId1)
+          .collection('messages')
+          .doc(messageId)
+          .update({
+            emoji: updatedMessage.emoji,
+          })
+          .then(() => {
+            console.log('Emoji reaction added to Firestore for chatDocId1');
+          })
+          .catch(error => {
+            console.error('Error updating Firestore for chatDocId1:', error);
+          });
+
+        firestore()
+          .collection('chats')
+          .doc(chatDocId2)
+          .collection('messages')
+          .doc(messageId)
+          .update({
+            emoji: updatedMessage.emoji,
+          })
+          .then(() => {
+            console.log('Emoji reaction added to Firestore for chatDocId2');
+          })
+          .catch(error => {
+            console.error('Error updating Firestore for chatDocId2:', error);
+          });
       }
-      return null;
-    };
+    }
+  };
+
+  const renderMessageImage = props => {
+    const {currentMessage} = props;
+    if (currentMessage && currentMessage.image) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedImage(currentMessage.image);
+            setIsImagePreviewVisible(true);
+          }}>
+          <Image
+            source={{uri: currentMessage.image}}
+            style={styles.chatImage}
+          />
+        </TouchableOpacity>
+      );
+    }
+    return null;
+  };
 
   const renderSend = props => {
     const openGallery = async () => {
@@ -308,14 +362,120 @@ const renderMessageImage = props => {
       </View>
     );
   };
-  const renderMessageAudio = (props) => {
-    if (props.currentMessage.audio) {
-      return <CustomAudioMessage {...props} />;
+
+  // const renderMessageAudio = props => {
+  //   if (props.currentMessage.audio) {
+  //     return <CustomAudioMessage {...props} />;
+  //   }
+  //   return <Bubble {...props} />;
+  // };
+
+  const stopCurrentAudio = async () => {
+    if (globalPlayer) {
+      console.log('Stopping current audio...');
+      await globalPlayer.stopPlayer(); // Stop the currently playing audio
+      setGlobalPlayer(null);
     }
-    return <Bubble {...props} />;
+    setPlayingMessageId(null);
+  };
+
+  const playPauseAudio = async currentMessage => {
+    try {
+      console.log(
+        'Audio play/pause clicked. Current isPlaying:',
+        playingMessageId === currentMessage._id,
+      );
+
+      // If another audio is playing, stop it before playing the current one
+      if (playingMessageId && playingMessageId !== currentMessage._id) {
+        console.log('Another audio is playing. Stopping it first...');
+        await stopCurrentAudio(); // Stop the previous audio
+      }
+
+      // Play or pause the current audio
+      if (playingMessageId !== currentMessage._id) {
+        console.log('Starting audio playback...');
+        const path = `${RNFS.DocumentDirectoryPath}/tempAudio_${currentMessage._id}.m4a`;
+        await RNFS.writeFile(path, currentMessage.audio, 'base64'); // Save audio to path
+
+        console.log('Playing new audio from path:', path);
+        const player = audioRecorderPlayer;
+        setGlobalPlayer(player);
+        await player.startPlayer(path); // Start playing the current audio
+
+        // Track playback position and stop when finished
+        player.addPlayBackListener(e => {
+          console.log(
+            'Playback position:',
+            e.currentPosition,
+            'Duration:',
+            e.duration,
+          );
+          if (e.currentPosition === e.duration) {
+            console.log('Audio finished playing');
+            stopCurrentAudio();
+          }
+        });
+
+        setPlayingMessageId(currentMessage._id);
+      } else {
+        console.log('Pausing current audio');
+        await globalPlayer.pausePlayer(); // Pause the current audio
+        setPlayingMessageId(null);
+      }
+    } catch (error) {
+      console.error('Error controlling audio playback:', error);
+    }
+  };
+
+  const renderMessageAudio = props => {
+    const {currentMessage, user} = props;
+    const isSender = currentMessage?.user._id === user._id;
+    return (
+      <CustomAudioMessage
+        {...props}
+        playingMessageId={playingMessageId}
+        onPlayPause={() => playPauseAudio(props.currentMessage)}
+        isSender={isSender}
+      />
+    );
+  };
+  const handleClearChat = async () => {
+    try {
+      // Get the chat ID using the user ID and the other user's ID
+      const chatId = route.params.id + route.params.data.userId;
+
+      // Get the collection reference for the chat messages in the "chats" collection
+      const messagesRef = firestore()
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages');
+
+      // Fetch all the message documents in the chat
+      const snapshot = await messagesRef.get();
+
+      // Create a Firestore batch for bulk deletion
+      const batch = firestore().batch();
+
+      // Delete each message document in the chat
+      snapshot.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+
+      // Commit the batch deletion to Firestore
+      await batch.commit();
+
+      // Clear the messageList in the local state
+      setMessageList([]);
+
+      console.log('Chat cleared successfully from Firestore and locally');
+    } catch (error) {
+      console.error('Error clearing chat:', error);
+    }
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.mainContainer}>
+      <CustomStatusBar />
       <View style={styles.headerContainer}>
         <View style={styles.userInfo}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -329,8 +489,25 @@ const renderMessageImage = props => {
           <TouchableOpacity>
             <Image source={Icons.telephone} style={styles.telephoneIcon} />
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={Icons.video} style={styles.videoIcon} />
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                'Clear Chat',
+                'Are you sure you want to clear the chat?',
+                [
+                  {
+                    text: 'Cancel',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: handleClearChat, // Call the function to clear chat
+                  },
+                ],
+                {cancelable: true},
+              );
+            }}>
+            <Image source={Icons.dots} style={styles.videoIcon} />
           </TouchableOpacity>
         </View>
       </View>
@@ -347,28 +524,42 @@ const renderMessageImage = props => {
         text={inputText}
         onInputTextChanged={text => setInputText(text)}
         listViewProps={{showsVerticalScrollIndicator: false}}
-        renderMessageAudio={renderMessageAudio}
-        onLongPress={(context,message)=>handlelongPress(context,message)}
-        // renderMessage={props => {
-        //   const {currentMessage} = props; // Access the current message
-
-        //   return (
-        //     <TouchableOpacity
-        //       onLongPress={() => showDeleteAlert(currentMessage._id)} // Correctly passing currentMessage._id
-        //     >
-        //       <Message {...props} onLongPress={()=>{showDeleteAlert(currentMessage._id)}}/>{' '}
-        //     </TouchableOpacity>
-        //   );
-        // }}
+        // renderMessageAudio={renderMessageAudio}
+        onLongPress={(context, message) => handlelongPress(context, message)}
+        renderMessage={props => {
+          const {currentMessage, user} = props;
+          const isSender = currentMessage?.user._id === user._id;
+          return (
+            <View key={currentMessage._id} style={styles.messageWrapper}>
+              {!currentMessage.audio && <Message {...props} />}
+              {currentMessage.audio && <View>{renderMessageAudio(props)}</View>}
+              <View style={styles.emojiContainer}>
+                {currentMessage?.emoji && (
+                  <Text
+                    style={
+                      isSender
+                        ? styles.senderEmojiOnBubble
+                        : styles.receiverEmojiOnBubble
+                    }>
+                    {currentMessage?.emoji}
+                  </Text>
+                )}
+              </View>
+            </View>
+          );
+        }}
         renderSend={renderSend}
         renderMessageImage={renderMessageImage}
       />
+
       <ChatModalLongPress
         visible={modalVisible}
-        onClose={() => setModalVisible(false)}  // Pass the onClose function to close the modal
+        onClose={() => setModalVisible(false)}
         selectedMessageId={selectedMessageId}
-        onEmojiSelect={(messageId, emoji) => console.log(messageId, emoji)}  // Emoji selection callback
-        onDelete={deleteMessage}  // Pass deleteMessage function
+        onEmojiSelect={(messageId, emoji) => {
+          handleReactionSelect(messageId, emoji);
+        }}
+        onDelete={showDeleteAlert}
       />
 
       <ImagePreviewModal
@@ -665,9 +856,8 @@ export default Chat;
 // export default Chat;
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -705,8 +895,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   videoIcon: {
-    width: vw(30),
-    height: vw(30),
+    width: vw(22),
+    height: vw(22),
     resizeMode: 'contain',
   },
   messageIconContainer: {
@@ -743,14 +933,32 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 5,
   },
-  messageText: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  reactionText: {
-    fontSize: 14,
-    color: 'black',
-    marginTop: 5,
+  messageWrapper: {
+    marginBottom: 10,
     position: 'relative',
   },
+  senderEmojiOnBubble: {
+    position: 'absolute',
+    marginRight: 6,
+    bottom: -8,
+    right: -1,
+    fontSize: 20,
+  },
+  receiverEmojiOnBubble: {
+    position: 'absolute',
+    bottom: -15,
+    left: 50,
+    fontSize: 20,
+  },
 });
+
+// <TouchableOpacity
+//   onLongPress={() => showDeleteAlert(currentMessage._id)} // Correctly passing currentMessage._id
+// >
+//   <Message
+//     {...props}
+//     onLongPress={() => {
+//       showDeleteAlert(currentMessage._id);
+//     }}
+//   />{' '}
+// </TouchableOpacity>
