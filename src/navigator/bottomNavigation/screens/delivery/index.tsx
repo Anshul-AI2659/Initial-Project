@@ -1,18 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { vh, vw } from '../../../../utils/dimension';
 import { size } from '../../../../utils/size';
 import { Colors } from '../../../../utils/colors';
+import FilterModal from '../../../../components/filterModal';
 
 const Delivery = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <View style={styles.mainContainer}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Delivery</Text>
       </View>
       <View style={styles.subContainer}>
-        <Text style={styles.bodyText}> In Progress......</Text>
+        <TouchableOpacity style={styles.filterButton} onPress={toggleModal}>
+        <Text style={styles.bodyText}>{'Filters'}</Text>
+        </TouchableOpacity>
       </View>
+      <FilterModal visible={isModalVisible} onClose={toggleModal} />
     </View>
   );
 };
@@ -47,9 +56,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '80%',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop:vh(16),
+  },
+  filterButton:{
+    backgroundColor:Colors.primary,
+    paddingHorizontal:20,
+    paddingVertical:5,
   },
   bodyText: {
-    fontSize: 24,
+    fontSize: 20,
+    color:Colors.White,
+    fontWeight:'400',
   },
 });
