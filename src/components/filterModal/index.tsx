@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import {Icons} from '../../assets';
-import { styles } from './styles';
+import {styles} from './styles';
 import CustomButton from '../customButton';
 import CustomPicker from '../customDropDown';
 
@@ -24,6 +24,8 @@ const FilterModal = ({visible, onClose}: FilterModalProps) => {
   const [selected, setSelected] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+
+  const categories = ['Petrol', 'Diesel'];
 
   const handleCategoryChange = (itemValue: string) => {
     setSelectedCategory(itemValue);
@@ -98,8 +100,7 @@ const FilterModal = ({visible, onClose}: FilterModalProps) => {
                     styles.Button,
                     selected === 2 ? styles.selectedButton : null,
                   ]}
-                  onPress={() => setSelected(2)}
-                  >
+                  onPress={() => setSelected(2)}>
                   <Text
                     style={[
                       styles.buttonText,
@@ -127,6 +128,7 @@ const FilterModal = ({visible, onClose}: FilterModalProps) => {
             <View style={styles.categoriesContainer}>
               <Text style={styles.priceRange}>{'Categories'}</Text>
               <CustomPicker
+                data={categories}
                 selectedValue={selectedCategory}
                 onValueChange={itemValue => handleCategoryChange(itemValue)}
               />

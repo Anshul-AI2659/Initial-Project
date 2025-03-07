@@ -14,13 +14,16 @@ import {Icons} from '../../assets';
 interface CustomPickerProps {
   selectedValue: string;
   onValueChange: (value: string) => void;
+  data: any;
 }
 
-const CustomPicker = ({selectedValue, onValueChange}: CustomPickerProps) => {
+const CustomPicker = ({
+  selectedValue,
+  onValueChange,
+  data,
+}: CustomPickerProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(selectedValue);
-
-  const categories = ['Petrol', 'Diesel'];
 
   const handleSelect = (item: string) => {
     setSelectedItem(item);
@@ -48,7 +51,7 @@ const CustomPicker = ({selectedValue, onValueChange}: CustomPickerProps) => {
           onPress={() => setModalVisible(false)}>
           <View style={styles.modalContent}>
             <FlatList
-              data={categories}
+              data={data}
               keyExtractor={item => item}
               renderItem={({item}) => (
                 <TouchableOpacity
